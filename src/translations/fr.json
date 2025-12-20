@@ -1,0 +1,232 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "services": "Services",
+    "gallery": "Galerie",
+    "contact": "Contact"
+  },
+  "hero": {
+    "smash": "CASSER.",
+    "break": "BRISER.",
+    "destroy": "DÉTRUIRE.",
+    "release": "LIBÉRER.",
+    "subtitle": "Destruction Contrôlée. Soulagement Maximum.",
+    "bookButton": "Réserver Votre Session de Rage"
+  },
+  "features": {
+    "fiveStars": {
+      "title": "Expérience 5 Étoiles",
+      "description": "Service de qualité premium avec une satisfaction client exceptionnelle"
+    },
+    "time": {
+      "title": "Session 30 Min",
+      "description": "Ouvert 7 jours sur 7, réservez votre session à votre convenance"
+    },
+    "group": {
+      "title": "Sessions de Groupe",
+      "description": "Parfait pour les fêtes, le team building et le soulagement du stress en groupe"
+    },
+    "quality": {
+      "title": "Qualité Premium",
+      "description": "Équipement professionnel et équipement de sécurité pour la meilleure expérience"
+    }
+  },
+  "about": {
+    "title": "Qui Nous Sommes",
+    "titlePart1": "Qui",
+    "titlePart2": "Nous",
+    "titlePart3": "Sommes",
+    "paragraph1": "Bienvenue à <strong class=\"font-rage\">Smash Room</strong>, où le stress rencontre la destruction. Nous offrons un environnement sûr et contrôlé pour que vous puissiez <strong>casser des bouteilles, briser des écrans, détruire des meubles</strong>, et vivre la libération cathartique ultime.",
+    "paragraph2": "Notre installation de rage room de pointe comprend plusieurs salles de destruction thématiques, un équipement de sécurité de qualité professionnelle incluant casques et équipements de protection, et une atmosphère conçue pour vous aider à <strong>vous libérer du stress</strong> grâce à une destruction contrôlée et énergique.",
+    "paragraph3": "Que vous fassiez face au stress du travail, aux tensions relationnelles, ou que vous ayez simplement besoin d'une échappatoire, <strong class=\"font-rage\">Smash Room</strong> est votre destination pour <strong>casser, briser et détruire</strong> dans un environnement sûr et contrôlé. Libérez votre rage. Ressentez le soulagement.",
+    "facilityImageAlt": "Installation Smash Room",
+    "features": {
+      "safe": {
+        "title": "Sûr et Contrôlé",
+        "description": "Équipement de protection complet fourni"
+      },
+      "rooms": {
+        "title": "Plusieurs Salles de Rage",
+        "description": "Verre, électronique, mobilier et plus"
+      },
+      "equipment": {
+        "title": "Équipement Professionnel",
+        "description": "Masses, battes, pieds-de-biche"
+      }
+    }
+  },
+  "services": {
+    "title": "Services & Salles Disponibles",
+    "titlePart1": "Services",
+    "titlePart2": "&",
+    "titlePart3": "Salles Disponibles",
+    "bookButton": "Réserver Cette Salle",
+    "rooms": {
+      "glass": {
+        "title": "Salle de Casse de Verre",
+        "description": "Cassez des bouteilles, de la verrerie et des objets fragiles avec des masses et des battes. Ressentez la satisfaction du verre qui se brise lorsque vous libérez votre stress. Équipement de sécurité fourni.",
+        "items": "Bouteilles en verre, assiettes, vases, miroirs"
+      },
+      "electronics": {
+        "title": "Destruction d'Électronique",
+        "description": "Détruisez de vieux ordinateurs, téléviseurs, moniteurs et appareils électroniques. Parfait pour le stress lié à la technologie. Cassez des claviers, écrans et matériel avec un équipement de protection.",
+        "items": "Ordinateurs, téléviseurs, moniteurs, claviers, téléphones"
+      },
+      "furniture": {
+        "title": "Casse de Mobilier",
+        "description": "Brisez des chaises, tables et meubles avec des battes de baseball et des pieds-de-biche. Salle haute énergie pour une destruction et un soulagement du stress maximum.",
+        "items": "Chaises, tables, armoires, mobilier en bois"
+      },
+      "themed": {
+        "title": "Salles de Destruction Thématiques",
+        "description": "Choisissez parmi divers environnements thématiques - rage de bureau, chaos de cuisine, ou configurations personnalisées. Chaque salle conçue pour une libération cathartique maximale.",
+        "items": "Objets thématiques, objets cassables mixtes, configurations personnalisées"
+      },
+      "extreme": {
+        "title": "Forfait Rage Extrême",
+        "description": "Notre expérience premium avec des objets lourds, plusieurs armes et un temps prolongé. Pour ceux qui ont besoin de la session de casse ultime.",
+        "items": "Objets lourds, masses, pieds-de-biche, temps prolongé"
+      },
+      "group": {
+        "title": "Sessions de Rage en Groupe",
+        "description": "Parfait pour les fêtes, le team building ou le soulagement du stress en groupe. Plusieurs salles disponibles simultanément. Réservez ensemble et cassez ensemble.",
+        "items": "Plusieurs salles, forfaits de groupe, team building"
+      }
+    }
+  },
+  "gallery": {
+    "title": "Galerie d'Action",
+    "titlePart1": "Galerie",
+    "titlePart2": "d'Action",
+    "subtitle": "Témoignez de la Destruction. Ressentez la Libération.",
+    "images": {
+      "glassSmashing": {
+        "title": "Action de Casse de Verre",
+        "description": "Brisez bouteilles et verrerie"
+      },
+      "electronics": {
+        "title": "Destruction d'Électronique",
+        "description": "Cassez ordinateurs et écrans"
+      },
+      "furniture": {
+        "title": "Casse de Mobilier",
+        "description": "Détruisez chaises et tables"
+      },
+      "destruction": {
+        "title": "Scène de Destruction",
+        "description": "Chaos contrôlé"
+      },
+      "highEnergy": {
+        "title": "Action Haute Énergie",
+        "description": "Soulagement maximal du stress"
+      },
+      "themed": {
+        "title": "Salles Thématiques",
+        "description": "Divers thèmes de destruction"
+      },
+      "group": {
+        "title": "Sessions de Groupe",
+        "description": "Cassez ensemble"
+      }
+    }
+  },
+  "contact": {
+    "title": "Contactez-Nous",
+    "titlePart1": "Contactez",
+    "titlePart2": "Nous",
+    "sendMessage": "Envoyez-nous un Message",
+    "getInTouch": "Entrer en Contact",
+    "followUs": "Suivez-Nous",
+    "findUs": "Trouvez-Nous",
+    "name": "Votre Nom",
+    "email": "Votre Email",
+    "phone": "(+216) 12 345 678",
+    "message": "Votre Message",
+    "sendButton": "Envoyer le Message",
+    "sending": "Envoi...",
+    "success": "Message envoyé ! Nous vous répondrons bientôt.",
+    "error": "Échec de l'envoi du message. Veuillez réessayer.",
+    "address": "12 Rue El Yasmina El Menzah 1, Tunis",
+    "emailAddress": "info@smashroom.com"
+  },
+  "booking": {
+    "title": "Réserver Votre Session de Rage",
+    "titlePart1": "Réserver Votre",
+    "titlePart2": "Session de Rage",
+    "subtitle": "Sélectionnez une date, choisissez votre créneau horaire et définissez la taille de votre groupe",
+    "selectDate": "Sélectionner une Date",
+    "availableSlots": "Créneaux Horaires Disponibles",
+    "bookingDetails": "Détails de la Réservation",
+    "customerInfo": "Informations Client",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "phoneNumber": "Numéro de Téléphone",
+    "email": "Email",
+    "specialRequests": "Demandes Spéciales",
+    "specialRequestsPlaceholder": "Toute demande spéciale ou note...",
+    "groupSize": "Taille du Groupe",
+    "people": "personnes",
+    "person": "personne",
+    "maxPeople": "Maximum 4 personnes par session",
+    "selectedDate": "Date Sélectionnée",
+    "timeSlot": "Créneau Horaire",
+    "notSelected": "Non sélectionné",
+    "confirmButton": "Confirmer la Réservation",
+    "creating": "Création de la Réservation...",
+    "fillFields": "Veuillez remplir tous les champs et sélectionner une date et un créneau horaire",
+    "fillRequiredFields": "Veuillez remplir tous les champs requis : Prénom, Nom, Numéro de téléphone et Email",
+    "invalidEmail": "Veuillez entrer une adresse email valide",
+    "success": "Réservation confirmée ! Vérifiez votre email pour les détails de confirmation.",
+    "loading": "Chargement de la disponibilité...",
+    "backToHome": "Retour à l'Accueil",
+    "enterFirstName": "Entrez le prénom",
+    "enterLastName": "Entrez le nom",
+    "unavailable": "Indisponible",
+    "notAvailable": "Non disponible",
+    "closedMondays": "Fermé le lundi",
+    "pastDate": "Date passée",
+    "rageRoomAlt": "Salle de Rage"
+  },
+  "loader": {
+    "loading": "Chargement",
+    "logoAlt": "Logo RageCage"
+  },
+  "footer": {
+    "description": "Libérez votre stress grâce à une destruction contrôlée. Cassez, brisez et détruisez dans un environnement sûr et contrôlé.",
+    "quickLinks": "Liens Rapides",
+    "contactUs": "Contactez-Nous",
+    "faq": "FAQ",
+    "copyright": "Tous droits réservés.",
+    "privacy": "Politique de Confidentialité",
+    "terms": "Conditions d'Utilisation",
+    "safety": "Directives de Sécurité",
+    "faqItems": {
+      "safety": {
+        "question": "Quel équipement de sécurité est fourni ?",
+        "answer": "Nous fournissons un équipement de protection complet comprenant casques, lunettes de sécurité, gants et combinaisons. Tout l'équipement est désinfecté entre les sessions."
+      },
+      "items": {
+        "question": "Dois-je apporter mes propres objets à casser ?",
+        "answer": "Non ! Tous les objets cassables sont fournis. Nous avons une large sélection de bouteilles en verre, d'électronique, de mobilier et plus encore prêts pour la destruction."
+      },
+      "age": {
+        "question": "Y a-t-il une exigence d'âge ?",
+        "answer": "Les participants doivent avoir 18 ans ou plus. Une pièce d'identité valide est requise à l'arrivée."
+      },
+      "duration": {
+        "question": "Combien de temps dure une session typique ?",
+        "answer": "Les sessions standard durent 30 minutes, mais nous proposons des forfaits prolongés jusqu'à 60 minutes pour un soulagement du stress maximum."
+      },
+      "group": {
+        "question": "Puis-je réserver pour un groupe ?",
+        "answer": "Oui ! Nous proposons des forfaits de groupe pour les fêtes, le team building et les événements. Plusieurs salles peuvent être réservées simultanément."
+      },
+      "clothing": {
+        "question": "Que dois-je porter ?",
+        "answer": "Portez des vêtements confortables que vous ne craignez pas de salir. Des chaussures fermées sont requises. Nous fournissons tout l'équipement de protection."
+      }
+    }
+  }
+}
+

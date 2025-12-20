@@ -1,0 +1,446 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Feast of Flesh BB Font */
+@font-face {
+  font-family: 'Feast of Flesh BB';
+  src: url('/fonts/FeastOfFleshBB.woff2') format('woff2'),
+       url('/fonts/FeastOfFleshBB.woff') format('woff'),
+       url('/fonts/FeastOfFleshBB.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #000;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #feae11;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #feae11;
+  opacity: 0.8;
+}
+
+/* Aggressive animations and effects */
+@keyframes shake {
+  0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+  10% { transform: translateX(-5px) translateY(-2px) rotate(-1deg); }
+  20% { transform: translateX(5px) translateY(2px) rotate(1deg); }
+  30% { transform: translateX(-5px) translateY(2px) rotate(-1deg); }
+  40% { transform: translateX(5px) translateY(-2px) rotate(1deg); }
+  50% { transform: translateX(-3px) translateY(0) rotate(-0.5deg); }
+  60% { transform: translateX(3px) translateY(0) rotate(0.5deg); }
+  70% { transform: translateX(-2px) translateY(-1px) rotate(-0.5deg); }
+  80% { transform: translateX(2px) translateY(1px) rotate(0.5deg); }
+  90% { transform: translateX(-1px) translateY(0) rotate(0deg); }
+}
+
+@keyframes impact {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(254, 174, 17, 0.4);
+  }
+  50% { 
+    box-shadow: 0 0 40px rgba(254, 174, 17, 0.8), 0 0 60px rgba(254, 174, 17, 0.4);
+  }
+}
+
+/* High contrast text effects */
+.text-impact {
+  text-shadow: 
+    3px 3px 0px #000000,
+    -2px -2px 0px #feae11,
+    0 0 20px rgba(254, 174, 17, 0.5);
+}
+
+/* Rage room aggressive text styling */
+.text-rage-title {
+  font-family: 'Feast of Flesh BB', 'Impact', 'Arial Black', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 
+    4px 4px 0px #000000,
+    -3px -3px 0px #feae11,
+    0 0 30px rgba(254, 174, 17, 0.6),
+    0 0 60px rgba(220, 20, 60, 0.3);
+}
+
+.text-rage-heading {
+  font-family: 'Feast of Flesh BB', 'Impact', 'Arial Black', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-shadow: 
+    3px 3px 0px #000000,
+    -2px -2px 0px #feae11,
+    0 0 20px rgba(254, 174, 17, 0.5);
+}
+
+/* Aggressive glow effect */
+.rage-glow {
+  box-shadow: 
+    0 0 20px rgba(254, 174, 17, 0.4),
+    0 0 40px rgba(254, 174, 17, 0.2),
+    0 0 60px rgba(220, 20, 60, 0.1),
+    inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.rage-glow-intense {
+  box-shadow: 
+    0 0 30px rgba(254, 174, 17, 0.6),
+    0 0 60px rgba(254, 174, 17, 0.4),
+    0 0 90px rgba(220, 20, 60, 0.2),
+    inset 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Cracked glass effect */
+@keyframes crack {
+  0%, 100% { 
+    background-position: 0% 0%;
+    opacity: 0.1;
+  }
+  50% { 
+    background-position: 100% 100%;
+    opacity: 0.3;
+  }
+}
+
+.cracked-overlay {
+  position: relative;
+}
+
+.cracked-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.1) 49%, rgba(255,255,255,0.1) 51%, transparent 52%),
+    linear-gradient(-45deg, transparent 48%, rgba(255,255,255,0.1) 49%, rgba(255,255,255,0.1) 51%, transparent 52%);
+  background-size: 20px 20px;
+  pointer-events: none;
+  animation: crack 3s ease-in-out infinite;
+  opacity: 0.2;
+}
+
+/* Vibrating effect for hover */
+.vibrate-on-hover:hover {
+  animation: shake 0.3s ease-in-out;
+}
+
+/* Custom scrollbar for FAQ */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(254, 174, 17, 0.1);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #feae11;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #feae11;
+  opacity: 0.8;
+}
+
+/* Crash effect animations */
+@keyframes crash-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+/* Aggressive pulse for rage elements */
+@keyframes rage-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(254, 174, 17, 0.4),
+      0 0 40px rgba(254, 174, 17, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 0 40px rgba(254, 174, 17, 0.8),
+      0 0 80px rgba(254, 174, 17, 0.4),
+      0 0 120px rgba(220, 20, 60, 0.2);
+  }
+}
+
+.rage-pulse {
+  animation: rage-pulse 2s ease-in-out infinite;
+}
+
+/* Text crack effect */
+@keyframes text-crack {
+  0%, 100% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+    text-shadow: 
+      4px 4px 0px #000000,
+      -3px -3px 0px #feae11,
+      0 0 30px rgba(254, 174, 17, 0.6);
+  }
+  25% {
+    transform: translateX(-1px) translateY(1px) rotate(-0.5deg);
+    text-shadow: 
+      5px 5px 0px #000000,
+      -4px -4px 0px #feae11,
+      0 0 35px rgba(254, 174, 17, 0.7);
+  }
+  50% {
+    transform: translateX(1px) translateY(-1px) rotate(0.5deg);
+    text-shadow: 
+      4px 4px 0px #000000,
+      -3px -3px 0px #feae11,
+      0 0 30px rgba(254, 174, 17, 0.6);
+  }
+  75% {
+    transform: translateX(-1px) translateY(-1px) rotate(-0.5deg);
+    text-shadow: 
+      5px 5px 0px #000000,
+      -4px -4px 0px #feae11,
+      0 0 35px rgba(254, 174, 17, 0.7);
+  }
+}
+
+.text-crack-animation {
+  animation: text-crack 3s ease-in-out infinite;
+}
+
+.crash-effect {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+
+/* Screen flash effect */
+@keyframes flash {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.3; }
+}
+
+.flash-effect {
+  animation: flash 0.3s ease-in-out;
+}
+
+/* Hide scrollbar for gallery */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Interactive hover effects */
+.interactive-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.interactive-card::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(254, 174, 17, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.interactive-card:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Parallax container */
+.parallax-container {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.parallax-element {
+  transition: transform 0.1s ease-out;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Glitch effect */
+@keyframes glitch {
+  0%, 100% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+    filter: hue-rotate(90deg);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+    filter: hue-rotate(180deg);
+  }
+  60% {
+    transform: translate(2px, 2px);
+    filter: hue-rotate(270deg);
+  }
+  80% {
+    transform: translate(2px, -2px);
+    filter: hue-rotate(360deg);
+  }
+}
+
+.glitch-effect {
+  animation: glitch 0.3s infinite;
+}
+
+/* Magnetic hover effect */
+.magnetic {
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Ripple effect */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(254, 174, 17, 0.3);
+  transform: translate(-50%, -50%);
+  animation: ripple 0.6s ease-out;
+  pointer-events: none;
+}
+
+/* Neon glow text */
+.neon-text {
+  text-shadow: 
+    0 0 5px rgba(254, 174, 17, 0.5),
+    0 0 10px rgba(254, 174, 17, 0.5),
+    0 0 15px rgba(254, 174, 17, 0.5),
+    0 0 20px rgba(254, 174, 17, 0.5),
+    0 0 35px rgba(254, 174, 17, 0.5),
+    0 0 40px rgba(254, 174, 17, 0.5);
+}
+
+/* Scan line effect */
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.scan-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to bottom, transparent, rgba(254, 174, 17, 0.5), transparent);
+  animation: scan 3s linear infinite;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Particle burst effect */
+@keyframes particle-burst {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.particle-burst {
+  animation: particle-burst 0.6s ease-out forwards;
+}
+
+

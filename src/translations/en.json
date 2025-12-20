@@ -1,0 +1,232 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "gallery": "Gallery",
+    "contact": "Contact"
+  },
+  "hero": {
+    "smash": "SMASH.",
+    "break": "BREAK.",
+    "destroy": "DESTROY.",
+    "release": "RELEASE.",
+    "subtitle": "Controlled Destruction. Maximum Relief.",
+    "bookButton": "Book Your Rage Session"
+  },
+  "features": {
+    "fiveStars": {
+      "title": "5 Stars Experience",
+      "description": "Premium quality service with top-rated customer satisfaction"
+    },
+    "time": {
+      "title": "30 Min Session",
+      "description": "Open 7 days a week, book your session at your convenience"
+    },
+    "group": {
+      "title": "Group Sessions",
+      "description": "Perfect for parties, team building, and group stress relief"
+    },
+    "quality": {
+      "title": "Premium Quality",
+      "description": "Professional equipment and safety gear for the best experience"
+    }
+  },
+  "about": {
+    "title": "Who We Are",
+    "titlePart1": "Who",
+    "titlePart2": "We",
+    "titlePart3": "Are",
+    "paragraph1": "Welcome to <strong class=\"font-rage\">Smash Room</strong>, where stress meets destruction. We provide a safe, controlled environment for you to <strong>smash bottles, break screens, destroy furniture</strong>, and experience the ultimate cathartic release.",
+    "paragraph2": "Our state-of-the-art rage room facility features multiple themed destruction rooms, professional-grade safety equipment including helmets and protective gear, and an atmosphere designed to help you <strong>break free from stress</strong> through controlled, high-energy destruction.",
+    "paragraph3": "Whether you're dealing with work stress, relationship tension, or just need an outlet, <strong class=\"font-rage\">Smash Room</strong> is your destination for <strong>smashing, breaking, and destroying</strong> in a safe, controlled environment. Release your rage. Feel the relief.",
+    "facilityImageAlt": "Smash Room Facility",
+    "features": {
+      "safe": {
+        "title": "Safe & Controlled",
+        "description": "Full protective gear provided"
+      },
+      "rooms": {
+        "title": "Multiple Rage Rooms",
+        "description": "Glass, electronics, furniture & more"
+      },
+      "equipment": {
+        "title": "Professional Equipment",
+        "description": "Sledgehammers, bats, crowbars"
+      }
+    }
+  },
+  "services": {
+    "title": "Services & Available Rooms",
+    "titlePart1": "Services",
+    "titlePart2": "&",
+    "titlePart3": "Available Rooms",
+    "bookButton": "Book This Room",
+    "rooms": {
+      "glass": {
+        "title": "Glass Smashing Room",
+        "description": "Smash bottles, glassware, and breakables with sledgehammers and bats. Feel the satisfying shatter of glass as you release your stress. Safety gear provided.",
+        "items": "Glass bottles, plates, vases, mirrors"
+      },
+      "electronics": {
+        "title": "Electronics Destruction",
+        "description": "Destroy old computers, TVs, monitors, and electronics. Perfect for tech-related stress. Smash keyboards, screens, and hardware with protective equipment.",
+        "items": "Computers, TVs, monitors, keyboards, phones"
+      },
+      "furniture": {
+        "title": "Furniture Smashing",
+        "description": "Break chairs, tables, and furniture with baseball bats and crowbars. High-energy room for maximum destruction and stress relief.",
+        "items": "Chairs, tables, cabinets, wooden furniture"
+      },
+      "themed": {
+        "title": "Themed Destruction Rooms",
+        "description": "Choose from various themed environments - office rage, kitchen chaos, or custom setups. Each room designed for maximum cathartic release.",
+        "items": "Themed items, mixed breakables, custom setups"
+      },
+      "extreme": {
+        "title": "Extreme Rage Package",
+        "description": "Our premium experience with heavy-duty items, multiple weapons, and extended time. For those who need the ultimate breaking session.",
+        "items": "Heavy items, sledgehammers, crowbars, extended time"
+      },
+      "group": {
+        "title": "Group Rage Sessions",
+        "description": "Perfect for parties, team building, or group stress relief. Multiple rooms available simultaneously. Book together and break together.",
+        "items": "Multiple rooms, group packages, team building"
+      }
+    }
+  },
+  "gallery": {
+    "title": "Action Gallery",
+    "titlePart1": "Action",
+    "titlePart2": "Gallery",
+    "subtitle": "Witness the Destruction. Feel the Release.",
+    "images": {
+      "glassSmashing": {
+        "title": "Glass Smashing Action",
+        "description": "Shatter bottles and glassware"
+      },
+      "electronics": {
+        "title": "Electronics Destruction",
+        "description": "Smash computers and screens"
+      },
+      "furniture": {
+        "title": "Furniture Breaking",
+        "description": "Destroy chairs and tables"
+      },
+      "destruction": {
+        "title": "Destruction Scene",
+        "description": "Controlled chaos"
+      },
+      "highEnergy": {
+        "title": "High-Energy Action",
+        "description": "Maximum stress relief"
+      },
+      "themed": {
+        "title": "Themed Rooms",
+        "description": "Various destruction themes"
+      },
+      "group": {
+        "title": "Group Sessions",
+        "description": "Break together"
+      }
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "titlePart1": "Contact",
+    "titlePart2": "Us",
+    "sendMessage": "Send us a Message",
+    "getInTouch": "Get in Touch",
+    "followUs": "Follow Us",
+    "findUs": "Find Us",
+    "name": "Your Name",
+    "email": "Your Email",
+    "phone": "(+216) 12 345 678",
+    "message": "Your Message",
+    "sendButton": "Send Message",
+    "sending": "Sending...",
+    "success": "Message sent! We will get back to you soon.",
+    "error": "Failed to send message. Please try again.",
+    "address": "12 Rue El Yasmina El Menzah 1, Tunis",
+    "emailAddress": "info@smashroom.com"
+  },
+  "booking": {
+    "title": "Book Your Rage Session",
+    "titlePart1": "Book Your",
+    "titlePart2": "Rage Session",
+    "subtitle": "Select a date, choose your time slot, and set your group size",
+    "selectDate": "Select Date",
+    "availableSlots": "Available Time Slots",
+    "bookingDetails": "Booking Details",
+    "customerInfo": "Customer Information",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phoneNumber": "Phone Number",
+    "email": "Email",
+    "specialRequests": "Any Special Requests",
+    "specialRequestsPlaceholder": "Any special requests or notes...",
+    "groupSize": "Group Size",
+    "people": "people",
+    "person": "person",
+    "maxPeople": "Maximum 4 people per session",
+    "selectedDate": "Selected Date",
+    "timeSlot": "Time Slot",
+    "notSelected": "Not selected",
+    "confirmButton": "Confirm Booking",
+    "creating": "Creating Booking...",
+    "fillFields": "Please fill in all fields and select a date and time slot",
+    "fillRequiredFields": "Please fill in all required fields: First Name, Last Name, Phone Number, and Email",
+    "invalidEmail": "Please enter a valid email address",
+    "success": "Booking confirmed! Check your email for confirmation details.",
+    "loading": "Loading availability...",
+    "backToHome": "Back to Home",
+    "enterFirstName": "Enter first name",
+    "enterLastName": "Enter last name",
+    "unavailable": "Unavailable",
+    "notAvailable": "Not available",
+    "closedMondays": "Closed on Mondays",
+    "pastDate": "Past date",
+    "rageRoomAlt": "Rage Room"
+  },
+  "loader": {
+    "loading": "Loading",
+    "logoAlt": "RageCage logo"
+  },
+  "footer": {
+    "description": "Release your stress through controlled destruction. Smash, break, and destroy in a safe, controlled environment.",
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "faq": "FAQ",
+    "copyright": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "safety": "Safety Guidelines",
+    "faqItems": {
+      "safety": {
+        "question": "What safety equipment is provided?",
+        "answer": "We provide full protective gear including helmets, safety glasses, gloves, and coveralls. All equipment is sanitized between sessions."
+      },
+      "items": {
+        "question": "Do I need to bring my own items to break?",
+        "answer": "No! All breakable items are provided. We have a wide selection of glass bottles, electronics, furniture, and more ready for destruction."
+      },
+      "age": {
+        "question": "Is there an age requirement?",
+        "answer": "Participants must be 18 years or older. Valid ID is required upon arrival."
+      },
+      "duration": {
+        "question": "How long is a typical session?",
+        "answer": "Standard sessions are 30 minutes, but we offer extended packages up to 60 minutes for maximum stress relief."
+      },
+      "group": {
+        "question": "Can I book for a group?",
+        "answer": "Yes! We offer group packages for parties, team building, and events. Multiple rooms can be booked simultaneously."
+      },
+      "clothing": {
+        "question": "What should I wear?",
+        "answer": "Wear comfortable clothes you don't mind getting dirty. Closed-toe shoes are required. We provide all protective gear."
+      }
+    }
+  }
+}
+
