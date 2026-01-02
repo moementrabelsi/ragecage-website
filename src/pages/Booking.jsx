@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FaArrowLeft, FaUsers, FaCalendarAlt, FaClock, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { useTranslation } from '../hooks/useTranslation'
+import BookingConfirmationModal from '../components/BookingConfirmationModal'
 import logo from '../assets/logo/rage.png'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
@@ -19,6 +20,8 @@ const Booking = () => {
   const [bookingError, setBookingError] = useState(null)
   const [bookingLoading, setBookingLoading] = useState(false)
   const [bookingSuccess, setBookingSuccess] = useState(false)
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false)
+  const [confirmedBookingDetails, setConfirmedBookingDetails] = useState(null)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
@@ -29,6 +32,10 @@ const Booking = () => {
   const today = new Date()
   const [displayMonth, setDisplayMonth] = useState(today.getMonth())
   const [displayYear, setDisplayYear] = useState(today.getFullYear())
+
+  // Refs for scrolling
+  const timeSlotsRef = useRef(null)
+  const bookingFormRef = useRef(null)
 
   // Get current month and next month info
   const getCurrentMonthInfo = () => {
@@ -184,6 +191,44 @@ const Booking = () => {
       setDisplayYear(currentYear)
     }
   }, []) // Run once on mount and when month changes
+
+  // Scroll to time slots when date is selected
+  useEffect(() => {
+    if (selectedDate && timeSlotsRef.current) {
+      // Small delay to ensure the time slots section is rendered
+      setTimeout(() => {
+        const element = timeSlotsRef.current
+        if (element) {
+          const elementPosition = element.getBoundingClientRect().top
+          const offsetPosition = elementPosition + window.pageYOffset - 100 // 100px offset for header
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          })
+        }
+      }, 150)
+    }
+  }, [selectedDate])
+
+  // Scroll to booking form when time slot is selected
+  useEffect(() => {
+    if (selectedTimeSlot && bookingFormRef.current) {
+      // Small delay to ensure smooth transition
+      setTimeout(() => {
+        const element = bookingFormRef.current
+        if (element) {
+          const elementPosition = element.getBoundingClientRect().top
+          const offsetPosition = elementPosition + window.pageYOffset - 120 // 120px offset for header and spacing
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          })
+        }
+      }, 200)
+    }
+  }, [selectedTimeSlot])
 
   // Fetch available slots from backend
   useEffect(() => {
@@ -360,19 +405,34 @@ const Booking = () => {
       }
 
       const data = await response.json()
-      setBookingSuccess(true)
       
-      // Reset form after successful booking
-      setTimeout(() => {
-        setSelectedDate(null)
-        setSelectedTimeSlot(null)
-        setGroupSize(1)
-        setFirstName('')
-        setLastName('')
-        setPhoneNumber('')
-        setBookingSuccess(false)
-        setAvailableSlots([])
-      }, 3000)
+      // Store booking details for modal
+      const bookingDetails = {
+        date: dateString,
+        timeSlot: selectedTimeSlot,
+        groupSize: groupSize,
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: email.trim(),
+        phoneNumber: cleanedPhone,
+        specialRequests: specialRequests.trim(),
+      }
+      setConfirmedBookingDetails(bookingDetails)
+      setBookingSuccess(true)
+      setShowConfirmationModal(true)
+      
+      // Immediately refresh available slots to show the newly booked slot as unavailable
+      if (selectedDate) {
+        try {
+          const availResponse = await fetch(`${API_BASE_URL}/api/availability?date=${dateString}`)
+          if (availResponse.ok) {
+            const availData = await availResponse.json()
+            setAvailableSlots(availData.availableSlots || [])
+          }
+        } catch (refreshError) {
+          console.error('Error refreshing availability after booking:', refreshError)
+        }
+      }
     } catch (err) {
       console.error('Error creating booking:', err)
       let errorMessage = err.message || 'Failed to create booking. Please try again.'
@@ -392,8 +452,35 @@ const Booking = () => {
     }
   }
 
+  // Handle modal close
+  const handleCloseModal = () => {
+    setShowConfirmationModal(false)
+    // Reset form after closing modal
+    setTimeout(() => {
+      setSelectedDate(null)
+      setSelectedTimeSlot(null)
+      setGroupSize(1)
+      setFirstName('')
+      setLastName('')
+      setPhoneNumber('')
+      setEmail('')
+      setSpecialRequests('')
+      setBookingSuccess(false)
+      setAvailableSlots([])
+      setConfirmedBookingDetails(null)
+    }, 300)
+  }
+
   return (
     <div className="min-h-screen bg-rage-black text-white">
+      
+      {/* Booking Confirmation Modal */}
+      <BookingConfirmationModal
+        isOpen={showConfirmationModal}
+        onClose={handleCloseModal}
+        bookingDetails={confirmedBookingDetails}
+      />
+      
       {/* Header */}
       <motion.header
         initial={{ y: -100 }}
@@ -545,6 +632,7 @@ const Booking = () => {
             {/* Time Slots Section */}
             {selectedDate && (
               <motion.div
+                ref={timeSlotsRef}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-gray-900/95 backdrop-blur-sm rounded-xl p-6 border border-rage-yellow/15 mt-6 shadow-lg"
@@ -616,7 +704,7 @@ const Booking = () => {
               <h2 className="text-2xl font-black text-rage-yellow mb-6">{t('booking.bookingDetails')}</h2>
 
               {/* Customer Information */}
-              <div className="mb-6">
+              <div ref={bookingFormRef} className="mb-6">
                 <h3 className="text-xl font-black text-rage-yellow mb-4">{t('booking.customerInfo')}</h3>
                 
                 <div className="space-y-4">

@@ -44,12 +44,22 @@ Create a `.env` file in the `backend` directory with the following variables:
 
 ```env
 # Google Calendar Configuration
-   GOOGLE_CALENDAR_ID=your-calendar-id-here
-TIMEZONE=America/New_York
+GOOGLE_CALENDAR_ID=your-calendar-id-here
+
+# ⚠️ IMPORTANT: Timezone Configuration
+# Set this to your LOCAL timezone where the business operates
+# This ensures booking times match what customers see
+# Common values:
+#   - Europe/Paris (France)
+#   - America/New_York (US Eastern)
+#   - Europe/London (UK)
+#   - America/Los_Angeles (US Pacific)
+# Full list: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+TIMEZONE=Europe/Paris
 
 # Server Configuration
-   PORT=3001
-   FRONTEND_URL=http://localhost:5173
+PORT=3001
+FRONTEND_URL=http://localhost:5173
 
 # Email Configuration (SMTP)
 SMTP_HOST=smtp.gmail.com
@@ -195,10 +205,54 @@ Default time slots are hourly from 9:00 AM to 8:00 PM:
 - ✅ Email confirmation with booking details
 - ✅ Satisfaction form link in confirmation email
 - ✅ Real-time availability checking
+- ✅ Timezone-aware booking system
+
+## Troubleshooting
+
+### Bookings appear at wrong time in calendar
+
+**Problem**: When booking at 11:00 AM, it appears as 12:00 PM (or different time) in Google Calendar.
+
+**Solution**: 
+1. Check your `TIMEZONE` environment variable in `.env`
+2. Make sure it matches your business location
+3. Restart the backend server after changing timezone
+4. Common timezone values:
+   - Tunisia: `Africa/Tunis`
+   - France: `Europe/Paris`
+   - USA East: `America/New_York`
+   - UK: `Europe/London`
+
+**Example**:
+```env
+TIMEZONE=Africa/Tunis
+```
+
+### Booked slots still appear as available
+
+**Problem**: After making a booking, the time slot still shows as available.
+
+**Solution**: 
+- The frontend now automatically refreshes availability after booking
+- If the issue persists, check backend logs for errors
+- Ensure service account has "Make changes to events" permission
+- Wait a few seconds and refresh the date picker
+
+### Email not sending
+
+**Problem**: Booking confirmation emails are not being received.
+
+**Solution**:
+1. Check SMTP credentials in `.env`
+2. For Gmail, use an App Password (not regular password)
+3. Check spam/junk folder
+4. Review backend logs for email errors
+5. Ensure `BOOKING_FROM_EMAIL` matches your SMTP domain
 
 ## Future Enhancements
 
 - Multiple calendar support (different rooms)
 - Booking cancellation endpoint
 - Email reminders before booking
+- SMS confirmations
 

@@ -186,7 +186,19 @@
     "notAvailable": "Not available",
     "closedMondays": "Closed on Mondays",
     "pastDate": "Past date",
-    "rageRoomAlt": "Rage Room"
+    "rageRoomAlt": "Rage Room",
+    "confirmation": {
+      "title1": "Booking",
+      "title2": "Confirmed!",
+      "subtitle": "Your rage room session has been successfully booked",
+      "date": "Date",
+      "time": "Time",
+      "customerDetails": "Customer Details",
+      "emailSent": "Confirmation Email Sent",
+      "checkEmail": "Check your email for booking details and instructions",
+      "close": "Close",
+      "backToHome": "Back to Home"
+    }
   },
   "loader": {
     "loading": "Loading",

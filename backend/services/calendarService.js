@@ -105,10 +105,13 @@ function getCalendarId() {
 
 /**
  * Convert time slot (HH:MM) to Date object for a given date
+ * Parses date components explicitly to avoid timezone shifts
  */
 function timeSlotToDate(dateString, timeSlot) {
-  const [hours, minutes] = timeSlot.split(':')
-  const date = new Date(dateString + 'T' + timeSlot + ':00')
+  const [year, month, day] = dateString.split('-').map(Number)
+  const [hours, minutes] = timeSlot.split(':').map(Number)
+  // Create date in local timezone
+  const date = new Date(year, month - 1, day, hours, minutes, 0)
   return date
 }
 
@@ -120,13 +123,28 @@ function isSlotBooked(timeSlot, events, dateString) {
   const slotEnd = new Date(slotStart)
   slotEnd.setMinutes(slotEnd.getMinutes() + 30) // 30-minute slots
 
-  return events.some(event => {
+  const isBooked = events.some(event => {
     const eventStart = new Date(event.start.dateTime || event.start.date)
     const eventEnd = new Date(event.end.dateTime || event.end.date)
 
     // Check for overlap
-    return (slotStart < eventEnd && slotEnd > eventStart)
+    const hasOverlap = (slotStart < eventEnd && slotEnd > eventStart)
+    
+    if (hasOverlap) {
+      console.log('Slot conflict detected:', {
+        timeSlot,
+        slotStart: slotStart.toISOString(),
+        slotEnd: slotEnd.toISOString(),
+        eventStart: eventStart.toISOString(),
+        eventEnd: eventEnd.toISOString(),
+        eventSummary: event.summary
+      })
+    }
+    
+    return hasOverlap
   })
+
+  return isBooked
 }
 
 /**
@@ -135,10 +153,19 @@ function isSlotBooked(timeSlot, events, dateString) {
 async function fetchEventsForDate(dateString, calendarClient) {
   try {
     const calendarId = getCalendarId()
+    const timezone = process.env.TIMEZONE || 'Europe/Paris'
     
-    // Create date range for the entire day (start of day to end of day)
-    const startOfDay = new Date(dateString + 'T00:00:00')
-    const endOfDay = new Date(dateString + 'T23:59:59')
+    // Parse date components to avoid timezone shifts
+    const [year, month, day] = dateString.split('-').map(Number)
+    
+    // Create date range for the entire day (start of day to end of day) in local timezone
+    const startOfDay = new Date(year, month - 1, day, 0, 0, 0)
+    const endOfDay = new Date(year, month - 1, day, 23, 59, 59)
+
+    console.log('=== FETCH EVENTS DEBUG ===')
+    console.log('Date String:', dateString)
+    console.log('Start of Day:', startOfDay.toISOString())
+    console.log('End of Day:', endOfDay.toISOString())
 
     const response = await calendarClient.events.list({
       calendarId: calendarId,
@@ -148,7 +175,18 @@ async function fetchEventsForDate(dateString, calendarClient) {
       orderBy: 'startTime',
     })
 
-    return response.data.items || []
+    const events = response.data.items || []
+    console.log('Found events:', events.length)
+    events.forEach((event, index) => {
+      console.log(`Event ${index + 1}:`, {
+        summary: event.summary,
+        start: event.start.dateTime || event.start.date,
+        end: event.end.dateTime || event.end.date
+      })
+    })
+    console.log('========================')
+
+    return events
   } catch (error) {
     console.error('Error fetching events from Google Calendar:', error)
     throw error
@@ -166,7 +204,9 @@ export async function getAvailableTimeSlots(dateString) {
     const events = await fetchEventsForDate(dateString, calendarClient)
 
     // Get day of week (0=Sunday, 1=Monday, ..., 6=Saturday)
-    const date = new Date(dateString + 'T00:00:00')
+    // Parse date parts to avoid timezone issues
+    const [year, month, day] = dateString.split('-').map(Number)
+    const date = new Date(year, month - 1, day)
     const dayOfWeek = date.getDay()
     
     // Get time slots for this day of week
@@ -234,12 +274,9 @@ export async function createBooking(dateString, timeSlot, groupSize, customerNam
   try {
     const calendarClient = getCalendarClient()
     const calendarId = getCalendarId()
-    const timezone = process.env.TIMEZONE || 'America/New_York'
+    const timezone = process.env.TIMEZONE || 'Europe/Paris'
 
-    // Create date-time string directly in the format Google Calendar expects
-    // Format: YYYY-MM-DDTHH:MM:SS (Google Calendar will interpret this in the specified timezone)
-    // This avoids timezone conversion issues
-    const startDateTimeString = `${dateString}T${timeSlot}:00`
+    // Parse the date and time components
     const [hours, minutes] = timeSlot.split(':').map(Number)
     
     // Calculate end time (30 minutes after start)
@@ -249,6 +286,10 @@ export async function createBooking(dateString, timeSlot, groupSize, customerNam
       endHours += 1
       endMinutes = 0
     }
+    
+    // Create proper datetime strings in RFC3339 format
+    // Format: YYYY-MM-DDTHH:MM:SS (without timezone suffix means "in the specified timezone")
+    const startDateTimeString = `${dateString}T${timeSlot}:00`
     const endHoursFormatted = endHours.toString().padStart(2, '0')
     const endMinutesFormatted = endMinutes.toString().padStart(2, '0')
     const endDateTimeString = `${dateString}T${endHoursFormatted}:${endMinutesFormatted}:00`
@@ -257,17 +298,15 @@ export async function createBooking(dateString, timeSlot, groupSize, customerNam
     const displayTime = formatTimeSlot(timeSlot)
 
     // Debug logging
-    console.log('createBooking called with:', {
-      dateString,
-      timeSlot,
-      displayTime,
-      customerEmail: customerEmail,
-      customerEmailType: typeof customerEmail,
-      customerEmailLength: customerEmail ? customerEmail.length : 0,
-      specialRequests: specialRequests,
-      specialRequestsType: typeof specialRequests,
-      specialRequestsLength: specialRequests ? specialRequests.length : 0
-    })
+    console.log('=== CREATE BOOKING DEBUG ===')
+    console.log('Timezone:', timezone)
+    console.log('Input Date String:', dateString)
+    console.log('Input Time Slot:', timeSlot)
+    console.log('Start DateTime String:', startDateTimeString)
+    console.log('End DateTime String:', endDateTimeString)
+    console.log('Display Time:', displayTime)
+    console.log('Customer Email:', customerEmail)
+    console.log('==========================')
 
     // --- LAST-SECOND DOUBLE-BOOKING GUARD ----------------------------
     // Re-fetch events for the selected date to ensure the slot is still free

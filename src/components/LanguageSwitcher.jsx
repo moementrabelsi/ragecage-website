@@ -37,21 +37,21 @@ const LanguageSwitcher = ({ isMobile = false }) => {
   }, [isOpen])
 
   return (
-    <div className={`relative ${isMobile ? 'w-full' : 'w-auto'}`} ref={dropdownRef}>
+    <div className={`relative ${isMobile ? 'w-auto' : 'w-auto'}`} ref={dropdownRef}>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        whileHover={{ scale: isMobile ? 1 : 1.05 }}
+        whileHover={{ scale: isMobile ? 1.05 : 1.05 }}
         whileTap={{ scale: 0.95 }}
         className={`
-          flex items-center gap-2 text-white hover:text-rage-yellow 
+          flex items-center gap-1.5 text-white hover:text-rage-yellow 
           transition-all duration-300
-          ${isMobile ? 'justify-start w-full py-2.5 px-0' : 'justify-center py-2 px-3'}
+          ${isMobile ? 'justify-center py-2 px-2' : 'justify-center py-2 px-3'}
         `}
         aria-label={currentLanguage.name}
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <currentLanguage.Flag className="w-6 h-4 rounded-sm shadow-sm" />
+        <currentLanguage.Flag className="w-5 h-4 rounded-sm shadow-sm" />
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3, ease: 'easeInOut' }}
@@ -80,7 +80,7 @@ const LanguageSwitcher = ({ isMobile = false }) => {
               transition={{ duration: 0.2, ease: 'easeOut' }}
               className={`
                 absolute top-full mt-2 
-                ${isMobile ? 'left-0 w-full' : 'right-0 w-auto'}
+                ${isMobile ? 'right-0 w-auto' : 'right-0 w-auto'}
                 bg-gray-900/95 backdrop-blur-md
                 border border-rage-yellow/20 
                 rounded-lg 

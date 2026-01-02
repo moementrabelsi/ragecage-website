@@ -186,7 +186,19 @@
     "notAvailable": "Non disponible",
     "closedMondays": "Fermé le lundi",
     "pastDate": "Date passée",
-    "rageRoomAlt": "Salle de Rage"
+    "rageRoomAlt": "Salle de Rage",
+    "confirmation": {
+      "title1": "Réservation",
+      "title2": "Confirmée !",
+      "subtitle": "Votre session de salle de rage a été réservée avec succès",
+      "date": "Date",
+      "time": "Heure",
+      "customerDetails": "Détails du Client",
+      "emailSent": "Email de Confirmation Envoyé",
+      "checkEmail": "Vérifiez votre email pour les détails de réservation et les instructions",
+      "close": "Fermer",
+      "backToHome": "Retour à l'Accueil"
+    }
   },
   "loader": {
     "loading": "Chargement",

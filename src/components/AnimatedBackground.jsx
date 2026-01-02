@@ -1,106 +1,145 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
+// SVG paths for different glass shard shapes
+const glassShardPaths = [
+  // Triangular shard
+  'M 0,0 L 30,15 L 15,30 Z',
+  // Irregular shard 1
+  'M 0,10 L 25,0 L 35,20 L 20,35 L 5,25 Z',
+  // Irregular shard 2
+  'M 10,0 L 30,5 L 25,25 L 15,30 L 0,20 Z',
+  // Sharp shard
+  'M 0,0 L 20,5 L 25,25 L 10,30 L 5,15 Z',
+  // Small fragment
+  'M 5,5 L 20,0 L 25,15 L 15,25 L 0,20 Z',
+  // Long shard
+  'M 0,5 L 35,0 L 30,20 L 15,30 L 5,25 Z',
+]
+
 const AnimatedBackground = () => {
-  const canvasRef = useRef(null)
+  const [shards, setShards] = useState([])
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const ctx = canvas.getContext('2d')
-    let animationFrameId
-    let particles = []
-
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
+    const generateShards = () => {
+      const newShards = []
+      const numShards = 25 + Math.floor(Math.random() * 15) // 25-40 shards
+      
+      for (let i = 0; i < numShards; i++) {
+        const pathIndex = Math.floor(Math.random() * glassShardPaths.length)
+        newShards.push({
+          id: i,
+          path: glassShardPaths[pathIndex],
+          x: Math.random() * 100, // Percentage of viewport width
+          y: Math.random() * 100, // Percentage of viewport height
+          size: 0.8 + Math.random() * 1.2, // 0.8x to 2x scale
+          rotation: Math.random() * 360,
+          opacity: 0.08 + Math.random() * 0.12, // 0.08-0.2 opacity
+          rotationSpeed: (Math.random() - 0.5) * 0.3, // Slow rotation
+          driftX: (Math.random() - 0.5) * 0.02, // Slow drift (percentage per frame)
+          driftY: (Math.random() - 0.5) * 0.02,
+          isYellow: Math.random() > 0.75, // Some yellow tinted
+          hasHighlight: Math.random() > 0.6, // Some have highlights
+        })
+      }
+      
+      setShards(newShards)
     }
 
-    resizeCanvas()
-    window.addEventListener('resize', resizeCanvas)
+    generateShards()
 
-    // Create particles
-    class Particle {
-      constructor() {
-        this.reset()
-        this.y = Math.random() * canvas.height
-      }
+    // Update animation
+    const interval = setInterval(() => {
+      setShards(prevShards => 
+        prevShards.map(shard => {
+          let newX = shard.x + shard.driftX
+          let newY = shard.y + shard.driftY
+          let newRotation = shard.rotation + shard.rotationSpeed
 
-      reset() {
-        this.x = Math.random() * canvas.width
-        this.y = Math.random() * canvas.height
-        this.size = Math.random() * 3 + 1
-        this.speedX = (Math.random() - 0.5) * 0.5
-        this.speedY = (Math.random() - 0.5) * 0.5
-        this.opacity = Math.random() * 0.5 + 0.2
-        this.color = Math.random() > 0.5 ? '#feae11' : '#DC143C'
-      }
+          // Wrap around edges
+          if (newX < -5) newX = 105
+          if (newX > 105) newX = -5
+          if (newY < -5) newY = 105
+          if (newY > 105) newY = -5
+          if (newRotation >= 360) newRotation -= 360
+          if (newRotation < 0) newRotation += 360
 
-      update() {
-        this.x += this.speedX
-        this.y += this.speedY
-
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1
-      }
-
-      draw() {
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-        ctx.fillStyle = this.color
-        ctx.globalAlpha = this.opacity
-        ctx.fill()
-        ctx.globalAlpha = 1
-      }
-    }
-
-    // Initialize particles
-    for (let i = 0; i < 50; i++) {
-      particles.push(new Particle())
-    }
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      // Draw connections
-      particles.forEach((particle, i) => {
-        particle.update()
-        particle.draw()
-
-        particles.slice(i + 1).forEach((otherParticle) => {
-          const dx = particle.x - otherParticle.x
-          const dy = particle.y - otherParticle.y
-          const distance = Math.sqrt(dx * dx + dy * dy)
-
-          if (distance < 150) {
-            ctx.beginPath()
-            ctx.strokeStyle = `rgba(254, 174, 17, ${0.2 * (1 - distance / 150)})`
-            ctx.lineWidth = 0.5
-            ctx.moveTo(particle.x, particle.y)
-            ctx.lineTo(otherParticle.x, otherParticle.y)
-            ctx.stroke()
+          return {
+            ...shard,
+            x: newX,
+            y: newY,
+            rotation: newRotation,
           }
         })
-      })
+      )
+    }, 50) // Update every 50ms
 
-      animationFrameId = requestAnimationFrame(animate)
+    // Regenerate on resize
+    const handleResize = () => {
+      generateShards()
     }
-
-    animate()
+    window.addEventListener('resize', handleResize)
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas)
-      cancelAnimationFrame(animationFrameId)
+      clearInterval(interval)
+      window.removeEventListener('resize', handleResize)
     }
   }, [])
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-30"
-      style={{ mixBlendMode: 'screen' }}
-    />
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      {shards.map((shard) => (
+        <motion.svg
+          key={shard.id}
+          viewBox="0 0 35 35"
+          className="absolute"
+          style={{
+            left: `${shard.x}%`,
+            top: `${shard.y}%`,
+            width: `${30 * shard.size}px`,
+            height: `${30 * shard.size}px`,
+            transform: `translate(-50%, -50%) rotate(${shard.rotation}deg)`,
+            opacity: shard.opacity,
+            mixBlendMode: 'screen',
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: shard.opacity }}
+          transition={{ duration: 1 }}
+        >
+          <defs>
+            <linearGradient id={`glassGradient-${shard.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+              {shard.isYellow ? (
+                <>
+                  <stop offset="0%" stopColor="rgba(254, 174, 17, 0.3)" />
+                  <stop offset="100%" stopColor="rgba(254, 174, 17, 0.1)" />
+                </>
+              ) : (
+                <>
+                  <stop offset="0%" stopColor="rgba(255, 255, 255, 0.2)" />
+                  <stop offset="100%" stopColor="rgba(200, 200, 200, 0.1)" />
+                </>
+              )}
+            </linearGradient>
+          </defs>
+          <path
+            d={shard.path}
+            fill={`url(#glassGradient-${shard.id})`}
+            stroke={shard.isYellow ? 'rgba(254, 174, 17, 0.6)' : 'rgba(254, 174, 17, 0.4)'}
+            strokeWidth="0.5"
+            strokeLinejoin="round"
+          />
+          {/* Highlight reflection */}
+          {shard.hasHighlight && (
+            <circle
+              cx="10"
+              cy="10"
+              r="3"
+              fill="rgba(255, 255, 255, 0.3)"
+            />
+          )}
+        </motion.svg>
+      ))}
+    </div>
   )
 }
 
