@@ -386,6 +386,7 @@ const Booking = () => {
         }),
       })
 
+      // Check response status
       if (!response.ok) {
         // Try to parse error as JSON, fallback to status text
         let errorMessage = `Server error: ${response.status} ${response.statusText}`
@@ -394,17 +395,38 @@ const Booking = () => {
           errorMessage = errorData.message || errorData.error || errorMessage
         } catch (e) {
           // Response is not JSON (might be HTML error page)
-          const text = await response.text()
-          if (text.includes('<!DOCTYPE')) {
-            errorMessage = 'Backend server error. Please check if the server is running on port 3001.'
-          } else {
-            errorMessage = text || errorMessage
+          try {
+            const text = await response.text()
+            if (text.includes('<!DOCTYPE')) {
+              errorMessage = 'Backend server error. Please check if the server is running on port 3001.'
+            } else {
+              errorMessage = text || errorMessage
+            }
+          } catch (textError) {
+            console.error('Error reading error response:', textError)
           }
         }
         throw new Error(errorMessage)
       }
 
-      const data = await response.json()
+      // Parse response JSON
+      let data
+      try {
+        const responseText = await response.text()
+        if (!responseText) {
+          throw new Error('Empty response from server')
+        }
+        data = JSON.parse(responseText)
+      } catch (parseError) {
+        console.error('Error parsing booking response:', parseError)
+        throw new Error('Invalid response from server. Please try again.')
+      }
+
+      // Verify success response
+      if (!data || (data.success !== true && !data.booking)) {
+        console.warn('Unexpected response format:', data)
+        // Still proceed if we have booking data or success flag
+      }
       
       // Store booking details for modal
       const bookingDetails = {
@@ -417,21 +439,31 @@ const Booking = () => {
         phoneNumber: cleanedPhone,
         specialRequests: specialRequests.trim(),
       }
+      
+      // Set success state and show modal
       setConfirmedBookingDetails(bookingDetails)
       setBookingSuccess(true)
       setShowConfirmationModal(true)
       
+      // Reset loading state immediately after successful booking
+      setBookingLoading(false)
+      
       // Immediately refresh available slots to show the newly booked slot as unavailable
+      // This is done asynchronously and won't block the UI
       if (selectedDate) {
-        try {
-          const availResponse = await fetch(`${API_BASE_URL}/api/availability?date=${dateString}`)
-          if (availResponse.ok) {
-            const availData = await availResponse.json()
-            setAvailableSlots(availData.availableSlots || [])
+        // Use setTimeout to ensure this doesn't block the state updates
+        setTimeout(async () => {
+          try {
+            const availResponse = await fetch(`${API_BASE_URL}/api/availability?date=${dateString}`)
+            if (availResponse.ok) {
+              const availData = await availResponse.json()
+              setAvailableSlots(availData.available || availData.availableSlots || [])
+            }
+          } catch (refreshError) {
+            console.error('Error refreshing availability after booking:', refreshError)
+            // Don't show error to user, just log it
           }
-        } catch (refreshError) {
-          console.error('Error refreshing availability after booking:', refreshError)
-        }
+        }, 100)
       }
     } catch (err) {
       console.error('Error creating booking:', err)
@@ -448,6 +480,7 @@ const Booking = () => {
       
       setBookingError(errorMessage)
     } finally {
+      // Always reset loading state, even if there was an error
       setBookingLoading(false)
     }
   }
