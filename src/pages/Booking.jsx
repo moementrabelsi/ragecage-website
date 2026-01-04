@@ -369,25 +369,33 @@ const Booking = () => {
     try {
       const dateString = formatDateForApi(selectedDate)
       
-      const response = await fetch(`${API_BASE_URL}/api/book`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          date: dateString,
-          timeSlot: selectedTimeSlot,
-          groupSize: groupSize,
-          firstName: firstName.trim(),
-          lastName: lastName.trim(),
-          phoneNumber: cleanedPhone,
-          email: email.trim(),
-          specialRequests: specialRequests.trim(),
-        }),
-      })
-
-      // Check response status
-      if (!response.ok) {
+      // Create abort controller for timeout
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 30000) // 30 second timeout
+      
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/book`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            date: dateString,
+            timeSlot: selectedTimeSlot,
+            groupSize: groupSize,
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
+            phoneNumber: cleanedPhone,
+            email: email.trim(),
+            specialRequests: specialRequests.trim(),
+          }),
+          signal: controller.signal
+        })
+        
+        clearTimeout(timeoutId)
+        
+        // Check response status
+        if (!response.ok) {
         // Try to parse error as JSON, fallback to status text
         let errorMessage = `Server error: ${response.status} ${response.statusText}`
         try {
@@ -465,17 +473,29 @@ const Booking = () => {
           }
         }, 100)
       }
+      } catch (fetchError) {
+        // Handle fetch-specific errors (including timeout)
+        clearTimeout(timeoutId)
+        if (fetchError.name === 'AbortError') {
+          throw new Error('Request timeout. The server is taking too long to respond. Please try again.')
+        }
+        throw fetchError
+      }
     } catch (err) {
       console.error('Error creating booking:', err)
       let errorMessage = err.message || 'Failed to create booking. Please try again.'
       
       // Provide helpful error messages
-      if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
-        errorMessage = 'Cannot connect to server. Please make sure the backend is running on port 3001.'
+      if (err.name === 'AbortError' || err.message.includes('timeout')) {
+        errorMessage = 'Request timeout. The server is taking too long to respond. Please try again.'
+      } else if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
+        errorMessage = 'Cannot connect to server. Please make sure the backend is running.'
       } else if (err.message.includes('404')) {
         errorMessage = 'Booking endpoint not found. Please check backend server configuration.'
       } else if (err.message.includes('permission') || err.message.includes('writer access') || err.message.includes('Calendar permission')) {
         errorMessage = 'Calendar permission error. The service account needs "Make changes to events" permission. Check backend/README.md for setup instructions.'
+      } else if (err.message.includes('CORS') || err.message.includes('Not allowed by CORS')) {
+        errorMessage = 'Connection blocked. Please contact support.'
       }
       
       setBookingError(errorMessage)
