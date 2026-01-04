@@ -104,40 +104,74 @@ function getCalendarId() {
 }
 
 /**
- * Convert time slot (HH:MM) to Date object for a given date
- * Parses date components explicitly to avoid timezone shifts
+ * Get timezone offset in hours for a given timezone (simplified, doesn't account for DST)
+ * This is a workaround since we don't have a timezone library
  */
-function timeSlotToDate(dateString, timeSlot) {
-  const [year, month, day] = dateString.split('-').map(Number)
-  const [hours, minutes] = timeSlot.split(':').map(Number)
-  // Create date in local timezone
-  const date = new Date(year, month - 1, day, hours, minutes, 0)
-  return date
+function getTimezoneOffsetHours(timezone) {
+  // Common timezone offsets (simplified, doesn't handle DST)
+  const offsets = {
+    'Europe/Paris': 1,  // CET (UTC+1), CEST (UTC+2) in summer - using UTC+1 as default
+    'UTC': 0,
+    'America/New_York': -5,  // EST (UTC-5), EDT (UTC-4) in summer
+    'America/Los_Angeles': -8,  // PST (UTC-8), PDT (UTC-7) in summer
+  }
+  return offsets[timezone] || 0
 }
 
 /**
  * Check if a time slot conflicts with any calendar events
+ * Uses timezone-aware comparison to avoid timezone mismatches
  */
 function isSlotBooked(timeSlot, events, dateString) {
-  const slotStart = timeSlotToDate(dateString, timeSlot)
-  const slotEnd = new Date(slotStart)
-  slotEnd.setMinutes(slotEnd.getMinutes() + 30) // 30-minute slots
+  const timezone = process.env.TIMEZONE || 'Europe/Paris'
+  
+  if (!events || events.length === 0) {
+    return false
+  }
+  
+  // Parse date and time components
+  const [year, month, day] = dateString.split('-').map(Number)
+  const [hours, minutes] = timeSlot.split(':').map(Number)
+  
+  // Calculate end time (30 minutes after start)
+  let endHours = hours
+  let endMinutes = minutes + 30
+  if (endMinutes >= 60) {
+    endHours += 1
+    endMinutes = 0
+  }
+  
+  // Get timezone offset (in hours from UTC)
+  // Note: This is a simplified approach that doesn't account for DST
+  // For production, consider using a library like date-fns-tz or moment-timezone
+  const timezoneOffset = getTimezoneOffsetHours(timezone)
+  
+  // Create slot dates in UTC by subtracting the timezone offset
+  // This ensures we're comparing in the same timezone context as calendar events
+  const slotStartUTC = new Date(Date.UTC(year, month - 1, day, hours - timezoneOffset, minutes, 0))
+  const slotEndUTC = new Date(Date.UTC(year, month - 1, day, endHours - timezoneOffset, endMinutes, 0))
 
   const isBooked = events.some(event => {
+    if (!event.start.dateTime && !event.start.date) return false
+    
+    // Get event times - these are in ISO format with timezone info from Google Calendar
     const eventStart = new Date(event.start.dateTime || event.start.date)
     const eventEnd = new Date(event.end.dateTime || event.end.date)
 
-    // Check for overlap
-    const hasOverlap = (slotStart < eventEnd && slotEnd > eventStart)
+    // Check for overlap (comparing UTC timestamps)
+    const hasOverlap = (slotStartUTC < eventEnd && slotEndUTC > eventStart)
     
     if (hasOverlap) {
       console.log('Slot conflict detected:', {
         timeSlot,
-        slotStart: slotStart.toISOString(),
-        slotEnd: slotEnd.toISOString(),
+        dateString,
+        slotStartUTC: slotStartUTC.toISOString(),
+        slotEndUTC: slotEndUTC.toISOString(),
         eventStart: eventStart.toISOString(),
         eventEnd: eventEnd.toISOString(),
-        eventSummary: event.summary
+        eventSummary: event.summary,
+        timezone,
+        timezoneOffset
       })
     }
     
