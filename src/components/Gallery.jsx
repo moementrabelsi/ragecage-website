@@ -235,7 +235,7 @@ const Gallery = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
+          className="fixed inset-0 z-[110] flex items-center justify-center bg-black/95 p-4"
           onClick={() => setSelectedImageIndex(null)}
         >
           <motion.div
@@ -292,7 +292,7 @@ const Gallery = () => {
             {/* Close Button */}
             <button
               onClick={() => setSelectedImageIndex(null)}
-              className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white text-4xl md:text-5xl hover:text-rage-yellow transition-colors rounded-full w-12 h-12 md:w-14 md:h-14 flex items-center justify-center"
+              className="absolute top-20 md:top-4 right-4 text-white text-4xl md:text-5xl hover:text-rage-yellow transition-colors z-[120]"
             >
               ×
             </button>
