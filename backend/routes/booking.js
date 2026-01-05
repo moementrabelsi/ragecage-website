@@ -94,26 +94,7 @@ router.post('/book', async (req, res) => {
       customerSpecialRequests
     )
 
-    // Send confirmation email to customer
-    try {
-      await sendBookingConfirmationEmail({
-        customerEmail,
-        customerName,
-        date,
-        timeSlot,
-        groupSize: groupSizeNum,
-        phoneNumber: trimmedPhone,
-        specialRequests: customerSpecialRequests,
-        eventLink: event.htmlLink,
-      })
-      console.log('Booking confirmation email sent successfully')
-    } catch (emailError) {
-      // Log email error but don't fail the booking
-      console.error('Failed to send confirmation email:', emailError)
-      // Booking was successful, so we still return success
-      // but log the email error for investigation
-    }
-
+    // Send response immediately to avoid timeout
     res.json({
       success: true,
       message: 'Booking created successfully. Confirmation email sent.',
@@ -127,6 +108,27 @@ router.post('/book', async (req, res) => {
         endTime: event.end.dateTime,
       }
     })
+
+    // Send confirmation email in the background (non-blocking)
+    // This prevents slow email sending from timing out the request
+    sendBookingConfirmationEmail({
+      customerEmail,
+      customerName,
+      date,
+      timeSlot,
+      groupSize: groupSizeNum,
+      phoneNumber: trimmedPhone,
+      specialRequests: customerSpecialRequests,
+      eventLink: event.htmlLink,
+    })
+      .then(() => {
+        console.log('Booking confirmation email sent successfully to:', customerEmail)
+      })
+      .catch((emailError) => {
+        // Log email error but don't fail the booking since it's already created
+        console.error('Failed to send confirmation email:', emailError)
+        console.error('Email details:', { customerEmail, customerName, date, timeSlot })
+      })
   } catch (error) {
     console.error('Error creating booking:', error)
     

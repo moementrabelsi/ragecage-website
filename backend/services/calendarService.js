@@ -110,10 +110,14 @@ function getCalendarId() {
 function getTimezoneOffsetHours(timezone) {
   // Common timezone offsets (simplified, doesn't handle DST)
   const offsets = {
-    'Europe/Paris': 1,  // CET (UTC+1), CEST (UTC+2) in summer - using UTC+1 as default
+    'Europe/Paris': 1,  // CET (UTC+1), CEST (UTC+2) in summer
+    'Africa/Tunis': 1,  // CET (UTC+1) year-round, no DST
+    'Africa/Cairo': 2,  // EET (UTC+2), EEST (UTC+3) in summer
     'UTC': 0,
     'America/New_York': -5,  // EST (UTC-5), EDT (UTC-4) in summer
     'America/Los_Angeles': -8,  // PST (UTC-8), PDT (UTC-7) in summer
+    'Asia/Dubai': 4,  // GST (UTC+4) year-round
+    'Asia/Tokyo': 9,  // JST (UTC+9) year-round
   }
   return offsets[timezone] || 0
 }
@@ -321,12 +325,19 @@ export async function createBooking(dateString, timeSlot, groupSize, customerNam
       endMinutes = 0
     }
     
-    // Create proper datetime strings in RFC3339 format
-    // Format: YYYY-MM-DDTHH:MM:SS (without timezone suffix means "in the specified timezone")
-    const startDateTimeString = `${dateString}T${timeSlot}:00`
+    // Get timezone offset for explicit RFC3339 format
+    // This ensures Google Calendar interprets the time correctly
+    const timezoneOffset = getTimezoneOffsetHours(timezone)
+    const offsetSign = timezoneOffset >= 0 ? '+' : '-'
+    const offsetHours = Math.abs(timezoneOffset).toString().padStart(2, '0')
+    const offsetString = `${offsetSign}${offsetHours}:00`
+    
+    // Create proper datetime strings in RFC3339 format with explicit timezone offset
+    // Format: YYYY-MM-DDTHH:MM:SS+HH:MM (e.g., 2026-01-07T12:30:00+01:00)
+    const startDateTimeString = `${dateString}T${timeSlot}:00${offsetString}`
     const endHoursFormatted = endHours.toString().padStart(2, '0')
     const endMinutesFormatted = endMinutes.toString().padStart(2, '0')
-    const endDateTimeString = `${dateString}T${endHoursFormatted}:${endMinutesFormatted}:00`
+    const endDateTimeString = `${dateString}T${endHoursFormatted}:${endMinutesFormatted}:00${offsetString}`
 
     // Format time for display
     const displayTime = formatTimeSlot(timeSlot)
@@ -334,10 +345,11 @@ export async function createBooking(dateString, timeSlot, groupSize, customerNam
     // Debug logging
     console.log('=== CREATE BOOKING DEBUG ===')
     console.log('Timezone:', timezone)
+    console.log('Timezone Offset:', offsetString)
     console.log('Input Date String:', dateString)
     console.log('Input Time Slot:', timeSlot)
-    console.log('Start DateTime String:', startDateTimeString)
-    console.log('End DateTime String:', endDateTimeString)
+    console.log('Start DateTime String (RFC3339):', startDateTimeString)
+    console.log('End DateTime String (RFC3339):', endDateTimeString)
     console.log('Display Time:', displayTime)
     console.log('Customer Email:', customerEmail)
     console.log('==========================')
