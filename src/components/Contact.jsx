@@ -32,7 +32,10 @@ const Contact = () => {
 
     // Validate EmailJS configuration
     if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
-      setSubmitError('Email service not configured. Please contact the website administrator.')
+      setSubmitError(
+        'Email service not configured. Please add EmailJS credentials to your .env file. ' +
+        'See EMAILJS_SETUP.md for instructions or visit https://www.emailjs.com/'
+      )
       setSubmitting(false)
       return
     }
