@@ -1,6 +1,6 @@
 import express from 'express'
 import { createBooking } from '../services/calendarService.js'
-import { sendBookingConfirmationEmail } from '../services/emailService.js'
+// import { sendBookingConfirmationEmail } from '../services/emailService.js' // Email functionality disabled
 
 const router = express.Router()
 
@@ -97,7 +97,7 @@ router.post('/book', async (req, res) => {
     // Send response immediately to avoid timeout
     res.json({
       success: true,
-      message: 'Booking created successfully. Confirmation email sent.',
+      message: 'Booking created successfully.',
       booking: {
         id: event.id,
         date,
@@ -109,8 +109,10 @@ router.post('/book', async (req, res) => {
       }
     })
 
+    // Email functionality disabled
     // Send confirmation email in the background (non-blocking)
     // This prevents slow email sending from timing out the request
+    /*
     sendBookingConfirmationEmail({
       customerEmail,
       customerName,
@@ -129,6 +131,7 @@ router.post('/book', async (req, res) => {
         console.error('Failed to send confirmation email:', emailError)
         console.error('Email details:', { customerEmail, customerName, date, timeSlot })
       })
+    */
   } catch (error) {
     console.error('Error creating booking:', error)
     

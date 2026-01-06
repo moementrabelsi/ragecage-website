@@ -1,9 +1,11 @@
 import express from 'express'
-import nodemailer from 'nodemailer'
+// import nodemailer from 'nodemailer' // Email functionality disabled
 
 const router = express.Router()
 
+// Email functionality disabled
 // Build a mail transport from env vars
+/*
 function createTransport() {
   const host = process.env.SMTP_HOST
   const port = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 587
@@ -21,6 +23,7 @@ function createTransport() {
     auth: { user, pass },
   })
 }
+*/
 
 router.post('/contact', async (req, res) => {
   try {
@@ -51,6 +54,8 @@ router.post('/contact', async (req, res) => {
       message,
     ].join('\n')
 
+    // Email functionality disabled
+    /*
     const transporter = createTransport()
     await transporter.sendMail({
       from, // Use verified SMTP_USER email
@@ -59,8 +64,18 @@ router.post('/contact', async (req, res) => {
       subject,
       text,
     })
+    */
 
-    res.json({ success: true, message: 'Message sent successfully' })
+    // For now, just log the contact form submission
+    console.log('Contact form submission received:', {
+      name,
+      email,
+      phone,
+      message,
+      timestamp: new Date().toISOString()
+    })
+
+    res.json({ success: true, message: 'Message received successfully' })
   } catch (error) {
     console.error('Error sending contact email:', error)
     res.status(500).json({
