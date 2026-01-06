@@ -23,6 +23,7 @@ A modern, single-page website for RageCage built with React, Vite, TailwindCSS, 
 - **Swiper.js** - Touch slider/carousel
 - **React Scroll** - Smooth scrolling
 - **React Icons** - Icon library
+- **EmailJS** - Client-side email service for contact form
 
 ## Getting Started
 
@@ -42,10 +43,22 @@ A modern, single-page website for RageCage built with React, Vite, TailwindCSS, 
 npm install
 ```
 
-2. Configure API URL (optional, defaults to http://localhost:3001):
+2. Configure environment variables:
 ```bash
-cp .env.example .env
-# Edit .env and set VITE_API_URL if needed
+# Create .env file in the root directory
+# Add the following variables:
+```
+
+Create a `.env` file in the root directory with:
+```env
+# Backend API URL (optional, defaults to http://localhost:3001)
+VITE_API_URL=http://localhost:3001
+
+# EmailJS Configuration (required for contact form)
+# Get these from https://www.emailjs.com/
+VITE_EMAILJS_SERVICE_ID=your_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_template_id
+VITE_EMAILJS_PUBLIC_KEY=your_public_key
 ```
 
 3. Start the development server:
@@ -130,7 +143,25 @@ Replace the placeholder Unsplash images in the components with your own images.
 
 ### Contact Form
 
-The contact form currently logs to console. Integrate with your backend API or email service.
+The contact form uses EmailJS to send emails directly from the browser. To set it up:
+
+1. **Create an EmailJS account** at [https://www.emailjs.com/](https://www.emailjs.com/)
+2. **Create an Email Service** (Gmail, Outlook, etc.) and note the Service ID
+3. **Create an Email Template** with the following variables:
+   - `{{from_name}}` - Sender's name
+   - `{{from_email}}` - Sender's email
+   - `{{phone}}` - Sender's phone (optional)
+   - `{{message}}` - Message content
+   - `{{to_name}}` - Your business name
+4. **Get your Public Key** from EmailJS dashboard
+5. **Add the credentials** to your `.env` file:
+   ```env
+   VITE_EMAILJS_SERVICE_ID=your_service_id
+   VITE_EMAILJS_TEMPLATE_ID=your_template_id
+   VITE_EMAILJS_PUBLIC_KEY=your_public_key
+   ```
+
+The contact form will automatically use these credentials to send emails.
 
 ### Google Maps
 

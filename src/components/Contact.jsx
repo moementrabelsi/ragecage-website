@@ -2,12 +2,18 @@ import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa'
 import { useTranslation } from '../hooks/useTranslation'
+import emailjs from '@emailjs/browser'
 
 const Contact = () => {
-  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const { t } = useTranslation()
+  
+  // EmailJS configuration from environment variables
+  const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
+  const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+  const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,24 +30,35 @@ const Contact = () => {
     setSubmitError('')
     setSubmitSuccess('')
 
-    fetch(`${API_BASE_URL}/api/contact`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    })
-      .then(async (res) => {
-        if (!res.ok) {
-          const data = await res.json().catch(() => ({}))
-          throw new Error(data.message || data.error || 'Failed to send message')
-        }
-        return res.json()
-      })
+    // Validate EmailJS configuration
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+      setSubmitError('Email service not configured. Please contact the website administrator.')
+      setSubmitting(false)
+      return
+    }
+
+    // Initialize EmailJS with public key
+    emailjs.init(EMAILJS_PUBLIC_KEY)
+
+    // Prepare template parameters
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      phone: formData.phone || 'Not provided',
+      message: formData.message,
+      to_name: 'Smash Room', // Your business name
+    }
+
+    // Send email using EmailJS
+    emailjs
+      .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
       .then(() => {
         setSubmitSuccess(t('contact.success'))
         setFormData({ name: '', email: '', phone: '', message: '' })
       })
       .catch((err) => {
-        setSubmitError(err.message || t('contact.error'))
+        console.error('EmailJS error:', err)
+        setSubmitError(err.text || err.message || t('contact.error'))
       })
       .finally(() => setSubmitting(false))
   }
