@@ -61,7 +61,19 @@ const Contact = () => {
       })
       .catch((err) => {
         console.error('EmailJS error:', err)
-        setSubmitError(err.text || err.message || t('contact.error'))
+        let errorMessage = err.text || err.message || t('contact.error')
+        
+        // Provide helpful error messages for common issues
+        if (errorMessage.includes('Public Key is invalid') || errorMessage.includes('invalid')) {
+          errorMessage = 'Invalid Public Key. Please check your VITE_EMAILJS_PUBLIC_KEY in .env file. ' +
+            'Find your Public Key at: https://dashboard.emailjs.com/admin/account'
+        } else if (errorMessage.includes('Service ID') || errorMessage.includes('service')) {
+          errorMessage = 'Invalid Service ID. Please check your VITE_EMAILJS_SERVICE_ID in .env file.'
+        } else if (errorMessage.includes('Template') || errorMessage.includes('template')) {
+          errorMessage = 'Invalid Template ID. Please check your VITE_EMAILJS_TEMPLATE_ID in .env file.'
+        }
+        
+        setSubmitError(errorMessage)
       })
       .finally(() => setSubmitting(false))
   }

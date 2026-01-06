@@ -42,7 +42,13 @@ This message was sent from the Smash Room website.
 ## Step 4: Get Your Public Key
 
 1. Go to **Account** → **General** in EmailJS dashboard
-2. Find your **Public Key** (e.g., `xxxxxxxxxxxxxxxx`)
+   - Or directly visit: https://dashboard.emailjs.com/admin/account
+2. Look for the **Public Key** section
+3. The Public Key is a long string of characters (usually starts with letters/numbers, no spaces)
+   - Example format: `AbCdEfGhIjKlMnOpQrStUvWxYz123456`
+   - It's different from your Service ID and Template ID
+4. **Important:** Make sure you're copying the **Public Key**, not the Private Key or any other value
+5. Copy the entire Public Key (it should be one continuous string)
 
 ## Step 5: Configure Environment Variables
 
