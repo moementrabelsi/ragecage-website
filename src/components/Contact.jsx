@@ -40,9 +40,6 @@ const Contact = () => {
       return
     }
 
-    // Initialize EmailJS with public key
-    emailjs.init(EMAILJS_PUBLIC_KEY)
-
     // Prepare template parameters
     const templateParams = {
       from_name: formData.name,
@@ -53,8 +50,9 @@ const Contact = () => {
     }
 
     // Send email using EmailJS
+    // Pass public key as 4th parameter (recommended approach)
     emailjs
-      .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+      .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY)
       .then(() => {
         setSubmitSuccess(t('contact.success'))
         setFormData({ name: '', email: '', phone: '', message: '' })
@@ -64,7 +62,11 @@ const Contact = () => {
         let errorMessage = err.text || err.message || t('contact.error')
         
         // Provide helpful error messages for common issues
-        if (errorMessage.includes('Public Key is invalid') || errorMessage.includes('invalid')) {
+        if (errorMessage.includes('Account not found') || errorMessage.includes('404') || errorMessage.includes('not found')) {
+          errorMessage = 'Account not found. Please verify your Public Key is correct. ' +
+            'Check your Public Key at: https://dashboard.emailjs.com/admin/account ' +
+            'Make sure you copied the entire Public Key without any spaces.'
+        } else if (errorMessage.includes('Public Key is invalid') || errorMessage.includes('invalid')) {
           errorMessage = 'Invalid Public Key. Please check your VITE_EMAILJS_PUBLIC_KEY in .env file. ' +
             'Find your Public Key at: https://dashboard.emailjs.com/admin/account'
         } else if (errorMessage.includes('Service ID') || errorMessage.includes('service')) {
