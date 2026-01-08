@@ -187,6 +187,15 @@
     "closedMondays": "Closed on Mondays",
     "pastDate": "Past date",
     "rageRoomAlt": "Rage Room",
+    "days": {
+      "sun": "Sun",
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat"
+    },
     "confirmation": {
       "title1": "Booking",
       "title2": "Confirmed!",

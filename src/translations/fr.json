@@ -187,6 +187,15 @@
     "closedMondays": "Fermé le lundi",
     "pastDate": "Date passée",
     "rageRoomAlt": "Salle de Rage",
+    "days": {
+      "sun": "Dim",
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mer",
+      "thu": "Jeu",
+      "fri": "Ven",
+      "sat": "Sam"
+    },
     "confirmation": {
       "title1": "Réservation",
       "title2": "Confirmée !",

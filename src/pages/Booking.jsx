@@ -10,7 +10,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 
 const Booking = () => {
   const navigate = useNavigate()
-  const { t } = useTranslation()
+  const { t, language } = useTranslation()
   const [selectedDate, setSelectedDate] = useState(null)
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null)
   const [groupSize, setGroupSize] = useState(1)
@@ -278,7 +278,9 @@ const Booking = () => {
 
   // Format month and year for display
   const formatMonthYear = (month, year) => {
-    return new Date(year, month).toLocaleDateString('en-US', { 
+    // Use current language for locale (fr-FR for French, en-US for English)
+    const locale = language === 'fr' ? 'fr-FR' : 'en-US'
+    return new Date(year, month).toLocaleDateString(locale, { 
       month: 'long', 
       year: 'numeric' 
     })
@@ -628,7 +630,15 @@ const Booking = () => {
               </div>
               
               <div className="grid grid-cols-7 gap-1 sm:gap-2 mb-2 sm:mb-4">
-                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+                {[
+                  t('booking.days.sun'),
+                  t('booking.days.mon'),
+                  t('booking.days.tue'),
+                  t('booking.days.wed'),
+                  t('booking.days.thu'),
+                  t('booking.days.fri'),
+                  t('booking.days.sat')
+                ].map((day) => (
                   <div key={day} className="text-center text-gray-400 font-bold text-xs sm:text-sm py-1 sm:py-2">
                     {day}
                   </div>
