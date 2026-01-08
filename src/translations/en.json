@@ -200,6 +200,20 @@
       "am": "AM",
       "pm": "PM"
     },
+    "validation": {
+      "formHasErrors": "Please correct the errors in the form before submitting",
+      "firstNameRequired": "First name is required",
+      "firstNameMinLength": "First name must be at least 2 characters",
+      "firstNameInvalid": "First name can only contain letters, spaces, hyphens, and apostrophes",
+      "lastNameRequired": "Last name is required",
+      "lastNameMinLength": "Last name must be at least 2 characters",
+      "lastNameInvalid": "Last name can only contain letters, spaces, hyphens, and apostrophes",
+      "phoneRequired": "Phone number is required",
+      "phoneInvalid": "Phone number must contain only digits",
+      "phoneLength": "Phone number must be exactly 8 digits",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address"
+    },
     "confirmation": {
       "title1": "Booking",
       "title2": "Confirmed!",

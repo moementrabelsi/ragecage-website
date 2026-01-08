@@ -28,6 +28,14 @@ const Booking = () => {
   const [email, setEmail] = useState('')
   const [specialRequests, setSpecialRequests] = useState('')
   
+  // Validation errors state
+  const [validationErrors, setValidationErrors] = useState({
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: ''
+  })
+  
   // Current displayed month/year (defaults to current month)
   const today = new Date()
   const [displayMonth, setDisplayMonth] = useState(today.getMonth())
@@ -339,32 +347,142 @@ const Booking = () => {
     return selectedDate && date.toDateString() === selectedDate.toDateString()
   }
 
+  // Validation functions
+  const validateFirstName = (value) => {
+    const trimmed = value.trim()
+    if (!trimmed) {
+      return t('booking.validation.firstNameRequired')
+    }
+    if (trimmed.length < 2) {
+      return t('booking.validation.firstNameMinLength')
+    }
+    if (!/^[a-zA-ZÀ-ÿ\s'-]+$/.test(trimmed)) {
+      return t('booking.validation.firstNameInvalid')
+    }
+    return ''
+  }
+
+  const validateLastName = (value) => {
+    const trimmed = value.trim()
+    if (!trimmed) {
+      return t('booking.validation.lastNameRequired')
+    }
+    if (trimmed.length < 2) {
+      return t('booking.validation.lastNameMinLength')
+    }
+    if (!/^[a-zA-ZÀ-ÿ\s'-]+$/.test(trimmed)) {
+      return t('booking.validation.lastNameInvalid')
+    }
+    return ''
+  }
+
+  const validatePhoneNumber = (value) => {
+    const trimmed = value.trim()
+    if (!trimmed) {
+      return t('booking.validation.phoneRequired')
+    }
+    const cleaned = trimmed.replace(/\s+/g, '')
+    if (!/^\d+$/.test(cleaned)) {
+      return t('booking.validation.phoneInvalid')
+    }
+    if (cleaned.length !== 8) {
+      return t('booking.validation.phoneLength')
+    }
+    return ''
+  }
+
+  const validateEmail = (value) => {
+    const trimmed = value.trim()
+    if (!trimmed) {
+      return t('booking.validation.emailRequired')
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(trimmed)) {
+      return t('booking.validation.emailInvalid')
+    }
+    return ''
+  }
+
+  // Handle field validation on blur
+  const handleFieldBlur = (fieldName, value) => {
+    let error = ''
+    switch (fieldName) {
+      case 'firstName':
+        error = validateFirstName(value)
+        break
+      case 'lastName':
+        error = validateLastName(value)
+        break
+      case 'phoneNumber':
+        error = validatePhoneNumber(value)
+        break
+      case 'email':
+        error = validateEmail(value)
+        break
+      default:
+        break
+    }
+    setValidationErrors(prev => ({ ...prev, [fieldName]: error }))
+  }
+
+  // Handle field change with validation
+  const handleFieldChange = (fieldName, value, setter) => {
+    setter(value)
+    // Clear error when user starts typing
+    if (validationErrors[fieldName]) {
+      setValidationErrors(prev => ({ ...prev, [fieldName]: '' }))
+    }
+  }
+
+  // Check if form is valid
+  const isFormValid = () => {
+    if (!selectedDate || !selectedTimeSlot) return false
+    if (!firstName.trim() || !lastName.trim() || !phoneNumber.trim() || !email.trim()) return false
+    
+    // Check for validation errors
+    const firstNameError = validateFirstName(firstName)
+    const lastNameError = validateLastName(lastName)
+    const phoneError = validatePhoneNumber(phoneNumber)
+    const emailError = validateEmail(email)
+    
+    return !firstNameError && !lastNameError && !phoneError && !emailError
+  }
+
   const handleConfirmBooking = async () => {
     if (!selectedDate || !selectedTimeSlot) return
 
-    // Validate required fields
-    if (!firstName.trim() || !lastName.trim() || !phoneNumber.trim() || !email.trim()) {
-      setBookingError(t('booking.fillRequiredFields'))
+    // Validate all fields
+    const firstNameError = validateFirstName(firstName)
+    const lastNameError = validateLastName(lastName)
+    const phoneError = validatePhoneNumber(phoneNumber)
+    const emailError = validateEmail(email)
+
+    // Set all validation errors
+    setValidationErrors({
+      firstName: firstNameError,
+      lastName: lastNameError,
+      phoneNumber: phoneError,
+      email: emailError
+    })
+
+    // If any validation errors, don't proceed
+    if (firstNameError || lastNameError || phoneError || emailError) {
+      setBookingError(t('booking.validation.formHasErrors'))
       setBookingLoading(false)
+      // Scroll to first error field
+      const firstErrorField = firstNameError ? 'firstName' : 
+                             lastNameError ? 'lastName' : 
+                             phoneError ? 'phoneNumber' : 'email'
+      const errorElement = document.querySelector(`[name="${firstErrorField}"]`)
+      if (errorElement) {
+        errorElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        errorElement.focus()
+      }
       return
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email.trim())) {
-      setBookingError(t('booking.invalidEmail'))
-      setBookingLoading(false)
-      return
-    }
-
-    // Validate phone number (exactly 8 digits, remove spaces)
-    const phoneRegex = /^\d{8}$/
+    // Clean phone number (remove spaces)
     const cleanedPhone = phoneNumber.trim().replace(/\s+/g, '')
-    if (!phoneRegex.test(cleanedPhone)) {
-      setBookingError('Phone number must be exactly 8 digits')
-      setBookingLoading(false)
-      return
-    }
 
     setBookingLoading(true)
     setBookingError(null)
@@ -779,12 +897,21 @@ const Booking = () => {
                     </label>
                     <input
                       type="text"
+                      name="firstName"
                       value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
+                      onChange={(e) => handleFieldChange('firstName', e.target.value, setFirstName)}
+                      onBlur={(e) => handleFieldBlur('firstName', e.target.value)}
                       placeholder={t('booking.enterFirstName')}
-                      className="w-full px-4 py-3 rounded-lg bg-gray-800 border-2 border-gray-700/30 text-white placeholder-gray-500 focus:border-rage-yellow/40 focus:outline-none transition-all"
+                      className={`w-full px-4 py-3 rounded-lg bg-gray-800 border-2 text-white placeholder-gray-500 focus:outline-none transition-all ${
+                        validationErrors.firstName 
+                          ? 'border-red-500 focus:border-red-500' 
+                          : 'border-gray-700/30 focus:border-rage-yellow/40'
+                      }`}
                       required
                     />
+                    {validationErrors.firstName && (
+                      <p className="text-red-500 text-xs mt-1">{validationErrors.firstName}</p>
+                    )}
                   </div>
 
                   <div>
@@ -793,12 +920,21 @@ const Booking = () => {
                     </label>
                     <input
                       type="text"
+                      name="lastName"
                       value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
+                      onChange={(e) => handleFieldChange('lastName', e.target.value, setLastName)}
+                      onBlur={(e) => handleFieldBlur('lastName', e.target.value)}
                       placeholder={t('booking.enterLastName')}
-                      className="w-full px-4 py-3 rounded-lg bg-gray-800 border-2 border-gray-700/30 text-white placeholder-gray-500 focus:border-rage-yellow/40 focus:outline-none transition-all"
+                      className={`w-full px-4 py-3 rounded-lg bg-gray-800 border-2 text-white placeholder-gray-500 focus:outline-none transition-all ${
+                        validationErrors.lastName 
+                          ? 'border-red-500 focus:border-red-500' 
+                          : 'border-gray-700/30 focus:border-rage-yellow/40'
+                      }`}
                       required
                     />
+                    {validationErrors.lastName && (
+                      <p className="text-red-500 text-xs mt-1">{validationErrors.lastName}</p>
+                    )}
                   </div>
 
                   <div>
@@ -807,17 +943,26 @@ const Booking = () => {
                     </label>
                     <input
                       type="tel"
+                      name="phoneNumber"
                       value={phoneNumber}
                       onChange={(e) => {
-                        // Only allow digits and spaces, limit to 8 digits
+                        // Only allow digits and spaces, limit to 12 characters (for spaces)
                         const value = e.target.value.replace(/[^\d\s]/g, '').slice(0, 12)
-                        setPhoneNumber(value)
+                        handleFieldChange('phoneNumber', value, setPhoneNumber)
                       }}
+                      onBlur={(e) => handleFieldBlur('phoneNumber', e.target.value)}
                       placeholder="12345678"
                       maxLength={12}
-                      className="w-full px-4 py-3 rounded-lg bg-gray-800 border-2 border-gray-700/30 text-white placeholder-gray-500 focus:border-rage-yellow/40 focus:outline-none transition-all"
+                      className={`w-full px-4 py-3 rounded-lg bg-gray-800 border-2 text-white placeholder-gray-500 focus:outline-none transition-all ${
+                        validationErrors.phoneNumber 
+                          ? 'border-red-500 focus:border-red-500' 
+                          : 'border-gray-700/30 focus:border-rage-yellow/40'
+                      }`}
                       required
                     />
+                    {validationErrors.phoneNumber && (
+                      <p className="text-red-500 text-xs mt-1">{validationErrors.phoneNumber}</p>
+                    )}
                   </div>
 
                   <div>
@@ -826,12 +971,21 @@ const Booking = () => {
                     </label>
                     <input
                       type="email"
+                      name="email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => handleFieldChange('email', e.target.value, setEmail)}
+                      onBlur={(e) => handleFieldBlur('email', e.target.value)}
                       placeholder="your.email@example.com"
-                      className="w-full px-4 py-3 rounded-lg bg-gray-800 border-2 border-gray-700/30 text-white placeholder-gray-500 focus:border-rage-yellow/40 focus:outline-none transition-all"
+                      className={`w-full px-4 py-3 rounded-lg bg-gray-800 border-2 text-white placeholder-gray-500 focus:outline-none transition-all ${
+                        validationErrors.email 
+                          ? 'border-red-500 focus:border-red-500' 
+                          : 'border-gray-700/30 focus:border-rage-yellow/40'
+                      }`}
                       required
                     />
+                    {validationErrors.email && (
+                      <p className="text-red-500 text-xs mt-1">{validationErrors.email}</p>
+                    )}
                   </div>
 
                   <div>
@@ -921,12 +1075,12 @@ const Booking = () => {
               {/* Confirm Button */}
               <motion.button
                 onClick={handleConfirmBooking}
-                whileHover={!bookingLoading && selectedDate && selectedTimeSlot && firstName && lastName && phoneNumber && email ? { scale: 1.05 } : {}}
-                whileTap={!bookingLoading && selectedDate && selectedTimeSlot && firstName && lastName && phoneNumber && email ? { scale: 0.95 } : {}}
-                disabled={!selectedDate || !selectedTimeSlot || !firstName.trim() || !lastName.trim() || !phoneNumber.trim() || !email.trim() || bookingLoading}
+                whileHover={!bookingLoading && isFormValid() ? { scale: 1.05 } : {}}
+                whileTap={!bookingLoading && isFormValid() ? { scale: 0.95 } : {}}
+                disabled={!isFormValid() || bookingLoading}
                   className={`
                   w-full py-4 px-6 rounded-xl font-black text-lg uppercase tracking-wide transition-all duration-300
-                  ${selectedDate && selectedTimeSlot && firstName.trim() && lastName.trim() && phoneNumber.trim() && email.trim() && !bookingLoading
+                  ${isFormValid() && !bookingLoading
                     ? 'bg-rage-yellow border-2 border-rage-yellow text-rage-black hover:bg-rage-yellow/90 shadow-lg hover:shadow-xl hover:shadow-rage-yellow/30'
                     : 'bg-gray-800/50 border border-gray-700/30 text-gray-500 cursor-not-allowed'
                   }
@@ -942,7 +1096,7 @@ const Booking = () => {
                 )}
               </motion.button>
 
-              {(!selectedDate || !selectedTimeSlot || !firstName.trim() || !lastName.trim() || !phoneNumber.trim() || !email.trim()) && !bookingLoading && (
+              {!isFormValid() && !bookingLoading && (
                 <p className="text-gray-500 text-xs mt-3 text-center">
                   {t('booking.fillFields')}
                 </p>
