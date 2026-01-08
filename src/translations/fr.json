@@ -196,6 +196,10 @@
       "fri": "Ven",
       "sat": "Sam"
     },
+    "time": {
+      "am": "AM",
+      "pm": "PM"
+    },
     "confirmation": {
       "title1": "Réservation",
       "title2": "Confirmée !",

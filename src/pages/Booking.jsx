@@ -169,7 +169,7 @@ const Booking = () => {
   const formatTimeSlot = (time) => {
     const [hours, minutes] = time.split(':')
     const hour = parseInt(hours)
-    const ampm = hour >= 12 ? 'PM' : 'AM'
+    const ampm = hour >= 12 ? t('booking.time.pm') : t('booking.time.am')
     const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour
     return `${displayHour}:${minutes} ${ampm}`
   }
@@ -269,7 +269,9 @@ const Booking = () => {
   }, [selectedDate])
 
   const formatDate = (date) => {
-    return date.toLocaleDateString('en-US', { 
+    // Use current language for locale (fr-FR for French, en-US for English)
+    const locale = language === 'fr' ? 'fr-FR' : 'en-US'
+    return date.toLocaleDateString(locale, { 
       weekday: 'short', 
       month: 'short', 
       day: 'numeric' 
@@ -892,7 +894,7 @@ const Booking = () => {
                 </div>
                 <div className="border-t border-gray-700/30 pt-4">
                   <div className="text-gray-400 text-sm mb-2">{t('booking.groupSize')}</div>
-                  <div className="text-white font-bold">{groupSize} {groupSize === 1 ? 'person' : 'people'}</div>
+                  <div className="text-white font-bold">{groupSize} {groupSize === 1 ? t('booking.person') : t('booking.people')}</div>
                 </div>
               </div>
 

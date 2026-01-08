@@ -196,6 +196,10 @@
       "fri": "Fri",
       "sat": "Sat"
     },
+    "time": {
+      "am": "AM",
+      "pm": "PM"
+    },
     "confirmation": {
       "title1": "Booking",
       "title2": "Confirmed!",
