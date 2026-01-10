@@ -173,6 +173,40 @@ const Booking = () => {
   // Get time slots for selected date (or empty array if no date selected)
   const allTimeSlots = selectedDate ? getTimeSlotsForDay(selectedDate.getDay()) : []
 
+  // Check if a time slot has passed (for today's date)
+  const isTimeSlotPast = (slot, date) => {
+    if (!date || !slot) return false
+    
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    
+    const selectedDateOnly = new Date(date)
+    selectedDateOnly.setHours(0, 0, 0, 0)
+    
+    // Only check for past slots if the selected date is today
+    if (selectedDateOnly.getTime() !== today.getTime()) {
+      return false
+    }
+    
+    // Parse the time slot (e.g., "14:30" -> hours: 14, minutes: 30)
+    const [hours, minutes] = slot.split(':').map(Number)
+    
+    // Get current time
+    const now = new Date()
+    const currentHours = now.getHours()
+    const currentMinutes = now.getMinutes()
+    
+    // Check if the slot time has passed
+    if (hours < currentHours) {
+      return true
+    }
+    if (hours === currentHours && minutes <= currentMinutes) {
+      return true
+    }
+    
+    return false
+  }
+
   // Format time slot for display (09:00 -> 9:00 AM)
   const formatTimeSlot = (time) => {
     const [hours, minutes] = time.split(':')
@@ -843,7 +877,8 @@ const Booking = () => {
                 {!loading && (
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
                     {allTimeSlots.map((slot, index) => {
-                      const isAvailable = availableSlots.includes(slot)
+                      const isPast = isTimeSlotPast(slot, selectedDate)
+                      const isAvailable = !isPast && availableSlots.includes(slot)
                       const isSelected = selectedTimeSlot === slot
                       
                       return (

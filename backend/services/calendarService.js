@@ -250,9 +250,37 @@ export async function getAvailableTimeSlots(dateString) {
     // Get time slots for this day of week
     const dayTimeSlots = getTimeSlotsForDay(dayOfWeek)
 
-    // Filter out booked slots
+    // Check if the date is today
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const selectedDateOnly = new Date(year, month - 1, day)
+    selectedDateOnly.setHours(0, 0, 0, 0)
+    const isToday = selectedDateOnly.getTime() === today.getTime()
+
+    // Filter out booked slots and past time slots (if today)
     const availableSlots = dayTimeSlots.filter(slot => {
-      return !isSlotBooked(slot, events, dateString)
+      // First check if slot is booked
+      if (isSlotBooked(slot, events, dateString)) {
+        return false
+      }
+
+      // If it's today, filter out past time slots
+      if (isToday) {
+        const [hours, minutes] = slot.split(':').map(Number)
+        const now = new Date()
+        const currentHours = now.getHours()
+        const currentMinutes = now.getMinutes()
+
+        // Check if the slot time has passed
+        if (hours < currentHours) {
+          return false
+        }
+        if (hours === currentHours && minutes <= currentMinutes) {
+          return false
+        }
+      }
+
+      return true
     })
 
     return availableSlots
