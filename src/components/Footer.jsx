@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-scroll'
-import { FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa'
+import { FaFacebook, FaInstagram, FaTiktok, FaYoutube, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa'
 import { useTranslation } from '../hooks/useTranslation'
 import logo from '../assets/logo/rage.png'
 
@@ -17,8 +17,8 @@ const Footer = () => {
   const socialLinks = [
     { icon: FaFacebook, url: '#', color: 'hover:text-blue-500', label: 'Facebook' },
     { icon: FaInstagram, url: '#', color: 'hover:text-pink-500', label: 'Instagram' },
-    { icon: FaTwitter, url: '#', color: 'hover:text-blue-400', label: 'Twitter' },
-    { icon: FaYoutube, url: '#', color: 'hover:text-rage-yellow', label: 'YouTube' },
+    { icon: FaTiktok, url: '#', color: 'hover:text-white', label: 'TikTok' },
+    { icon: FaYoutube, url: '#', color: 'hover:text-red-500', label: 'YouTube' },
   ]
 
   const faqItems = [
@@ -91,9 +91,10 @@ const Footer = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, y: -3 }}
-                  whileTap={{ scale: 0.9 }}
-                  className={`text-2xl text-gray-400 ${social.color} transition-colors duration-300`}
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className={`text-2xl text-gray-400 ${social.color} transition-colors duration-300 rage-icon-hover`}
                   aria-label={social.label}
                 >
                   <social.icon />
@@ -116,7 +117,7 @@ const Footer = () => {
                     smooth={true}
                     duration={500}
                     offset={-80}
-                    className="text-gray-400 hover:text-rage-yellow transition-colors duration-300 cursor-pointer text-sm font-semibold block magnetic"
+                    className="text-gray-400 hover:text-rage-yellow transition-colors duration-300 cursor-pointer text-sm font-semibold block magnetic rage-link-hover"
                   >
                     {link.name}
                   </Link>
@@ -162,7 +163,7 @@ const Footer = () => {
                   viewport={{ once: true }}
                   className="group"
                 >
-                  <summary className="text-gray-300 hover:text-rage-yellow cursor-pointer font-semibold text-sm mb-1 transition-colors duration-300">
+                  <summary className="text-gray-300 hover:text-rage-yellow cursor-pointer font-semibold text-sm mb-1 transition-colors duration-300 rage-link-hover">
                     {t(faq.questionKey)}
                   </summary>
                   <p className="text-gray-500 text-xs mt-2 ml-4 pl-2 border-l border-rage-yellow/20">
@@ -181,13 +182,13 @@ const Footer = () => {
               © {new Date().getFullYear()} Smash Room. {t('footer.copyright')}
             </p>
             <div className="flex space-x-6 text-sm">
-              <a href="#" className="text-gray-500 hover:text-rage-yellow transition-colors duration-300">
+              <a href="#" className="text-gray-500 hover:text-rage-yellow transition-colors duration-300 rage-link-hover">
                 {t('footer.privacy')}
               </a>
-              <a href="#" className="text-gray-500 hover:text-rage-yellow transition-colors duration-300">
+              <a href="#" className="text-gray-500 hover:text-rage-yellow transition-colors duration-300 rage-link-hover">
                 {t('footer.terms')}
               </a>
-              <a href="#" className="text-gray-500 hover:text-rage-yellow transition-colors duration-300">
+              <a href="#" className="text-gray-500 hover:text-rage-yellow transition-colors duration-300 rage-link-hover">
                 {t('footer.safety')}
               </a>
             </div>

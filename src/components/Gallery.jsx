@@ -173,7 +173,7 @@ const Gallery = () => {
                   boxShadow: "0 20px 40px rgba(254, 174, 17, 0.5)",
                   ...hoverVibrate
                 }}
-                className="relative overflow-hidden rounded-xl border border-rage-yellow/15 hover:border-rage-yellow/30 transition-all duration-300 cursor-pointer group bg-gray-900/95 backdrop-blur-sm min-w-full sm:min-w-0 snap-center sm:snap-none interactive-card shadow-lg hover:shadow-2xl hover:shadow-rage-yellow/10"
+                className="relative overflow-hidden rounded-xl border border-rage-yellow/15 hover:border-rage-yellow/30 transition-all duration-300 cursor-pointer group bg-gray-900/95 backdrop-blur-sm min-w-full sm:min-w-0 snap-center sm:snap-none interactive-card rage-card-hover shadow-lg hover:shadow-2xl hover:shadow-rage-yellow/10"
                 onClick={() => handleImageClick(index)}
               >
                 <div className="aspect-square overflow-hidden">

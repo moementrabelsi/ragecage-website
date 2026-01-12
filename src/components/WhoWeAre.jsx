@@ -126,23 +126,21 @@ const WhoWeAre = () => {
                 <motion.div
                   key={index}
                   variants={itemVariants}
-                  whileHover={{ 
-                    scale: 1.08, 
-                    y: -8,
-                    boxShadow: "0 10px 30px rgba(254, 174, 17, 0.3)",
-                    x: [0, -2, 2, -2, 2, 0],
-                    transition: { duration: 0.3 }
+                  whileHover={{
+                    scale: 1.02, 
+                    y: -6,
+                    boxShadow: "0 10px 30px rgba(254, 174, 17, 0.25)",
+                    transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }
                   }}
-                  className="bg-gray-800/60 backdrop-blur-sm p-6 sm:p-8 rounded-xl border border-rage-yellow/15 text-center hover:border-rage-yellow/30 transition-all duration-300 hover:bg-gray-800/80 group interactive-card shadow-lg hover:shadow-2xl hover:shadow-rage-yellow/10"
+                  className="bg-gray-800/60 backdrop-blur-sm p-6 sm:p-8 rounded-xl border border-rage-yellow/15 text-center hover:border-rage-yellow/30 transition-all duration-300 hover:bg-gray-800/80 group interactive-card rage-card-hover shadow-lg hover:shadow-2xl hover:shadow-rage-yellow/10"
                 >
                   <div className="mb-4 flex justify-center">
                     <motion.div
                       whileHover={{ 
-                        scale: 1.2,
-                        rotate: [0, -5, 5, -5, 5, 0],
-                        transition: { duration: 0.3 }
+                        scale: 1.1,
+                        transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }
                       }}
-                      className={`${feature.color} text-5xl`}
+                      className={`${feature.color} text-5xl rage-icon-hover`}
                     >
                       <IconComponent />
                     </motion.div>

@@ -13,6 +13,7 @@ export default {
       },
       fontFamily: {
         'rage': ['Feast of Flesh BB', 'Impact', 'Arial Black', 'sans-serif'],
+        'crashcourse': ['Crashcourse BB', 'Impact', 'Arial Black', 'sans-serif'],
       },
     },
   },

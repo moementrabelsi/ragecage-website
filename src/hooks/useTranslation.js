@@ -22,6 +22,13 @@ export const useTranslation = () => {
       }
     }
 
+    // Support interpolation: replace {{variable}} with options values
+    if (typeof value === 'string' && Object.keys(options).length > 0) {
+      return value.replace(/\{\{(\w+)\}\}/g, (match, varName) => {
+        return options[varName] !== undefined ? options[varName] : match
+      })
+    }
+
     return value
   }
 

@@ -79,7 +79,7 @@ const Navbar = () => {
                   smooth={true}
                   duration={500}
                   offset={-80}
-                  className="text-white hover:text-rage-yellow transition-colors duration-300 cursor-pointer font-rage uppercase tracking-wider relative group text-sm md:text-base lg:text-lg magnetic"
+                  className="text-white hover:text-rage-yellow transition-colors duration-300 cursor-pointer font-crashcourse uppercase tracking-wider relative group text-sm md:text-base lg:text-lg magnetic rage-link-hover"
                   activeClass="text-rage-yellow"
                 >
                   {item.name}
@@ -130,7 +130,7 @@ const Navbar = () => {
                   duration={500}
                   offset={-80}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block py-3 px-4 text-white hover:text-rage-yellow hover:bg-rage-yellow/10 transition-all duration-200 rounded-lg font-semibold uppercase tracking-wide text-sm"
+                  className="block py-3 px-4 text-white hover:text-rage-yellow hover:bg-rage-yellow/10 transition-all duration-200 rounded-lg font-crashcourse uppercase tracking-wide text-sm rage-link-hover"
                   activeClass="!text-rage-yellow bg-rage-yellow/10"
                 >
                   {item.name}

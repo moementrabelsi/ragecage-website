@@ -12,16 +12,15 @@ const ServiceButton = ({ serviceId }) => {
     <motion.button
       onClick={() => navigate('/booking')}
       whileHover={{
-        scale: 1.05,
-        x: [0, -2, 2, -2, 2, 0],
-        boxShadow: '0 0 20px rgba(254, 174, 17, 0.6)',
-        transition: { duration: 0.3 }
+        scale: 1.02,
+        boxShadow: '0 0 20px rgba(254, 174, 17, 0.4)',
+        transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }
       }}
       whileTap={{
         scale: 0.95,
         boxShadow: '0 0 15px rgba(254, 174, 17, 0.8)'
       }}
-      className="w-full bg-rage-yellow text-rage-black font-rage py-4 px-6 rounded-lg border-2 border-rage-yellow uppercase tracking-wider shadow-lg rage-glow relative overflow-hidden"
+      className="w-full bg-rage-yellow text-rage-black font-rage py-4 px-6 rounded-lg border-2 border-rage-yellow uppercase tracking-wider shadow-lg rage-glow rage-button-hover relative overflow-hidden"
     >
       {t('services.bookButton')}
     </motion.button>
@@ -130,11 +129,12 @@ const ServicesRooms = () => {
               key={service.id}
               variants={cardVariants}
               whileHover={{
-                y: -15,
-                scale: 1.03,
-                boxShadow: '0 20px 40px rgba(254,174,17,0.4)'
+                y: -8,
+                scale: 1.01,
+                boxShadow: '0 15px 35px rgba(254,174,17,0.3)',
+                transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
               }}
-              className="bg-gray-900/95 rounded-xl overflow-hidden border border-rage-yellow/15 shadow-lg flex flex-col"
+              className="bg-gray-900/95 rounded-xl overflow-hidden border border-rage-yellow/15 shadow-lg flex flex-col rage-card-hover"
             >
               {/* IMAGE – UNCHANGED */}
               <div className="relative h-64 overflow-hidden">

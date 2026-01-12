@@ -146,9 +146,23 @@
     "sendButton": "Envoyer le Message",
     "sending": "Envoi...",
     "success": "Message envoyé ! Nous vous répondrons bientôt.",
-    "error": "Échec de l'envoi du message. Veuillez réessayer.",
+    "phoneNotProvided": "Non fourni",
     "address": "12 Rue El Yasmina El Menzah 1, Tunis",
-    "emailAddress": "info@smashroom.com"
+    "emailAddress": "info@smashroom.com",
+    "error": {
+      "title": "Erreur d'Envoi du Message",
+      "configMissing": "Le service de messagerie n'est pas configuré. Veuillez ajouter les variables d'environnement suivantes à votre fichier .env :\n\n{{missingVars}}\n\nConsultez {{setupGuide}} pour les instructions de configuration ou visitez {{dashboardUrl}}",
+      "accountNotFound": "Compte EmailJS introuvable. Veuillez vérifier que votre clé publique est correcte. Vérifiez-la sur : https://dashboard.emailjs.com/admin/account",
+      "invalidPublicKey": "Clé publique invalide. Veuillez vérifier votre VITE_EMAILJS_PUBLIC_KEY dans le fichier .env. Trouvez votre clé publique sur : https://dashboard.emailjs.com/admin/account",
+      "invalidServiceId": "ID de service invalide. Veuillez vérifier votre VITE_EMAILJS_SERVICE_ID dans le fichier .env. Vérifiez-le dans votre tableau de bord EmailJS.",
+      "invalidTemplateId": "ID de modèle invalide. Veuillez vérifier votre VITE_EMAILJS_TEMPLATE_ID dans le fichier .env. Vérifiez-le dans votre tableau de bord EmailJS.",
+      "quotaExceeded": "Quota de messagerie dépassé. Vous avez atteint votre limite mensuelle. Veuillez mettre à niveau votre plan EmailJS ou attendre le mois prochain.",
+      "networkError": "Erreur réseau. Veuillez vérifier votre connexion Internet et réessayer.",
+      "generic": "Échec de l'envoi du message : {{details}}",
+      "unknown": "Une erreur inconnue s'est produite",
+      "requiredEnvVars": "Variables d'Environnement Requises :",
+      "envHelp": "Ajoutez-les à votre fichier .env à la racine du projet et redémarrez votre serveur de développement."
+    }
   },
   "booking": {
     "title": "Réserver Votre Session de Rage",

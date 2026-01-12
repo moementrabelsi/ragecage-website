@@ -1,18 +1,27 @@
 import { motion, useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
-import { FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa'
+import { useRef, useState, useMemo, useCallback } from 'react'
+import { FaFacebook, FaInstagram, FaTiktok, FaYoutube, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa'
 import { useTranslation } from '../hooks/useTranslation'
 import emailjs from '@emailjs/browser'
+
+// EmailJS configuration constants
+const EMAILJS_CONFIG = {
+  SERVICE_ID: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+  TEMPLATE_ID: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+  PUBLIC_KEY: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+}
+
+// Required environment variables
+const REQUIRED_ENV_VARS = [
+  { key: 'VITE_EMAILJS_SERVICE_ID', label: 'Service ID' },
+  { key: 'VITE_EMAILJS_TEMPLATE_ID', label: 'Template ID' },
+  { key: 'VITE_EMAILJS_PUBLIC_KEY', label: 'Public Key' },
+]
 
 const Contact = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const { t } = useTranslation()
-  
-  // EmailJS configuration from environment variables
-  const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
-  const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-  const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
   
   const [formData, setFormData] = useState({
     name: '',
@@ -24,18 +33,67 @@ const Contact = () => {
   const [submitError, setSubmitError] = useState('')
   const [submitSuccess, setSubmitSuccess] = useState('')
 
-  const handleSubmit = (e) => {
+  // Check if EmailJS is configured
+  const isEmailJSConfigured = useMemo(() => {
+    return !!(EMAILJS_CONFIG.SERVICE_ID && EMAILJS_CONFIG.TEMPLATE_ID && EMAILJS_CONFIG.PUBLIC_KEY)
+  }, [])
+
+  // Get missing environment variables
+  const missingEnvVars = useMemo(() => {
+    return REQUIRED_ENV_VARS.filter(envVar => {
+      const value = import.meta.env[envVar.key]
+      return !value || value.trim() === ''
+    })
+  }, [])
+
+  // Format error message for missing configuration
+  const getConfigError = useCallback(() => {
+    if (missingEnvVars.length === 0) return null
+    
+    const missingList = missingEnvVars.map(v => `• ${v.key} (${v.label})`).join('\n')
+    return t('contact.error.configMissing', {
+      missingVars: missingList,
+      setupGuide: 'EMAILJS_SETUP.md',
+      dashboardUrl: 'https://dashboard.emailjs.com/admin/account'
+    })
+  }, [missingEnvVars, t])
+
+  // Format error message from EmailJS error
+  const formatEmailJSError = useCallback((error) => {
+    const errorText = error.text || error.message || ''
+    const lowerError = errorText.toLowerCase()
+
+    if (lowerError.includes('account not found') || lowerError.includes('404') || lowerError.includes('not found')) {
+      return t('contact.error.accountNotFound')
+    }
+    if (lowerError.includes('public key') && (lowerError.includes('invalid') || lowerError.includes('incorrect'))) {
+      return t('contact.error.invalidPublicKey')
+    }
+    if (lowerError.includes('service id') || (lowerError.includes('service') && lowerError.includes('invalid'))) {
+      return t('contact.error.invalidServiceId')
+    }
+    if (lowerError.includes('template') && (lowerError.includes('invalid') || lowerError.includes('not found'))) {
+      return t('contact.error.invalidTemplateId')
+    }
+    if (lowerError.includes('quota') || lowerError.includes('limit')) {
+      return t('contact.error.quotaExceeded')
+    }
+    if (lowerError.includes('network') || lowerError.includes('connection')) {
+      return t('contact.error.networkError')
+    }
+
+    return t('contact.error.generic', { details: errorText || t('contact.error.unknown') })
+  }, [t])
+
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault()
     setSubmitting(true)
     setSubmitError('')
     setSubmitSuccess('')
 
     // Validate EmailJS configuration
-    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
-      setSubmitError(
-        'Email service not configured. Please add EmailJS credentials to your .env file. ' +
-        'See EMAILJS_SETUP.md for instructions or visit https://www.emailjs.com/'
-      )
+    if (!isEmailJSConfigured) {
+      setSubmitError(getConfigError())
       setSubmitting(false)
       return
     }
@@ -44,55 +102,48 @@ const Contact = () => {
     const templateParams = {
       from_name: formData.name,
       from_email: formData.email,
-      phone: formData.phone || 'Not provided',
+      phone: formData.phone || t('contact.phoneNotProvided'),
       message: formData.message,
-      to_name: 'Smash Room', // Your business name
+      to_name: 'Smash Room',
     }
 
-    // Send email using EmailJS
-    // Pass public key as 4th parameter (recommended approach)
-    emailjs
-      .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY)
-      .then(() => {
-        setSubmitSuccess(t('contact.success'))
-        setFormData({ name: '', email: '', phone: '', message: '' })
-      })
-      .catch((err) => {
-        console.error('EmailJS error:', err)
-        let errorMessage = err.text || err.message || t('contact.error')
-        
-        // Provide helpful error messages for common issues
-        if (errorMessage.includes('Account not found') || errorMessage.includes('404') || errorMessage.includes('not found')) {
-          errorMessage = 'Account not found. Please verify your Public Key is correct. ' +
-            'Check your Public Key at: https://dashboard.emailjs.com/admin/account ' +
-            'Make sure you copied the entire Public Key without any spaces.'
-        } else if (errorMessage.includes('Public Key is invalid') || errorMessage.includes('invalid')) {
-          errorMessage = 'Invalid Public Key. Please check your VITE_EMAILJS_PUBLIC_KEY in .env file. ' +
-            'Find your Public Key at: https://dashboard.emailjs.com/admin/account'
-        } else if (errorMessage.includes('Service ID') || errorMessage.includes('service')) {
-          errorMessage = 'Invalid Service ID. Please check your VITE_EMAILJS_SERVICE_ID in .env file.'
-        } else if (errorMessage.includes('Template') || errorMessage.includes('template')) {
-          errorMessage = 'Invalid Template ID. Please check your VITE_EMAILJS_TEMPLATE_ID in .env file.'
-        }
-        
-        setSubmitError(errorMessage)
-      })
-      .finally(() => setSubmitting(false))
-  }
+    try {
+      await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
+        templateParams,
+        EMAILJS_CONFIG.PUBLIC_KEY
+      )
+      setSubmitSuccess(t('contact.success'))
+      setFormData({ name: '', email: '', phone: '', message: '' })
+    } catch (err) {
+      console.error('EmailJS error:', err)
+      setSubmitError(formatEmailJSError(err))
+    } finally {
+      setSubmitting(false)
+    }
+  }, [formData, isEmailJSConfigured, getConfigError, formatEmailJSError, t])
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
+  const handleChange = useCallback((e) => {
+    setFormData(prev => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    })
-  }
+    }))
+  }, [])
 
-  const socialLinks = [
+  // Memoized static data
+  const socialLinks = useMemo(() => [
     { icon: FaFacebook, url: '#', color: 'hover:text-blue-500' },
     { icon: FaInstagram, url: '#', color: 'hover:text-pink-500' },
-    { icon: FaTwitter, url: '#', color: 'hover:text-blue-400' },
-    { icon: FaYoutube, url: '#', color: 'hover:text-rage-yellow' },
-  ]
+    { icon: FaTiktok, url: '#', color: 'hover:text-white' },
+    { icon: FaYoutube, url: '#', color: 'hover:text-red-500' },
+  ], [])
+
+  const contactInfoItems = useMemo(() => [
+    { icon: FaMapMarkerAlt, textKey: 'contact.address' },
+    { icon: FaPhone, textKey: 'contact.phone' },
+    { icon: FaEnvelope, textKey: 'contact.emailAddress' },
+  ], [])
 
 
   return (
@@ -179,20 +230,52 @@ const Contact = () => {
                 className={`w-full font-rage py-4 px-8 rounded-xl transition-all duration-300 border-2 uppercase tracking-wider shadow-lg ${
                   submitting
                     ? 'bg-gray-700/50 border-gray-600/50 text-gray-400 cursor-not-allowed'
-                    : 'bg-rage-yellow hover:bg-rage-yellow text-rage-black border-rage-yellow hover:border-rage-yellow rage-glow hover:shadow-xl hover:shadow-rage-yellow/30'
+                    : 'bg-rage-yellow hover:bg-rage-yellow text-rage-black border-rage-yellow hover:border-rage-yellow rage-glow rage-button-hover hover:shadow-xl hover:shadow-rage-yellow/30'
                 }`}
               >
                 {submitting ? t('contact.sending') : t('contact.sendButton')}
               </motion.button>
               {submitSuccess && (
-                <div className="bg-green-700/30 border border-green-500 text-green-100 text-sm rounded-lg p-3">
-                  {submitSuccess}
-                </div>
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-green-700/30 border border-green-500 text-green-100 text-sm rounded-lg p-4"
+                >
+                  <div className="flex items-start">
+                    <span className="text-green-400 mr-2">✓</span>
+                    <div>{submitSuccess}</div>
+                  </div>
+                </motion.div>
               )}
               {submitError && (
-                <div className="bg-red-700/30 border border-red-500 text-red-100 text-sm rounded-lg p-3">
-                  {submitError}
-                </div>
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-red-700/30 border border-red-500 text-red-100 text-sm rounded-lg p-4"
+                >
+                  <div className="flex items-start">
+                    <span className="text-red-400 mr-2">⚠</span>
+                    <div className="flex-1">
+                      <div className="font-semibold mb-2">{t('contact.error.title')}</div>
+                      <div className="whitespace-pre-line text-xs leading-relaxed">{submitError}</div>
+                      {!isEmailJSConfigured && missingEnvVars.length > 0 && (
+                        <div className="mt-3 pt-3 border-t border-red-600/50">
+                          <div className="font-semibold mb-2 text-xs">{t('contact.error.requiredEnvVars')}</div>
+                          <div className="bg-red-900/30 rounded p-2 font-mono text-xs">
+                            {missingEnvVars.map((envVar, idx) => (
+                              <div key={idx} className="mb-1">
+                                {envVar.key}={'{your_value_here}'}
+                              </div>
+                            ))}
+                          </div>
+                          <div className="mt-2 text-xs opacity-90">
+                            {t('contact.error.envHelp')}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
               )}
             </form>
           </motion.div>
@@ -207,11 +290,7 @@ const Contact = () => {
             <div>
               <h3 className="text-xl sm:text-2xl font-bold text-rage-yellow mb-4 md:mb-6">{t('contact.getInTouch')}</h3>
               <div className="space-y-4">
-                {[
-                  { icon: FaMapMarkerAlt, textKey: 'contact.address' },
-                  { icon: FaPhone, textKey: 'contact.phone' },
-                  { icon: FaEnvelope, textKey: 'contact.emailAddress' },
-                ].map((info, index) => {
+                {contactInfoItems.map((info, index) => {
                   const IconComponent = info.icon
                   return (
                     <motion.div
@@ -241,7 +320,7 @@ const Contact = () => {
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.2, y: -5 }}
                     whileTap={{ scale: 0.9 }}
-                    className={`text-3xl text-gray-400 ${social.color} transition-colors duration-300`}
+                    className={`text-3xl text-gray-400 ${social.color} transition-colors duration-300 rage-icon-hover`}
                   >
                     <social.icon />
                   </motion.a>

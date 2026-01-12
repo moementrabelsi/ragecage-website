@@ -146,9 +146,23 @@
     "sendButton": "Send Message",
     "sending": "Sending...",
     "success": "Message sent! We will get back to you soon.",
-    "error": "Failed to send message. Please try again.",
+    "phoneNotProvided": "Not provided",
     "address": "12 Rue El Yasmina El Menzah 1, Tunis",
-    "emailAddress": "info@smashroom.com"
+    "emailAddress": "info@smashroom.com",
+    "error": {
+      "title": "Error Sending Message",
+      "configMissing": "Email service is not configured. Please add the following environment variables to your .env file:\n\n{{missingVars}}\n\nSee {{setupGuide}} for setup instructions or visit {{dashboardUrl}}",
+      "accountNotFound": "EmailJS account not found. Please verify your Public Key is correct. Check it at: https://dashboard.emailjs.com/admin/account",
+      "invalidPublicKey": "Invalid Public Key. Please check your VITE_EMAILJS_PUBLIC_KEY in .env file. Find your Public Key at: https://dashboard.emailjs.com/admin/account",
+      "invalidServiceId": "Invalid Service ID. Please check your VITE_EMAILJS_SERVICE_ID in .env file. Verify it in your EmailJS dashboard.",
+      "invalidTemplateId": "Invalid Template ID. Please check your VITE_EMAILJS_TEMPLATE_ID in .env file. Verify it in your EmailJS dashboard.",
+      "quotaExceeded": "Email quota exceeded. You've reached your monthly limit. Please upgrade your EmailJS plan or wait until next month.",
+      "networkError": "Network error. Please check your internet connection and try again.",
+      "generic": "Failed to send message: {{details}}",
+      "unknown": "Unknown error occurred",
+      "requiredEnvVars": "Required Environment Variables:",
+      "envHelp": "Add these to your .env file in the project root and restart your development server."
+    }
   },
   "booking": {
     "title": "Book Your Rage Session",
