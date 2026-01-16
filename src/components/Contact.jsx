@@ -134,7 +134,7 @@ const Contact = () => {
   // Memoized static data
   const socialLinks = useMemo(() => [
     { icon: FaFacebook, url: '#', color: 'hover:text-blue-500' },
-    { icon: FaInstagram, url: '#', color: 'hover:text-pink-500' },
+    { icon: FaInstagram, url: 'https://www.instagram.com/smashroomtn?igsh=d3RyamxnamkxcHht', color: 'hover:text-pink-500' },
     { icon: FaTiktok, url: '#', color: 'hover:text-white' },
     { icon: FaYoutube, url: '#', color: 'hover:text-red-500' },
   ], [])

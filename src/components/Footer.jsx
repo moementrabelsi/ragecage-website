@@ -16,7 +16,7 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: FaFacebook, url: '#', color: 'hover:text-blue-500', label: 'Facebook' },
-    { icon: FaInstagram, url: '#', color: 'hover:text-pink-500', label: 'Instagram' },
+    { icon: FaInstagram, url: 'https://www.instagram.com/smashroomtn?igsh=d3RyamxnamkxcHht', color: 'hover:text-pink-500', label: 'Instagram' },
     { icon: FaTiktok, url: '#', color: 'hover:text-white', label: 'TikTok' },
     { icon: FaYoutube, url: '#', color: 'hover:text-red-500', label: 'YouTube' },
   ]
@@ -50,8 +50,8 @@ const Footer = () => {
 
   const contactInfo = [
     { icon: FaMapMarkerAlt, text: '12 Rue El Yasmina El Menzah 1, Tunis' },
-    { icon: FaPhone, text: '+1 (555) 123-4567' },
-    { icon: FaEnvelope, text: 'info@smashroom.com' },
+    { icon: FaPhone, text: '(+216) 28 518 686' },
+    { icon: FaEnvelope, text: 'smashroomtn@gmail.com' },
   ]
 
   return (
