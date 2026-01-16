@@ -140,9 +140,9 @@ const Contact = () => {
   ], [])
 
   const contactInfoItems = useMemo(() => [
-    { icon: FaMapMarkerAlt, textKey: 'contact.address' },
-    { icon: FaPhone, textKey: 'contact.phone' },
-    { icon: FaEnvelope, textKey: 'contact.emailAddress' },
+    { icon: FaMapMarkerAlt, textKey: 'contact.address', isLink: false },
+    { icon: FaPhone, textKey: 'contact.phone', isLink: true, linkType: 'tel' },
+    { icon: FaEnvelope, textKey: 'contact.emailAddress', isLink: true, linkType: 'mailto' },
   ], [])
 
 
@@ -292,6 +292,13 @@ const Contact = () => {
               <div className="space-y-4">
                 {contactInfoItems.map((info, index) => {
                   const IconComponent = info.icon
+                  const text = t(info.textKey)
+                  const href = info.isLink 
+                    ? info.linkType === 'tel' 
+                      ? `tel:${text.replace(/[\s()]/g, '')}` 
+                      : `mailto:${text}`
+                    : null
+                  
                   return (
                     <motion.div
                       key={index}
@@ -301,7 +308,16 @@ const Contact = () => {
                       className="flex items-center space-x-4 text-gray-300"
                     >
                       <IconComponent className="text-rage-yellow text-xl" />
-                      <span>{t(info.textKey)}</span>
+                      {info.isLink ? (
+                        <a 
+                          href={href}
+                          className="hover:text-rage-yellow transition-colors duration-300 rage-link-hover"
+                        >
+                          {text}
+                        </a>
+                      ) : (
+                        <span>{text}</span>
+                      )}
                     </motion.div>
                   )
                 })}

@@ -49,9 +49,9 @@ const Footer = () => {
   ]
 
   const contactInfo = [
-    { icon: FaMapMarkerAlt, text: '12 Rue El Yasmina El Menzah 1, Tunis' },
-    { icon: FaPhone, text: '(+216) 28 518 686' },
-    { icon: FaEnvelope, text: 'smashroomtn@gmail.com' },
+    { icon: FaMapMarkerAlt, text: '12 Rue El Yasmina El Menzah 1, Tunis', isLink: false },
+    { icon: FaPhone, text: '(+216) 28 518 686', isLink: true, linkType: 'tel' },
+    { icon: FaEnvelope, text: 'smashroomtn@gmail.com', isLink: true, linkType: 'mailto' },
   ]
 
   return (
@@ -132,19 +132,36 @@ const Footer = () => {
               {t('footer.contactUs')}
             </h3>
             <ul className="space-y-3">
-              {contactInfo.map((info) => (
-                <motion.li
-                  key={info.text}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5 }}
-                  viewport={{ once: true }}
-                  className="flex items-start space-x-3 text-gray-400 text-sm"
-                >
-                  <info.icon className="text-rage-yellow text-lg mt-1 flex-shrink-0" />
-                  <span>{info.text}</span>
-                </motion.li>
-              ))}
+              {contactInfo.map((info) => {
+                const href = info.isLink 
+                  ? info.linkType === 'tel' 
+                    ? `tel:${info.text.replace(/[\s()]/g, '')}` 
+                    : `mailto:${info.text}`
+                  : null
+                
+                return (
+                  <motion.li
+                    key={info.text}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5 }}
+                    viewport={{ once: true }}
+                    className="flex items-start space-x-3 text-gray-400 text-sm"
+                  >
+                    <info.icon className="text-rage-yellow text-lg mt-1 flex-shrink-0" />
+                    {info.isLink ? (
+                      <a 
+                        href={href}
+                        className="hover:text-rage-yellow transition-colors duration-300 rage-link-hover"
+                      >
+                        {info.text}
+                      </a>
+                    ) : (
+                      <span>{info.text}</span>
+                    )}
+                  </motion.li>
+                )
+              })}
             </ul>
           </div>
 
