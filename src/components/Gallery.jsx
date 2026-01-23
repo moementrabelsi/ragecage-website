@@ -10,40 +10,39 @@ const Gallery = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const { t } = useTranslation()
 
-  // Rage room gallery images - smashing, protective gear, action scenes
   const images = [
     {
-      url: 'https://www.rageroomwreckit.be/gallery/thumb/img_36.jpg',
+      url: '/images/gallery/1.jpg',
       titleKey: 'gallery.images.glassSmashing.title',
       descriptionKey: 'gallery.images.glassSmashing.description'
     },
     {
-      url: 'https://www.rageroomwreckit.be/gallery/thumb/img_25.jpg',
+      url: '/images/gallery/2.jpg',
       titleKey: 'gallery.images.electronics.title',
       descriptionKey: 'gallery.images.electronics.description'
     },
     {
-      url: 'https://www.rageroomwreckit.be/gallery/thumb/img_24.jpg',
+      url: '/images/gallery/3.jpg',
       titleKey: 'gallery.images.furniture.title',
       descriptionKey: 'gallery.images.furniture.description'
     },
     {
-      url: 'https://images.squarespace-cdn.com/content/v1/64b80e5b1e8d1519429638e2/7afbb655-1b30-4db8-ba33-8355cc91aa15/Rage+Room+bats+and+clubs+.jpg?format=1500w',
+      url: '/images/gallery/4.jpg',
       titleKey: 'gallery.images.destruction.title',
       descriptionKey: 'gallery.images.destruction.description'
     },
     {
-      url: 'https://www.therageroom.nl/wp-content/uploads/2025/02/group-of-five-with-bats-under-red-led-lights-in-rage-room.jpeg',
+      url: '/images/gallery/5.jpg',
       titleKey: 'gallery.images.highEnergy.title',
       descriptionKey: 'gallery.images.highEnergy.description'
     },
     {
-      url: 'https://www.therageroom.nl/wp-content/uploads/2025/02/team-excitement-before-rage-room-experience.jpeg',
+      url: '/images/gallery/6.jpg',
       titleKey: 'gallery.images.themed.title',
       descriptionKey: 'gallery.images.themed.description'
     },
     {
-      url: 'https://www.therageroom.nl/wp-content/uploads/2025/02/two-people-in-safety-gear-posing-with-a-bat-and-crowbar-in-a-rage-room.jpg',
+      url: '/images/gallery/7.jpg',
       titleKey: 'gallery.images.group.title',
       descriptionKey: 'gallery.images.group.description'
     }

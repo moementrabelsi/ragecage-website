@@ -1,0 +1,24 @@
+{
+  "hero": {
+    "title": "SMASH. BREAK. DESTROY. RELEASE.",
+    "subtitle": "Controlled Destruction. Maximum Relie.",
+    "buttonText": "Book Your Rage Session"
+  },
+  "contact": {
+    "address": "12 Rue El Yasmina El Menzah 1, Tunis",
+    "phone": "(+216) 28 518 686",
+    "email": "smashroomtn@gmail.com"
+  },
+  "social": {
+    "facebook": "#",
+    "instagram": "#",
+    "tiktok": "#",
+    "youtube": "#"
+  },
+  "gallery": {
+    "images": []
+  },
+  "services": {
+    "rooms": []
+  }
+}

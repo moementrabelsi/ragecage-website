@@ -13,15 +13,13 @@ const HeroCarousel = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
-  // Rage room specific images - breaking, smashing, destruction
   const images = [
-    'https://images.unsplash.com/photo-1612117750856-79d6b2ce3998?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Broken glass shards
-    'https://images.unsplash.com/photo-1621434428956-5d9c872e607f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Destruction scene
-    'https://www.therageroom.nl/wp-content/uploads/2025/02/group-of-five-with-bats-under-red-led-lights-in-rage-room.jpeg', // Smashing action
-    'https://www.therageroom.nl/wp-content/uploads/2025/02/two-people-in-safety-gear-posing-with-a-bat-and-crowbar-in-a-rage-room.jpg', // High-energy destruction
+    '/images/hero/1.jpg',
+    '/images/hero/2.jpg',
+    '/images/hero/3.jpg',
+    '/images/hero/4.jpg',
   ]
 
-  // Shaking animation effect
   useEffect(() => {
     const interval = setInterval(() => {
       setIsShaking(true)
@@ -81,12 +79,9 @@ const HeroCarousel = () => {
                 transition={{ duration: 0.3 }}
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80"></div>
-              {/* Aggressive overlay effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-rage-red/5 via-transparent to-rage-yellow/5"></div>
-              {/* Subtle crack pattern overlay */}
               <div className="absolute inset-0 opacity-10 cracked-overlay"></div>
               
-              {/* Slogan Overlay - Consistent on all slides */}
               <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
@@ -168,7 +163,6 @@ const HeroCarousel = () => {
                   </motion.p>
                 </motion.div>
                 
-                {/* Book Now Button */}
                 <motion.button
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -203,7 +197,6 @@ const HeroCarousel = () => {
                       repeatDelay: 1,
                     }}
                   />
-                  {/* Ripple effect on click */}
                   <motion.div
                     className="absolute inset-0 bg-white/30 rounded-full"
                     initial={{ scale: 0, opacity: 0.5 }}

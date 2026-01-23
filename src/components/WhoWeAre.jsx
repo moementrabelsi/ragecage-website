@@ -8,6 +8,18 @@ const WhoWeAre = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const { t, tHTML } = useTranslation()
 
+  const videoConfig = {
+    enabled: true,
+    type: 'local',
+    localPath: '/images/10.mp4',
+    youtubeId: null,
+    autoplay: true,
+    loop: true,
+    muted: true,
+    playsInline: true,
+    controls: false
+  }
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -82,12 +94,43 @@ const WhoWeAre = () => {
                 whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(254, 174, 17, 0.4)" }}
                 transition={{ duration: 0.3 }}
               >
-                <img
-                  src="https://www.therageroom.nl/wp-content/uploads/2025/02/team-excitement-before-rage-room-experience.jpeg"
-                  alt={t('about.facilityImageAlt')}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+                {videoConfig.enabled ? (
+                  videoConfig.type === 'youtube' && videoConfig.youtubeId ? (
+                    <div className="relative w-full h-full">
+                      <iframe
+                        src={`https://www.youtube.com/embed/${videoConfig.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${videoConfig.youtubeId}&controls=${videoConfig.controls ? 1 : 0}&showinfo=0&rel=0&modestbranding=1&playsinline=1`}
+                        className="absolute top-0 left-0 w-full h-full"
+                        style={{ 
+                          width: '100%', 
+                          height: '100%',
+                          objectFit: 'cover'
+                        }}
+                        allow="autoplay; encrypted-media"
+                        allowFullScreen
+                        title={t('about.facilityImageAlt')}
+                      />
+                    </div>
+                  ) : (
+                    <video
+                      autoPlay={videoConfig.autoplay}
+                      loop={videoConfig.loop}
+                      muted={videoConfig.muted}
+                      playsInline={videoConfig.playsInline}
+                      controls={videoConfig.controls}
+                      className="w-full h-full object-cover"
+                    >
+                      <source src={videoConfig.localPath} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  )
+                ) : (
+                  <img
+                    src="/images/about/2.jpg"
+                    alt={t('about.facilityImageAlt')}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                )}
               </motion.div>
               <motion.div 
                 className="absolute -bottom-6 -right-6 w-24 h-24 sm:w-32 sm:h-32 bg-rage-yellow/20 border-2 border-rage-yellow/30 rounded-lg opacity-60 -z-10 float-animation backdrop-blur-sm"

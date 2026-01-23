@@ -33,3 +33,20 @@ backend/node_modules/
 backend/.env
 backend/config/service-account-key.json
 backend/*.log
+
+# Documentation and Setup Files
+*.md
+!README.md
+**/README.md
+*_SETUP.md
+*_FIXES.md
+*_GUIDE.md
+DEPLOYMENT.md
+IMAGE_SETUP.md
+VIDEO_SETUP.md
+ADMIN_PANEL_SETUP.md
+EMAILJS_SETUP.md
+CALENDAR_SETUP.md
+BOOKING_FIXES.md
+QUICK_FIX_GUIDE.md
+SETUP.md

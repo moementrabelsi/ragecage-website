@@ -38,44 +38,42 @@ const ServicesRooms = () => {
       titleKey: 'services.rooms.glass.title',
       descriptionKey: 'services.rooms.glass.description',
       itemsKey: 'services.rooms.glass.items',
-      image:
-        'https://www.therageroom.nl/wp-content/uploads/2025/02/group-of-five-with-bats-under-red-led-lights-in-rage-room.jpeg'
+      image: '/images/services/4.jpg'
     },
     {
       id: 2,
       titleKey: 'services.rooms.electronics.title',
       descriptionKey: 'services.rooms.electronics.description',
       itemsKey: 'services.rooms.electronics.items',
-      image:
-        'https://images.squarespace-cdn.com/content/v1/64b80e5b1e8d1519429638e2/7afbb655-1b30-4db8-ba33-8355cc91aa15/Rage+Room+bats+and+clubs+.jpg?format=1500w'
+      image: '/images/services/5.jpg'
     },
     {
       id: 3,
       titleKey: 'services.rooms.furniture.title',
       descriptionKey: 'services.rooms.furniture.description',
       itemsKey: 'services.rooms.furniture.items',
-      image: 'https://www.rageroomwreckit.be/gallery/thumb/img_36.jpg'
+      image: '/images/services/6.jpg'
     },
     {
       id: 4,
       titleKey: 'services.rooms.themed.title',
       descriptionKey: 'services.rooms.themed.description',
       itemsKey: 'services.rooms.themed.items',
-      image: 'https://www.rageroomwreckit.be/gallery/thumb/img_24.jpg'
+      image: '/images/services/7.jpg'
     },
     {
       id: 5,
       titleKey: 'services.rooms.extreme.title',
       descriptionKey: 'services.rooms.extreme.description',
       itemsKey: 'services.rooms.extreme.items',
-      image: 'https://www.rageroomwreckit.be/gallery/thumb/img_25.jpg'
+      image: '/images/services/8.jpg'
     },
     {
       id: 6,
       titleKey: 'services.rooms.group.title',
       descriptionKey: 'services.rooms.group.description',
       itemsKey: 'services.rooms.group.items',
-      image: 'https://www.rageroomwreckit.be/gallery/thumb/img_36.jpg'
+      image: '/images/services/9.jpg'
     }
   ]
 
