@@ -10,6 +10,7 @@ import Gallery from './components/Gallery'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Booking from './pages/Booking'
+import NotFound from './pages/NotFound'
 import AnimatedBackground from './components/AnimatedBackground'
 import ScrollProgress from './components/ScrollProgress'
 
@@ -56,6 +57,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/booking" element={<Booking />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </LanguageProvider>
   )
