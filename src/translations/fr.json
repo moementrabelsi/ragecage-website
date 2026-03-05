@@ -151,6 +151,7 @@
     "emailAddress": "smashroomtn@gmail.com",
     "error": {
       "title": "Erreur d'Envoi du Message",
+      "unavailable": "Le formulaire de contact est temporairement indisponible. Veuillez nous contacter par téléphone ou par e-mail.",
       "configMissing": "Le service de messagerie n'est pas configuré. Veuillez ajouter les variables d'environnement suivantes à votre fichier .env :\n\n{{missingVars}}\n\nConsultez {{setupGuide}} pour les instructions de configuration ou visitez {{dashboardUrl}}",
       "accountNotFound": "Compte EmailJS introuvable. Veuillez vérifier que votre clé publique est correcte. Vérifiez-la sur : https://dashboard.emailjs.com/admin/account",
       "invalidPublicKey": "Clé publique invalide. Veuillez vérifier votre VITE_EMAILJS_PUBLIC_KEY dans le fichier .env. Trouvez votre clé publique sur : https://dashboard.emailjs.com/admin/account",

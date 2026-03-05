@@ -10,12 +10,6 @@ const EMAILJS_CONFIG = {
   PUBLIC_KEY: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
 }
 
-const REQUIRED_ENV_VARS = [
-  { key: 'VITE_EMAILJS_SERVICE_ID', label: 'Service ID' },
-  { key: 'VITE_EMAILJS_TEMPLATE_ID', label: 'Template ID' },
-  { key: 'VITE_EMAILJS_PUBLIC_KEY', label: 'Public Key' },
-]
-
 const Contact = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
@@ -28,71 +22,26 @@ const Contact = () => {
     message: '',
   })
   const [submitting, setSubmitting] = useState(false)
-  const [submitError, setSubmitError] = useState('')
   const [submitSuccess, setSubmitSuccess] = useState('')
 
   const isEmailJSConfigured = useMemo(() => {
     return !!(EMAILJS_CONFIG.SERVICE_ID && EMAILJS_CONFIG.TEMPLATE_ID && EMAILJS_CONFIG.PUBLIC_KEY)
   }, [])
 
-  const missingEnvVars = useMemo(() => {
-    return REQUIRED_ENV_VARS.filter(envVar => {
-      const value = import.meta.env[envVar.key]
-      return !value || value.trim() === ''
-    })
-  }, [])
-
-  const getConfigError = useCallback(() => {
-    if (missingEnvVars.length === 0) return null
-    
-    const missingList = missingEnvVars.map(v => `• ${v.key} (${v.label})`).join('\n')
-    return t('contact.error.configMissing', {
-      missingVars: missingList,
-      setupGuide: 'EMAILJS_SETUP.md',
-      dashboardUrl: 'https://dashboard.emailjs.com/admin/account'
-    })
-  }, [missingEnvVars, t])
-
-  // Format error message from EmailJS error
-  const formatEmailJSError = useCallback((error) => {
-    const errorText = error.text || error.message || ''
-    const lowerError = errorText.toLowerCase()
-
-    if (lowerError.includes('account not found') || lowerError.includes('404') || lowerError.includes('not found')) {
-      return t('contact.error.accountNotFound')
-    }
-    if (lowerError.includes('public key') && (lowerError.includes('invalid') || lowerError.includes('incorrect'))) {
-      return t('contact.error.invalidPublicKey')
-    }
-    if (lowerError.includes('service id') || (lowerError.includes('service') && lowerError.includes('invalid'))) {
-      return t('contact.error.invalidServiceId')
-    }
-    if (lowerError.includes('template') && (lowerError.includes('invalid') || lowerError.includes('not found'))) {
-      return t('contact.error.invalidTemplateId')
-    }
-    if (lowerError.includes('quota') || lowerError.includes('limit')) {
-      return t('contact.error.quotaExceeded')
-    }
-    if (lowerError.includes('network') || lowerError.includes('connection')) {
-      return t('contact.error.networkError')
-    }
-
-    return t('contact.error.generic', { details: errorText || t('contact.error.unknown') })
-  }, [t])
-
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault()
     setSubmitting(true)
-    setSubmitError('')
     setSubmitSuccess('')
 
     if (!isEmailJSConfigured) {
-      setSubmitError(getConfigError())
+      // Error handling: log only; no user-facing message on live site
+      if (import.meta.env.DEV) {
+        console.warn('Contact form: EmailJS not configured (missing .env). No message shown to user.')
+      }
       setSubmitting(false)
       return
     }
 
-    // Prepare template parameters
     const templateParams = {
       from_name: formData.name,
       from_email: formData.email,
@@ -111,12 +60,12 @@ const Contact = () => {
       setSubmitSuccess(t('contact.success'))
       setFormData({ name: '', email: '', phone: '', message: '' })
     } catch (err) {
-      console.error('EmailJS error:', err)
-      setSubmitError(formatEmailJSError(err))
+      // Error handling: log only; no user-facing message on live site
+      console.error('Contact form send failed:', err)
     } finally {
       setSubmitting(false)
     }
-  }, [formData, isEmailJSConfigured, getConfigError, formatEmailJSError, t])
+  }, [formData, isEmailJSConfigured, t])
 
   const handleChange = useCallback((e) => {
     setFormData(prev => ({
@@ -241,36 +190,7 @@ const Contact = () => {
                   </div>
                 </motion.div>
               )}
-              {submitError && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-red-700/30 border border-red-500 text-red-100 text-sm rounded-lg p-4"
-                >
-                  <div className="flex items-start">
-                    <span className="text-red-400 mr-2">⚠</span>
-                    <div className="flex-1">
-                      <div className="font-semibold mb-2">{t('contact.error.title')}</div>
-                      <div className="whitespace-pre-line text-xs leading-relaxed">{submitError}</div>
-                      {!isEmailJSConfigured && missingEnvVars.length > 0 && (
-                        <div className="mt-3 pt-3 border-t border-red-600/50">
-                          <div className="font-semibold mb-2 text-xs">{t('contact.error.requiredEnvVars')}</div>
-                          <div className="bg-red-900/30 rounded p-2 font-mono text-xs">
-                            {missingEnvVars.map((envVar, idx) => (
-                              <div key={idx} className="mb-1">
-                                {envVar.key}={'{your_value_here}'}
-                              </div>
-                            ))}
-                          </div>
-                          <div className="mt-2 text-xs opacity-90">
-                            {t('contact.error.envHelp')}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
-              )}
+              {/* Errors handled silently (console only); no error UI shown to user */}
             </form>
           </motion.div>
 

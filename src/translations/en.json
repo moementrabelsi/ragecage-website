@@ -151,6 +151,7 @@
     "emailAddress": "smashroomtn@gmail.com",
     "error": {
       "title": "Error Sending Message",
+      "unavailable": "The contact form is temporarily unavailable. Please contact us by phone or email.",
       "configMissing": "Email service is not configured. Please add the following environment variables to your .env file:\n\n{{missingVars}}\n\nSee {{setupGuide}} for setup instructions or visit {{dashboardUrl}}",
       "accountNotFound": "EmailJS account not found. Please verify your Public Key is correct. Check it at: https://dashboard.emailjs.com/admin/account",
       "invalidPublicKey": "Invalid Public Key. Please check your VITE_EMAILJS_PUBLIC_KEY in .env file. Find your Public Key at: https://dashboard.emailjs.com/admin/account",
