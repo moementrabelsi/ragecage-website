@@ -62,6 +62,7 @@
     "titlePart2": "&",
     "titlePart3": "Available Rooms",
     "bookButton": "Book This Room",
+    "bestSeller": "Best seller",
     "rooms": {
       "soloBlast": {
         "title": "Solo BLAST",

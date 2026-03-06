@@ -67,7 +67,8 @@ const ServicesRooms = () => {
       titleKey: 'services.rooms.squadDestructionFour.title',
       descriptionKey: 'services.rooms.squadDestructionFour.description',
       itemsKey: 'services.rooms.squadDestructionFour.items',
-      image: '/images/services/7.jpg'
+      image: '/images/services/7.jpg',
+      bestSeller: true
     },
     {
       id: 5,
@@ -156,6 +157,9 @@ const ServicesRooms = () => {
               .map(item => item.trim())
               .filter(Boolean)
             const extrasText = extrasRaw ? extrasRaw.trim() : ''
+            const cardBorderClass = service.bestSeller
+              ? 'border-2 border-rage-yellow shadow-[0_0_35px_rgba(254,174,17,0.6)]'
+              : 'border border-rage-yellow/15 shadow-lg'
 
             return (
               <motion.div
@@ -167,9 +171,8 @@ const ServicesRooms = () => {
                   boxShadow: '0 15px 35px rgba(254,174,17,0.3)',
                   transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
                 }}
-                className="bg-gray-900/95 rounded-xl overflow-hidden border border-rage-yellow/15 shadow-lg flex flex-col rage-card-hover"
+                className={`bg-gray-900/95 rounded-xl overflow-hidden flex flex-col rage-card-hover ${cardBorderClass}`}
               >
-                {/* IMAGE – UNCHANGED */}
                 <div className="relative h-64 overflow-hidden">
                   <motion.img
                     src={service.image}
@@ -179,6 +182,11 @@ const ServicesRooms = () => {
                     transition={{ duration: 0.4 }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                  {service.bestSeller && (
+                    <div className="absolute top-3 right-3 bg-rage-yellow text-rage-black text-xs font-semibold px-3 py-1 rounded-full shadow-lg uppercase tracking-wide">
+                      {t('services.bestSeller')}
+                    </div>
+                  )}
                   <div className="absolute bottom-4 left-4 right-4">
                     <h3 className="text-3xl font-rage text-rage-yellow">
                       {t(service.titleKey)}
@@ -230,6 +238,9 @@ const ServicesRooms = () => {
                 .map(item => item.trim())
                 .filter(Boolean)
               const extrasText = extrasRaw ? extrasRaw.trim() : ''
+              const cardBorderClass = service.bestSeller
+                ? 'border-2 border-rage-yellow shadow-[0_0_35px_rgba(254,174,17,0.6)]'
+                : 'border border-rage-yellow/15 shadow-lg'
 
               return (
                 <motion.div
@@ -241,9 +252,8 @@ const ServicesRooms = () => {
                     boxShadow: '0 15px 35px rgba(254,174,17,0.3)',
                     transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
                   }}
-                  className="bg-gray-900/95 rounded-xl overflow-hidden border border-rage-yellow/15 shadow-lg flex flex-col rage-card-hover md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1rem)]"
+                  className={`bg-gray-900/95 rounded-xl overflow-hidden flex flex-col rage-card-hover md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1rem)] ${cardBorderClass}`}
                 >
-                  {/* IMAGE – UNCHANGED */}
                   <div className="relative h-64 overflow-hidden">
                     <motion.img
                       src={service.image}
@@ -253,6 +263,11 @@ const ServicesRooms = () => {
                       transition={{ duration: 0.4 }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                    {service.bestSeller && (
+                      <div className="absolute top-3 right-3 bg-rage-yellow text-rage-black text-xs font-semibold px-3 py-1 rounded-full shadow-lg uppercase tracking-wide">
+                        {t('services.bestSeller')}
+                      </div>
+                    )}
                     <div className="absolute bottom-4 left-4 right-4">
                       <h3 className="text-3xl font-rage text-rage-yellow">
                         {t(service.titleKey)}

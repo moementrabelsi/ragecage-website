@@ -62,21 +62,22 @@
     "titlePart2": "&",
     "titlePart3": "Salles Disponibles",
     "bookButton": "Réserver Cette Salle",
+    "bestSeller": "Best seller",
     "rooms": {
       "soloBlast": {
         "title": "Solo BLAST",
         "description": "1 personne • 20 minutes • Petite boîte d’objets • Musique personnalisée. Extras : Go Pro (POV), objets.",
-        "items": "« C’est juste moi et mon stress »"
+        "items": "« It’s just me and my stress »"
       },
       "duoChaos": {
         "title": "Duo Chaos",
         "description": "2 personnes • 20 minutes • Boîte d’objets moyenne • Musique personnalisée. Extras : Go Pro (POV), objets.",
-        "items": "« Casser ensemble »"
+        "items": "« Break it together »"
       },
       "trioMadness": {
         "title": "Trio Madness",
         "description": "3 personnes • 25 minutes • Grande boîte d’objets • Musique personnalisée. Extras : Go Pro (POV), objets, open mic.",
-        "items": "« Plus on est, plus on casse »"
+        "items": "« More people more damage »"
       },
       "squadDestructionFour": {
         "title": "Squad Destruction",
