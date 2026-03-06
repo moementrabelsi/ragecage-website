@@ -156,7 +156,7 @@ const ServicesRooms = () => {
           {/* Top row: first 3 packs in the grid */}
           {services.slice(0, 3).map(service => {
             const description = t(service.descriptionKey)
-            const [mainText, extrasRaw] = description.split('Extras:')
+            const [mainText, extrasRaw] = description.split(/Extras\s*:/)
             const descriptionItems = mainText
               .split('•')
               .map(item => item.trim())
@@ -242,7 +242,7 @@ const ServicesRooms = () => {
           <div className="lg:col-span-3 flex flex-col md:flex-row justify-center gap-8">
             {services.slice(3).map(service => {
               const description = t(service.descriptionKey)
-              const [mainText, extrasRaw] = description.split('Extras:')
+              const [mainText, extrasRaw] = description.split(/Extras\s*:/)
               const descriptionItems = mainText
                 .split('•')
                 .map(item => item.trim())

@@ -66,12 +66,12 @@
     "rooms": {
       "soloBlast": {
         "title": "Solo BLAST",
-        "description": "1 personne • 20 minutes • Petite boîte d’objets • Musique personnalisée. Extras : Go Pro (POV), objets.",
+        "description": "1 personne • 20 minutes • Petite boîte d’objets • Musique personnalisée. Extras : Go Pro (POV), objets, +1 ami.",
         "items": "« It’s just me and my stress »"
       },
       "duoChaos": {
         "title": "Duo Chaos",
-        "description": "2 personnes • 20 minutes • Boîte d’objets moyenne • Musique personnalisée. Extras : Go Pro (POV), objets.",
+        "description": "2 personnes • 20 minutes • Boîte d’objets moyenne • Musique personnalisée. Extras : Go Pro (POV), objets, +1 ami.",
         "items": "« Break it together »"
       },
       "trioMadness": {
