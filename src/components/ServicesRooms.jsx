@@ -147,7 +147,8 @@ const ServicesRooms = () => {
           animate={isInView ? 'visible' : 'hidden'}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {services.map(service => {
+          {/* Top row: first 3 packs in the grid */}
+          {services.slice(0, 3).map(service => {
             const description = t(service.descriptionKey)
             const [mainText, extrasRaw] = description.split('Extras:')
             const descriptionItems = mainText
@@ -218,6 +219,81 @@ const ServicesRooms = () => {
               </motion.div>
             )
           })}
+
+          {/* Bottom row: last 2 packs centered in a flex row */}
+          <div className="lg:col-span-3 flex flex-col md:flex-row justify-center gap-8">
+            {services.slice(3).map(service => {
+              const description = t(service.descriptionKey)
+              const [mainText, extrasRaw] = description.split('Extras:')
+              const descriptionItems = mainText
+                .split('•')
+                .map(item => item.trim())
+                .filter(Boolean)
+              const extrasText = extrasRaw ? extrasRaw.trim() : ''
+
+              return (
+                <motion.div
+                  key={service.id}
+                  variants={cardVariants}
+                  whileHover={{
+                    y: -8,
+                    scale: 1.01,
+                    boxShadow: '0 15px 35px rgba(254,174,17,0.3)',
+                    transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
+                  }}
+                  className="bg-gray-900/95 rounded-xl overflow-hidden border border-rage-yellow/15 shadow-lg flex flex-col rage-card-hover md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1rem)]"
+                >
+                  {/* IMAGE – UNCHANGED */}
+                  <div className="relative h-64 overflow-hidden">
+                    <motion.img
+                      src={service.image}
+                      alt={t(service.titleKey)}
+                      className="w-full h-full object-cover"
+                      whileHover={{ scale: 1.15 }}
+                      transition={{ duration: 0.4 }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <h3 className="text-3xl font-rage text-rage-yellow">
+                        {t(service.titleKey)}
+                      </h3>
+                      <p className="text-sm text-white/80">
+                        {t(service.itemsKey)}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* CONTENT */}
+                  <div className="p-6 flex flex-col flex-1">
+                    <ul className="text-gray-300 text-sm leading-relaxed space-y-1 flex-1">
+                      {descriptionItems.map((item, idx) => {
+                        const Icon = getDetailIcon(item)
+                        return (
+                          <li key={idx} className="flex items-start">
+                            <Icon className="text-rage-yellow mr-2 mt-0.5" />
+                            <span>{item}</span>
+                          </li>
+                        )
+                      })}
+                      {extrasText && (
+                        <li className="flex items-start pt-1">
+                          <FaPlusCircle className="text-rage-yellow mr-2 mt-0.5" />
+                          <span>
+                            <span className="font-semibold">Extras:</span> {extrasText}
+                          </span>
+                        </li>
+                      )}
+                    </ul>
+
+                    {/* BUTTON FIXED LEVEL */}
+                    <div className="mt-6 pt-2">
+                      <ServiceButton serviceId={service.id} />
+                    </div>
+                  </div>
+                </motion.div>
+              )
+            })}
+          </div>
         </motion.div>
       </div>
     </section>
