@@ -63,35 +63,30 @@
     "titlePart3": "Salles Disponibles",
     "bookButton": "Réserver Cette Salle",
     "rooms": {
-      "glass": {
-        "title": "Salle de Casse de Verre",
-        "description": "Cassez des bouteilles, de la verrerie et des objets fragiles avec des masses et des battes. Ressentez la satisfaction du verre qui se brise lorsque vous libérez votre stress. Équipement de sécurité fourni.",
-        "items": "Bouteilles en verre, assiettes, vases, miroirs"
+      "soloBlast": {
+        "title": "Solo BLAST",
+        "description": "1 personne • 20 minutes • Petite boîte d’objets • Musique personnalisée. Extras : Go Pro (POV), objets.",
+        "items": "« C’est juste moi et mon stress »"
       },
-      "electronics": {
-        "title": "Destruction d'Électronique",
-        "description": "Détruisez de vieux ordinateurs, téléviseurs, moniteurs et appareils électroniques. Parfait pour le stress lié à la technologie. Cassez des claviers, écrans et matériel avec un équipement de protection.",
-        "items": "Ordinateurs, téléviseurs, moniteurs, claviers, téléphones"
+      "duoChaos": {
+        "title": "Duo Chaos",
+        "description": "2 personnes • 20 minutes • Boîte d’objets moyenne • Musique personnalisée. Extras : Go Pro (POV), objets.",
+        "items": "« Casser ensemble »"
       },
-      "furniture": {
-        "title": "Casse de Mobilier",
-        "description": "Brisez des chaises, tables et meubles avec des battes de baseball et des pieds-de-biche. Salle haute énergie pour une destruction et un soulagement du stress maximum.",
-        "items": "Chaises, tables, armoires, mobilier en bois"
+      "trioMadness": {
+        "title": "Trio Madness",
+        "description": "3 personnes • 25 minutes • Grande boîte d’objets • Musique personnalisée. Extras : Go Pro (POV), objets, open mic.",
+        "items": "« Plus on est, plus on casse »"
       },
-      "themed": {
-        "title": "Salles de Destruction Thématiques",
-        "description": "Choisissez parmi divers environnements thématiques - rage de bureau, chaos de cuisine, ou configurations personnalisées. Chaque salle conçue pour une libération cathartique maximale.",
-        "items": "Objets thématiques, objets cassables mixtes, configurations personnalisées"
+      "squadDestructionFour": {
+        "title": "Squad Destruction",
+        "description": "4 personnes • 25 à 30 minutes • Boîte d’objets XL • Musique personnalisée. Extras : Go Pro (POV), objets, open mic.",
+        "items": "« No mercy »"
       },
-      "extreme": {
-        "title": "Forfait Rage Extrême",
-        "description": "Notre expérience premium avec des objets lourds, plusieurs armes et un temps prolongé. Pour ceux qui ont besoin de la session de casse ultime.",
-        "items": "Objets lourds, masses, pieds-de-biche, temps prolongé"
-      },
-      "group": {
-        "title": "Sessions de Rage en Groupe",
-        "description": "Parfait pour les fêtes, le team building ou le soulagement du stress en groupe. Plusieurs salles disponibles simultanément. Réservez ensemble et cassez ensemble.",
-        "items": "Plusieurs salles, forfaits de groupe, team building"
+      "squadDestructionFive": {
+        "title": "Squad Destruction – Smashers",
+        "description": "5 personnes • 25 à 30 minutes • Boîte d’objets XXL • Musique personnalisée. Extras : Go Pro (POV), objets, open mic.",
+        "items": "« Smashers »"
       }
     }
   },

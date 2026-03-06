@@ -63,35 +63,30 @@
     "titlePart3": "Available Rooms",
     "bookButton": "Book This Room",
     "rooms": {
-      "glass": {
-        "title": "Glass Smashing Room",
-        "description": "Smash bottles, glassware, and breakables with sledgehammers and bats. Feel the satisfying shatter of glass as you release your stress. Safety gear provided.",
-        "items": "Glass bottles, plates, vases, mirrors"
+      "soloBlast": {
+        "title": "Solo BLAST",
+        "description": "1 person • 20 minutes • Small box of items • Custom music choice. Extras: Go Pro (POV), items.",
+        "items": "“It’s just me and my stress”"
       },
-      "electronics": {
-        "title": "Electronics Destruction",
-        "description": "Destroy old computers, TVs, monitors, and electronics. Perfect for tech-related stress. Smash keyboards, screens, and hardware with protective equipment.",
-        "items": "Computers, TVs, monitors, keyboards, phones"
+      "duoChaos": {
+        "title": "Duo Chaos",
+        "description": "2 persons • 20 minutes • Medium box of items • Custom music choice. Extras: Go Pro (POV), items.",
+        "items": "“Break it together”"
       },
-      "furniture": {
-        "title": "Furniture Smashing",
-        "description": "Break chairs, tables, and furniture with baseball bats and crowbars. High-energy room for maximum destruction and stress relief.",
-        "items": "Chairs, tables, cabinets, wooden furniture"
+      "trioMadness": {
+        "title": "Trio Madness",
+        "description": "3 persons • 25 minutes • Large box of items • Custom music choice. Extras: Go Pro (POV), items, open mic.",
+        "items": "“More people more damage”"
       },
-      "themed": {
-        "title": "Themed Destruction Rooms",
-        "description": "Choose from various themed environments - office rage, kitchen chaos, or custom setups. Each room designed for maximum cathartic release.",
-        "items": "Themed items, mixed breakables, custom setups"
+      "squadDestructionFour": {
+        "title": "Squad Destruction",
+        "description": "4 persons • 25 to 30 minutes • X Large box of items • Custom music choice. Extras: Go Pro (POV), items, open mic.",
+        "items": "“No mercy”"
       },
-      "extreme": {
-        "title": "Extreme Rage Package",
-        "description": "Our premium experience with heavy-duty items, multiple weapons, and extended time. For those who need the ultimate breaking session.",
-        "items": "Heavy items, sledgehammers, crowbars, extended time"
-      },
-      "group": {
-        "title": "Group Rage Sessions",
-        "description": "Perfect for parties, team building, or group stress relief. Multiple rooms available simultaneously. Book together and break together.",
-        "items": "Multiple rooms, group packages, team building"
+      "squadDestructionFive": {
+        "title": "Squad Destruction – Smashers",
+        "description": "5 persons • 25 to 30 minutes • XXL box of items • Custom music choice. Extras: Go Pro (POV), items, open mic.",
+        "items": "“Smashers”"
       }
     }
   },
