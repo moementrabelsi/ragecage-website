@@ -7,8 +7,7 @@ import {
   FaUser,
   FaClock,
   FaBoxOpen,
-  FaMusic,
-  FaMoneyBillWave
+  FaMusic
 } from 'react-icons/fa'
 import { useTranslation } from '../hooks/useTranslation'
 
@@ -47,21 +46,24 @@ const ServicesRooms = () => {
       titleKey: 'services.rooms.soloBlast.title',
       descriptionKey: 'services.rooms.soloBlast.description',
       itemsKey: 'services.rooms.soloBlast.items',
-      image: '/images/services/4.jpg'
+      image: '/images/services/4.jpg',
+      price: '45 DT'
     },
     {
       id: 2,
       titleKey: 'services.rooms.duoChaos.title',
       descriptionKey: 'services.rooms.duoChaos.description',
       itemsKey: 'services.rooms.duoChaos.items',
-      image: '/images/services/5.jpg'
+      image: '/images/services/5.jpg',
+      price: '80 DT'
     },
     {
       id: 3,
       titleKey: 'services.rooms.trioMadness.title',
       descriptionKey: 'services.rooms.trioMadness.description',
       itemsKey: 'services.rooms.trioMadness.items',
-      image: '/images/services/6.jpg'
+      image: '/images/services/6.jpg',
+      price: '110 DT'
     },
     {
       id: 4,
@@ -69,14 +71,16 @@ const ServicesRooms = () => {
       descriptionKey: 'services.rooms.squadDestructionFour.description',
       itemsKey: 'services.rooms.squadDestructionFour.items',
       image: '/images/services/7.jpg',
-      bestSeller: true
+      bestSeller: true,
+      price: '140 DT'
     },
     {
       id: 5,
       titleKey: 'services.rooms.squadDestructionFive.title',
       descriptionKey: 'services.rooms.squadDestructionFive.description',
       itemsKey: 'services.rooms.squadDestructionFive.items',
-      image: '/images/services/8.jpg'
+      image: '/images/services/8.jpg',
+      price: '160 DT'
     }
   ]
 
@@ -121,9 +125,6 @@ const ServicesRooms = () => {
     }
     if (lower.includes('music') || lower.includes('musique')) {
       return FaMusic
-    }
-    if (lower.includes('price') || lower.includes('prix') || lower.includes('dt')) {
-      return FaMoneyBillWave
     }
 
     return FaCheckCircle
@@ -186,6 +187,11 @@ const ServicesRooms = () => {
                     transition={{ duration: 0.4 }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                  {service.price && (
+                    <div className="absolute top-3 left-3 bg-rage-yellow text-rage-black text-xs font-semibold px-3 py-1 rounded-full shadow-lg border border-black/30">
+                      {service.price}
+                    </div>
+                  )}
                   {service.bestSeller && (
                     <div className="absolute top-3 right-3 bg-rage-yellow text-rage-black text-xs font-semibold px-3 py-1 rounded-full shadow-lg uppercase tracking-wide">
                       {t('services.bestSeller')}
@@ -267,6 +273,11 @@ const ServicesRooms = () => {
                       transition={{ duration: 0.4 }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                    {service.price && (
+                      <div className="absolute top-3 left-3 bg-rage-yellow text-rage-black text-xs font-semibold px-3 py-1 rounded-full shadow-lg border border-black/30">
+                        {service.price}
+                      </div>
+                    )}
                     {service.bestSeller && (
                       <div className="absolute top-3 right-3 bg-rage-yellow text-rage-black text-xs font-semibold px-3 py-1 rounded-full shadow-lg uppercase tracking-wide">
                         {t('services.bestSeller')}
