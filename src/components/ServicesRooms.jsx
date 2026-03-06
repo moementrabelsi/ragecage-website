@@ -7,7 +7,8 @@ import {
   FaUser,
   FaClock,
   FaBoxOpen,
-  FaMusic
+  FaMusic,
+  FaMoneyBillWave
 } from 'react-icons/fa'
 import { useTranslation } from '../hooks/useTranslation'
 
@@ -120,6 +121,9 @@ const ServicesRooms = () => {
     }
     if (lower.includes('music') || lower.includes('musique')) {
       return FaMusic
+    }
+    if (lower.includes('price') || lower.includes('prix') || lower.includes('dt')) {
+      return FaMoneyBillWave
     }
 
     return FaCheckCircle
