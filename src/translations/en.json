@@ -234,6 +234,7 @@
       "customerDetails": "Customer Details",
       "emailSent": "Confirmation Email Sent",
       "checkEmail": "Check your email for booking details and instructions",
+      "checkContact": "We will contact you with booking details and instructions",
       "close": "Close",
       "backToHome": "Back to Home"
     }

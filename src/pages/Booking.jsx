@@ -7,6 +7,8 @@ import BookingConfirmationModal from '../components/BookingConfirmationModal'
 import logo from '../assets/logo/rage.png'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+const BOOKING_START_DATE = new Date(2026, 2, 14) // March 14, 2026 (local time)
+BOOKING_START_DATE.setHours(0, 0, 0, 0)
 
 const Booking = () => {
   const navigate = useNavigate()
@@ -127,6 +129,7 @@ const Booking = () => {
   const isDateSelectable = (date, isCurrentMonth) => {
     if (!isCurrentMonth) return false
     if (isPastDate(date)) return false
+    if (date < BOOKING_START_DATE) return false
     if (isMonday(date)) return false
     
     const { currentMonth, currentYear, nextMonth, nextYear } = getCurrentMonthInfo()
@@ -427,9 +430,7 @@ const Booking = () => {
 
   const validateEmail = (value) => {
     const trimmed = value.trim()
-    if (!trimmed) {
-      return t('booking.validation.emailRequired')
-    }
+    if (!trimmed) return '' // optional
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(trimmed)) {
       return t('booking.validation.emailInvalid')
@@ -471,7 +472,7 @@ const Booking = () => {
   // Check if form is valid
   const isFormValid = () => {
     if (!selectedDate || !selectedTimeSlot) return false
-    if (!firstName.trim() || !lastName.trim() || !phoneNumber.trim() || !email.trim()) return false
+    if (!firstName.trim() || !lastName.trim() || !phoneNumber.trim()) return false
     
     // Check for validation errors
     const firstNameError = validateFirstName(firstName)
@@ -530,21 +531,26 @@ const Booking = () => {
       const timeoutId = setTimeout(() => controller.abort(), 30000) // 30 second timeout
       
       try {
+        const payload = {
+          date: dateString,
+          timeSlot: selectedTimeSlot,
+          groupSize: groupSize,
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          phoneNumber: cleanedPhone,
+          specialRequests: specialRequests.trim(),
+        }
+        const trimmedEmail = email.trim()
+        if (trimmedEmail) {
+          payload.email = trimmedEmail
+        }
+
         const response = await fetch(`${API_BASE_URL}/api/book`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            date: dateString,
-            timeSlot: selectedTimeSlot,
-            groupSize: groupSize,
-            firstName: firstName.trim(),
-            lastName: lastName.trim(),
-            phoneNumber: cleanedPhone,
-            email: email.trim(),
-            specialRequests: specialRequests.trim(),
-          }),
+          body: JSON.stringify(payload),
           signal: controller.signal
         })
         
@@ -1002,7 +1008,7 @@ const Booking = () => {
 
                   <div>
                     <label className="block text-gray-300 text-sm font-semibold mb-2">
-                      {t('booking.email')} <span className="text-rage-yellow">*</span>
+                      {t('booking.email')}
                     </label>
                     <input
                       type="email"
@@ -1016,7 +1022,6 @@ const Booking = () => {
                           ? 'border-red-500 focus:border-red-500' 
                           : 'border-gray-700/30 focus:border-rage-yellow/40'
                       }`}
-                      required
                     />
                     {validationErrors.email && (
                       <p className="text-red-500 text-xs mt-1">{validationErrors.email}</p>

@@ -234,6 +234,7 @@
       "customerDetails": "Détails du Client",
       "emailSent": "Email de Confirmation Envoyé",
       "checkEmail": "Vérifiez votre email pour les détails de réservation et les instructions",
+      "checkContact": "Nous vous contacterons avec les détails de réservation et les instructions",
       "close": "Fermer",
       "backToHome": "Retour à l'Accueil"
     }
