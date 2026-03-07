@@ -66,12 +66,12 @@
     "rooms": {
       "soloBlast": {
         "title": "Solo BLAST",
-        "description": "1 person • 20 minutes • Small box of items • Custom music choice. Extras: Go Pro (POV), items, +1 Friend.",
+        "description": "1 person • 20 minutes • Small box of items • Custom music choice. Extras: Go Pro (POV), items.",
         "items": "“It’s just me and my stress”"
       },
       "duoChaos": {
         "title": "Duo Chaos",
-        "description": "2 persons • 20 minutes • Medium box of items • Custom music choice. Extras: Go Pro (POV), items, +1 Friend.",
+        "description": "2 persons • 20 minutes • Medium box of items • Custom music choice. Extras: Go Pro (POV), items.",
         "items": "“Break it together”"
       },
       "trioMadness": {
@@ -81,12 +81,12 @@
       },
       "squadDestructionFour": {
         "title": "Squad Destruction",
-        "description": "4 persons • 25 to 30 minutes • X Large box of items • Custom music choice. Extras: Go Pro (POV), items, open mic.",
+        "description": "4 persons • 25 to 30 minutes • X Large box of items • Custom music choice. Extras: Go Pro (POV), items, open mic, +1 Friend.",
         "items": "“No mercy”"
       },
       "squadDestructionFive": {
         "title": "Squad Destruction – Smashers",
-        "description": "5 persons • 25 to 30 minutes • XXL box of items • Custom music choice. Extras: Go Pro (POV), items, open mic.",
+        "description": "5 persons • 25 to 30 minutes • XXL box of items • Custom music choice. Extras: Go Pro (POV), items, open mic, +1 Friend.",
         "items": "“Smashers”"
       }
     }
@@ -179,7 +179,8 @@
     "groupSize": "Group Size",
     "people": "people",
     "person": "person",
-    "maxPeople": "Maximum 4 people per session",
+    "maxPeople": "Maximum 5 people per session",
+    "maxPeopleForPack": "Maximum {{max}} people for this pack",
     "selectedDate": "Selected Date",
     "timeSlot": "Time Slot",
     "notSelected": "Not selected",

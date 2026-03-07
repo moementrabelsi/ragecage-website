@@ -2,7 +2,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { scroller } from 'react-scroll'
 import { useTranslation } from '../hooks/useTranslation'
 import 'swiper/css'
 import 'swiper/css/effect-fade'
@@ -10,8 +10,11 @@ import 'swiper/css/pagination'
 
 const HeroCarousel = () => {
   const [isShaking, setIsShaking] = useState(false)
-  const navigate = useNavigate()
   const { t } = useTranslation()
+
+  const scrollToServices = () => {
+    scroller.scrollTo('services', { smooth: true, duration: 500, offset: -80 })
+  }
 
   const images = [
     '/images/hero/1.jpg',
@@ -177,7 +180,7 @@ const HeroCarousel = () => {
                     scale: 0.95,
                     boxShadow: "0 0 20px rgba(254, 174, 17, 0.8)"
                   }}
-                  onClick={() => navigate('/booking')}
+                  onClick={scrollToServices}
                   className="bg-rage-yellow hover:bg-rage-yellow text-rage-black font-rage py-3 px-6 sm:py-4 sm:px-10 md:py-5 md:px-16 rounded-full text-sm sm:text-base md:text-xl lg:text-2xl rage-glow-intense transition-all duration-300 border-2 border-rage-yellow hover:border-rage-yellow uppercase tracking-wider sm:tracking-widest max-w-[90%] sm:max-w-none mx-auto relative overflow-hidden magnetic ripple-effect rage-button-hover group shadow-2xl hover:shadow-rage-yellow/40"
                   style={{
                     textShadow: '2px 2px 4px rgba(0,0,0,0.5)',

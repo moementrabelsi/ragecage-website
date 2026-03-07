@@ -18,7 +18,7 @@ const ServiceButton = ({ serviceId }) => {
 
   return (
     <motion.button
-      onClick={() => navigate('/booking')}
+      onClick={() => navigate(`/booking?pack=${serviceId}`)}
       whileHover={{
         scale: 1.02,
         boxShadow: '0 0 20px rgba(254, 174, 17, 0.4)',

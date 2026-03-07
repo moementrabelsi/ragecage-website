@@ -66,12 +66,12 @@
     "rooms": {
       "soloBlast": {
         "title": "Solo BLAST",
-        "description": "1 personne • 20 minutes • Petite boîte d’objets • Musique personnalisée. Extras : Go Pro (POV), objets, +1 ami.",
+        "description": "1 personne • 20 minutes • Petite boîte d’objets • Musique personnalisée. Extras : Go Pro (POV), objets.",
         "items": "« It’s just me and my stress »"
       },
       "duoChaos": {
         "title": "Duo Chaos",
-        "description": "2 personnes • 20 minutes • Boîte d’objets moyenne • Musique personnalisée. Extras : Go Pro (POV), objets, +1 ami.",
+        "description": "2 personnes • 20 minutes • Boîte d’objets moyenne • Musique personnalisée. Extras : Go Pro (POV), objets.",
         "items": "« Break it together »"
       },
       "trioMadness": {
@@ -81,12 +81,12 @@
       },
       "squadDestructionFour": {
         "title": "Squad Destruction",
-        "description": "4 personnes • 25 à 30 minutes • Boîte d’objets XL • Musique personnalisée. Extras : Go Pro (POV), objets, open mic.",
+        "description": "4 personnes • 25 à 30 minutes • Boîte d’objets XL • Musique personnalisée. Extras : Go Pro (POV), objets, open mic, +1 ami.",
         "items": "« No mercy »"
       },
       "squadDestructionFive": {
         "title": "Squad Destruction – Smashers",
-        "description": "5 personnes • 25 à 30 minutes • Boîte d’objets XXL • Musique personnalisée. Extras : Go Pro (POV), objets, open mic.",
+        "description": "5 personnes • 25 à 30 minutes • Boîte d’objets XXL • Musique personnalisée. Extras : Go Pro (POV), objets, open mic, +1 ami.",
         "items": "« Smashers »"
       }
     }
@@ -179,7 +179,8 @@
     "groupSize": "Taille du Groupe",
     "people": "personnes",
     "person": "personne",
-    "maxPeople": "Maximum 4 personnes par session",
+    "maxPeople": "Maximum 5 personnes par session",
+    "maxPeopleForPack": "Maximum {{max}} personnes pour ce pack",
     "selectedDate": "Date Sélectionnée",
     "timeSlot": "Créneau Horaire",
     "notSelected": "Non sélectionné",

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FaArrowLeft, FaUsers, FaCalendarAlt, FaClock, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { useTranslation } from '../hooks/useTranslation'
@@ -10,8 +10,19 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 const BOOKING_START_DATE = new Date(2026, 2, 14) // March 14, 2026 (local time)
 BOOKING_START_DATE.setHours(0, 0, 0, 0)
 
+// Max people per pack: 1=Solo, 2=Duo, 3=Trio, 4=Squad Four, 5=Squad Five
+const PACK_MAX_PEOPLE = { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 }
+const DEFAULT_MAX_PEOPLE = 5
+
 const Booking = () => {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const packId = searchParams.get('pack')
+  const packNum = packId ? parseInt(packId, 10) : null
+  const maxGroupSize = packNum && PACK_MAX_PEOPLE[packNum] !== undefined
+    ? PACK_MAX_PEOPLE[packNum]
+    : DEFAULT_MAX_PEOPLE
+
   const { t, language } = useTranslation()
   const [selectedDate, setSelectedDate] = useState(null)
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null)
@@ -226,6 +237,13 @@ const Booking = () => {
     const day = String(date.getDate()).padStart(2, '0')
     return `${year}-${month}-${day}`
   }
+
+  // When coming from a pack (e.g. Solo/Duo), set group size to that pack's capacity (Solo=1, Duo=2, etc.)
+  useEffect(() => {
+    if (packNum && PACK_MAX_PEOPLE[packNum] !== undefined) {
+      setGroupSize(PACK_MAX_PEOPLE[packNum])
+    }
+  }, [packNum])
 
   // Auto-update display month when current month changes
   useEffect(() => {
@@ -1043,7 +1061,7 @@ const Booking = () => {
                 </div>
               </div>
 
-              {/* Group Size Selector */}
+              {/* Group Size Selector - limited by pack when booking from a specific pack (Solo=1, Duo=2, etc.) */}
               <div className="mb-6">
                 <div className="flex items-center space-x-2 mb-4">
                   <FaUsers className="text-rage-yellow text-xl" />
@@ -1062,14 +1080,16 @@ const Booking = () => {
                     <span className="text-gray-400 text-sm block">{groupSize === 1 ? t('booking.person') : t('booking.people')}</span>
                   </div>
                   <button
-                    onClick={() => setGroupSize(Math.min(4, groupSize + 1))}
-                    disabled={groupSize === 4}
+                    onClick={() => setGroupSize(Math.min(maxGroupSize, groupSize + 1))}
+                    disabled={groupSize === maxGroupSize}
                     className="w-10 h-10 rounded-lg bg-gray-800/80 backdrop-blur-sm border border-gray-700/30 text-white font-bold hover:border-rage-yellow/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
                     +
                   </button>
                 </div>
-                <p className="text-gray-400 text-xs mt-2 text-center">{t('booking.maxPeople')}</p>
+                <p className="text-gray-400 text-xs mt-2 text-center">
+                  {packNum ? t('booking.maxPeopleForPack', { max: maxGroupSize }) || `Maximum ${maxGroupSize} people for this pack` : t('booking.maxPeople')}
+                </p>
               </div>
 
               {/* Booking Summary */}
