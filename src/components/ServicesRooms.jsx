@@ -7,7 +7,8 @@ import {
   FaUser,
   FaClock,
   FaBoxOpen,
-  FaMusic
+  FaMusic,
+  FaStar
 } from 'react-icons/fa'
 import { useTranslation } from '../hooks/useTranslation'
 
@@ -40,7 +41,9 @@ const ServicesRooms = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const { t } = useTranslation()
 
+  // Order tweaked so the best-seller pack appears earlier and is more visible
   const services = [
+    
     {
       id: 1,
       titleKey: 'services.rooms.soloBlast.title',
@@ -50,22 +53,6 @@ const ServicesRooms = () => {
       price: '45 DT'
     },
     {
-      id: 2,
-      titleKey: 'services.rooms.duoChaos.title',
-      descriptionKey: 'services.rooms.duoChaos.description',
-      itemsKey: 'services.rooms.duoChaos.items',
-      image: '/images/services/5.jpg',
-      price: '80 DT'
-    },
-    {
-      id: 3,
-      titleKey: 'services.rooms.trioMadness.title',
-      descriptionKey: 'services.rooms.trioMadness.description',
-      itemsKey: 'services.rooms.trioMadness.items',
-      image: '/images/services/6.jpg',
-      price: '110 DT'
-    },
-    {
       id: 4,
       titleKey: 'services.rooms.squadDestructionFour.title',
       descriptionKey: 'services.rooms.squadDestructionFour.description',
@@ -73,6 +60,23 @@ const ServicesRooms = () => {
       image: '/images/services/7.jpg',
       bestSeller: true,
       price: '140 DT'
+    },
+    {
+      id: 2,
+      titleKey: 'services.rooms.duoChaos.title',
+      descriptionKey: 'services.rooms.duoChaos.description',
+      itemsKey: 'services.rooms.duoChaos.items',
+      image: '/images/services/5.jpg',
+      price: '80 DT'
+    },
+    
+    {
+      id: 3,
+      titleKey: 'services.rooms.trioMadness.title',
+      descriptionKey: 'services.rooms.trioMadness.description',
+      itemsKey: 'services.rooms.trioMadness.items',
+      image: '/images/services/6.jpg',
+      price: '110 DT'
     },
     {
       id: 5,
@@ -165,6 +169,12 @@ const ServicesRooms = () => {
             const cardBorderClass = service.bestSeller
               ? 'border-2 border-rage-yellow shadow-[0_0_35px_rgba(254,174,17,0.6)]'
               : 'border border-rage-yellow/15 shadow-lg'
+            const cardBgClass = service.bestSeller
+              ? 'bg-gradient-to-b from-gray-900/95 via-gray-950/95 to-black'
+              : 'bg-gray-900/95'
+            const imageOverlayClass = service.bestSeller
+              ? 'bg-gradient-to-t from-black/95 via-black/60 to-transparent'
+              : 'bg-gradient-to-t from-black/90 via-black/50 to-transparent'
 
             return (
               <motion.div
@@ -176,7 +186,7 @@ const ServicesRooms = () => {
                   boxShadow: '0 15px 35px rgba(254,174,17,0.3)',
                   transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
                 }}
-                className={`bg-gray-900/95 rounded-xl overflow-hidden flex flex-col rage-card-hover ${cardBorderClass}`}
+                className={`${cardBgClass} rounded-xl overflow-hidden flex flex-col rage-card-hover ${cardBorderClass}`}
               >
                 <div className="relative h-64 overflow-hidden">
                   <motion.img
@@ -186,14 +196,15 @@ const ServicesRooms = () => {
                     whileHover={{ scale: 1.15 }}
                     transition={{ duration: 0.4 }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                  <div className={`absolute inset-0 ${imageOverlayClass}`} />
                   {service.price && (
                     <div className="absolute top-3 left-3 bg-rage-yellow text-rage-black text-xs font-semibold px-3 py-1 rounded-full shadow-lg border border-black/30">
                       {service.price}
                     </div>
                   )}
                   {service.bestSeller && (
-                    <div className="absolute top-3 right-3 bg-rage-yellow text-rage-black text-xs font-semibold px-3 py-1 rounded-full shadow-lg uppercase tracking-wide">
+                    <div className="absolute top-3 right-3 flex items-center bg-gradient-to-r from-rage-yellow via-amber-200 to-orange-400 text-black text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wide border border-black/40 shadow-[0_10px_25px_rgba(0,0,0,0.55)]">
+                      <FaStar className="text-black mr-1" />
                       {t('services.bestSeller')}
                     </div>
                   )}
@@ -251,6 +262,12 @@ const ServicesRooms = () => {
               const cardBorderClass = service.bestSeller
                 ? 'border-2 border-rage-yellow shadow-[0_0_35px_rgba(254,174,17,0.6)]'
                 : 'border border-rage-yellow/15 shadow-lg'
+              const cardBgClass = service.bestSeller
+                ? 'bg-gradient-to-b from-gray-900/95 via-gray-950/95 to-black'
+                : 'bg-gray-900/95'
+              const imageOverlayClass = service.bestSeller
+                ? 'bg-gradient-to-t from-black/95 via-black/60 to-transparent'
+                : 'bg-gradient-to-t from-black/90 via-black/50 to-transparent'
 
               return (
                 <motion.div
@@ -262,7 +279,7 @@ const ServicesRooms = () => {
                     boxShadow: '0 15px 35px rgba(254,174,17,0.3)',
                     transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
                   }}
-                  className={`bg-gray-900/95 rounded-xl overflow-hidden flex flex-col rage-card-hover md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1rem)] ${cardBorderClass}`}
+                  className={`${cardBgClass} rounded-xl overflow-hidden flex flex-col rage-card-hover md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1rem)] ${cardBorderClass}`}
                 >
                   <div className="relative h-64 overflow-hidden">
                     <motion.img
@@ -272,14 +289,15 @@ const ServicesRooms = () => {
                       whileHover={{ scale: 1.15 }}
                       transition={{ duration: 0.4 }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                    <div className={`absolute inset-0 ${imageOverlayClass}`} />
                     {service.price && (
                       <div className="absolute top-3 left-3 bg-rage-yellow text-rage-black text-xs font-semibold px-3 py-1 rounded-full shadow-lg border border-black/30">
                         {service.price}
                       </div>
                     )}
                     {service.bestSeller && (
-                      <div className="absolute top-3 right-3 bg-rage-yellow text-rage-black text-xs font-semibold px-3 py-1 rounded-full shadow-lg uppercase tracking-wide">
+                      <div className="absolute top-3 right-3 flex items-center bg-gradient-to-r from-rage-yellow via-amber-200 to-orange-400 text-black text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wide border border-black/40 shadow-[0_10px_25px_rgba(0,0,0,0.55)]">
+                        <FaStar className="text-black mr-1" />
                         {t('services.bestSeller')}
                       </div>
                     )}

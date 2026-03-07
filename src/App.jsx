@@ -13,6 +13,7 @@ import Booking from './pages/Booking'
 import NotFound from './pages/NotFound'
 import AnimatedBackground from './components/AnimatedBackground'
 import ScrollProgress from './components/ScrollProgress'
+import BackToTop from './components/BackToTop'
 
 function Home() {
   return (
@@ -54,6 +55,7 @@ function App() {
   return (
     <LanguageProvider>
       <ScrollToTop />
+      <BackToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/booking" element={<Booking />} />
