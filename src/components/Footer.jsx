@@ -30,10 +30,10 @@ const Footer = () => {
       questionKey: 'footer.faqItems.items.question',
       answerKey: 'footer.faqItems.items.answer'
     },
-    {
-      questionKey: 'footer.faqItems.age.question',
-      answerKey: 'footer.faqItems.age.answer'
-    },
+    // {
+    //   questionKey: 'footer.faqItems.age.question',
+    //   answerKey: 'footer.faqItems.age.answer'
+    // },
     {
       questionKey: 'footer.faqItems.duration.question',
       answerKey: 'footer.faqItems.duration.answer'
