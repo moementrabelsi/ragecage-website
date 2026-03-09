@@ -4,6 +4,8 @@ import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { scroller } from 'react-scroll'
 import { useTranslation } from '../hooks/useTranslation'
+import { useCloudinaryMedia } from '../hooks/useCloudinaryMedia'
+import { cloudinaryImageUrl } from '../utils/cloudinary'
 import 'swiper/css'
 import 'swiper/css/effect-fade'
 import 'swiper/css/pagination'
@@ -11,17 +13,29 @@ import 'swiper/css/pagination'
 const HeroCarousel = () => {
   const [isShaking, setIsShaking] = useState(false)
   const { t } = useTranslation()
+  const { items: heroItems } = useCloudinaryMedia('hero', 'image')
 
   const scrollToServices = () => {
     scroller.scrollTo('services', { smooth: true, duration: 500, offset: -80 })
   }
 
-  const images = [
+  const fallbackImages = [
     '/images/hero/1.jpg',
-    '/images/hero/2.jpg',
-    '/images/hero/3.jpg',
-    '/images/hero/4.jpg',
+    '/images/hero/2.jpeg',
+    '/images/hero/3.jpeg',
+    '/images/hero/4.jpeg',
   ]
+
+  const images =
+    heroItems.length > 0
+      ? heroItems.map((item, index) => ({
+          key: item.publicId ?? index,
+          src:
+            (item.publicId && cloudinaryImageUrl(item.publicId, { width: 1920 })) ||
+            item.secureUrl ||
+            fallbackImages[index % fallbackImages.length],
+        }))
+      : fallbackImages.map((src, index) => ({ key: index, src }))
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -69,10 +83,10 @@ const HeroCarousel = () => {
         className="w-full h-full"
       >
         {images.map((image, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={image.key}>
             <div className="relative w-full h-full">
               <motion.img
-                src={image}
+                src={image.src}
                 alt={`${t('booking.rageRoomAlt')} ${index + 1}`}
                 className="w-full h-full object-cover"
                 animate={isShaking ? {

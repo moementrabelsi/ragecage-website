@@ -2,6 +2,8 @@ import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { useTranslation } from '../hooks/useTranslation'
+import { useCloudinaryMedia } from '../hooks/useCloudinaryMedia'
+import { cloudinaryImageUrl } from '../utils/cloudinary'
 
 const Gallery = () => {
   const ref = useRef(null)
@@ -9,44 +11,70 @@ const Gallery = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const { t } = useTranslation()
+  const { items: galleryItems } = useCloudinaryMedia('gallery', 'image')
 
-  const images = [
+  const meta = [
     {
-      url: '/images/gallery/1.jpg',
       titleKey: 'gallery.images.glassSmashing.title',
-      descriptionKey: 'gallery.images.glassSmashing.description'
+      descriptionKey: 'gallery.images.glassSmashing.description',
     },
     {
-      url: '/images/gallery/2.jpg',
       titleKey: 'gallery.images.electronics.title',
-      descriptionKey: 'gallery.images.electronics.description'
+      descriptionKey: 'gallery.images.electronics.description',
     },
     {
-      url: '/images/gallery/3.jpg',
       titleKey: 'gallery.images.furniture.title',
-      descriptionKey: 'gallery.images.furniture.description'
+      descriptionKey: 'gallery.images.furniture.description',
     },
     {
-      url: '/images/gallery/4.jpg',
       titleKey: 'gallery.images.destruction.title',
-      descriptionKey: 'gallery.images.destruction.description'
+      descriptionKey: 'gallery.images.destruction.description',
     },
     {
-      url: '/images/gallery/5.jpg',
       titleKey: 'gallery.images.highEnergy.title',
-      descriptionKey: 'gallery.images.highEnergy.description'
+      descriptionKey: 'gallery.images.highEnergy.description',
     },
     {
-      url: '/images/gallery/6.jpg',
       titleKey: 'gallery.images.themed.title',
-      descriptionKey: 'gallery.images.themed.description'
+      descriptionKey: 'gallery.images.themed.description',
     },
     {
-      url: '/images/gallery/7.jpg',
       titleKey: 'gallery.images.group.title',
-      descriptionKey: 'gallery.images.group.description'
-    }
+      descriptionKey: 'gallery.images.group.description',
+    },
   ]
+
+  const fallbackImages = [
+    '/images/gallery/1.jpg',
+    '/images/gallery/2.jpg',
+    '/images/gallery/3.jpg',
+    '/images/gallery/4.jpg',
+    '/images/gallery/5.jpg',
+    '/images/gallery/6.jpg',
+    '/images/gallery/7.jpg',
+  ]
+
+  const images =
+    galleryItems.length > 0
+      ? galleryItems.map((item, index) => {
+          const metaItem = meta[index % meta.length]
+          return {
+            url:
+              (item.publicId && cloudinaryImageUrl(item.publicId, { width: 1200 })) ||
+              item.secureUrl ||
+              fallbackImages[index % fallbackImages.length],
+            titleKey: metaItem.titleKey,
+            descriptionKey: metaItem.descriptionKey,
+          }
+        })
+      : fallbackImages.map((url, index) => {
+          const metaItem = meta[index % meta.length]
+          return {
+            url,
+            titleKey: metaItem.titleKey,
+            descriptionKey: metaItem.descriptionKey,
+          }
+        })
 
   const containerVariants = {
     hidden: { opacity: 0 },

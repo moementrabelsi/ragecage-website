@@ -541,4 +541,20 @@ body {
   animation: particle-burst 0.6s ease-out forwards;
 }
 
+/* Hero carousel pagination bullets */
+.parallax-container .hero-bullet {
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.4);
+  opacity: 1;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+.parallax-container .hero-bullet:hover {
+  background: rgba(254, 174, 17, 0.7);
+}
+.parallax-container .hero-bullet-active {
+  width: 28px;
+  border-radius: 5px;
+  background: #feae11;
+}
 

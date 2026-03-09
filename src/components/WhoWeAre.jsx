@@ -2,23 +2,33 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { FaShieldAlt, FaDoorOpen, FaTools } from 'react-icons/fa'
 import { useTranslation } from '../hooks/useTranslation'
+import { useCloudinaryMedia } from '../hooks/useCloudinaryMedia'
+import { cloudinaryVideoUrl } from '../utils/cloudinary'
 
 const WhoWeAre = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const { t, tHTML } = useTranslation()
+  const { items: whoVideos } = useCloudinaryMedia('who-we-are', 'video')
 
   const videoConfig = {
     enabled: true,
-    type: 'local',
+    type: whoVideos.length > 0 ? 'cloudinary' : 'local',
     localPath: '/images/10.mp4',
     youtubeId: null,
     autoplay: true,
     loop: true,
     muted: true,
     playsInline: true,
-    controls: false
+    controls: false,
   }
+
+  const cloudinaryVideoId = whoVideos[0]?.publicId
+
+  const videoSrc =
+    (videoConfig.type === 'cloudinary' && cloudinaryVideoId
+      ? cloudinaryVideoUrl(cloudinaryVideoId, { width: 1280 })
+      : null) ?? videoConfig.localPath
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -94,7 +104,7 @@ const WhoWeAre = () => {
                 whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(254, 174, 17, 0.4)" }}
                 transition={{ duration: 0.3 }}
               >
-                {videoConfig.enabled ? (
+                {videoConfig.enabled && isInView ? (
                   videoConfig.type === 'youtube' && videoConfig.youtubeId ? (
                     <div className="relative w-full h-full">
                       <iframe
@@ -119,7 +129,7 @@ const WhoWeAre = () => {
                       controls={videoConfig.controls}
                       className="w-full h-full object-cover"
                     >
-                      <source src={videoConfig.localPath} type="video/mp4" />
+                      <source src={videoSrc} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   )
