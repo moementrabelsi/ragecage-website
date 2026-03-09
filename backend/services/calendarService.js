@@ -334,9 +334,19 @@ function formatTimeSlot(time) {
  * @param {string} phoneNumber - Phone number of the customer
  * @param {string} customerEmail - Email of the customer (optional)
  * @param {string} specialRequests - Special requests from the customer (optional)
+ * @param {string} packName - Name of the selected pack (optional)
  * @returns {Promise<Object>} - Created event object
  */
-export async function createBooking(dateString, timeSlot, groupSize, customerName = 'Guest', phoneNumber = '', customerEmail = '', specialRequests = '') {
+export async function createBooking(
+  dateString,
+  timeSlot,
+  groupSize,
+  customerName = 'Guest',
+  phoneNumber = '',
+  customerEmail = '',
+  specialRequests = '',
+  packName = ''
+) {
   try {
     const calendarClient = getCalendarClient()
     const calendarId = getCalendarId()
@@ -421,6 +431,13 @@ Phone: ${phoneNumber || 'Not provided'}`
     }
     
     description += `\n\nGroup Size: ${groupSize} ${groupSize === 1 ? 'person' : 'people'}`
+
+    // Add pack name if provided
+    const trimmedPackName = packName ? packName.trim() : ''
+    if (trimmedPackName !== '') {
+      description += `\nPack: ${trimmedPackName}`
+      console.log('Adding pack name to description:', trimmedPackName)
+    }
 
     // Add special requests if provided (check for non-empty string)
     const trimmedRequests = specialRequests ? specialRequests.trim() : ''

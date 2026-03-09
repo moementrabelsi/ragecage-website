@@ -12,6 +12,13 @@ BOOKING_START_DATE.setHours(0, 0, 0, 0)
 
 // Max people per pack: 1=Solo, 2=Duo, 3=Trio, 4=Squad Four, 5=Squad Five
 const PACK_MAX_PEOPLE = { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 }
+const PACK_TITLE_KEYS = {
+  1: 'services.rooms.soloBlast.title',
+  2: 'services.rooms.duoChaos.title',
+  3: 'services.rooms.trioMadness.title',
+  4: 'services.rooms.squadDestructionFour.title',
+  5: 'services.rooms.squadDestructionFive.title'
+}
 const DEFAULT_MAX_PEOPLE = 5
 
 const Booking = () => {
@@ -24,6 +31,8 @@ const Booking = () => {
     : DEFAULT_MAX_PEOPLE
 
   const { t, language } = useTranslation()
+  const selectedPackName =
+    packNum && PACK_TITLE_KEYS[packNum] ? t(PACK_TITLE_KEYS[packNum]) : null
   const [selectedDate, setSelectedDate] = useState(null)
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null)
   const [groupSize, setGroupSize] = useState(1)
@@ -557,6 +566,9 @@ const Booking = () => {
           lastName: lastName.trim(),
           phoneNumber: cleanedPhone,
           specialRequests: specialRequests.trim(),
+        }
+        if (selectedPackName) {
+          payload.packName = selectedPackName
         }
         const trimmedEmail = email.trim()
         if (trimmedEmail) {

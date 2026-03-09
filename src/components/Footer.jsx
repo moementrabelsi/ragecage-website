@@ -17,7 +17,7 @@ const Footer = () => {
   const socialLinks = [
     { icon: FaFacebook, url: '#', color: 'hover:text-blue-500', label: 'Facebook' },
     { icon: FaInstagram, url: 'https://www.instagram.com/smashroomtn?igsh=d3RyamxnamkxcHht', color: 'hover:text-pink-500', label: 'Instagram' },
-    { icon: FaTiktok, url: '#', color: 'hover:text-white', label: 'TikTok' },
+    { icon: FaTiktok, url: 'https://www.tiktok.com/@smash.room0', color: 'hover:text-white', label: 'TikTok' },
     { icon: FaYoutube, url: '#', color: 'hover:text-red-500', label: 'YouTube' },
   ]
 

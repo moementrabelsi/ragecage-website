@@ -19,7 +19,17 @@ const router = express.Router()
  */
 router.post('/book', async (req, res) => {
   try {
-    const { date, timeSlot, groupSize, firstName, lastName, phoneNumber, email, specialRequests } = req.body
+    const {
+      date,
+      timeSlot,
+      groupSize,
+      firstName,
+      lastName,
+      phoneNumber,
+      email,
+      specialRequests,
+      packName
+    } = req.body
 
     // Validation
     if (!date || !timeSlot || !groupSize || !firstName || !lastName || !phoneNumber || !email) {
@@ -75,13 +85,15 @@ router.post('/book', async (req, res) => {
     const customerName = `${firstName.trim()} ${lastName.trim()}`
     const customerEmail = trimmedEmail
     const customerSpecialRequests = specialRequests ? specialRequests.trim() : ''
+    const customerPackName = packName ? String(packName).trim() : ''
     
     console.log('Creating booking with:', { 
       customerName, 
       phoneNumber, 
       email: customerEmail, 
       specialRequests: customerSpecialRequests, 
-      groupSize: groupSizeNum 
+      groupSize: groupSizeNum,
+      packName: customerPackName
     })
     
     const event = await createBooking(
@@ -91,7 +103,8 @@ router.post('/book', async (req, res) => {
       customerName,
       trimmedPhone,
       customerEmail,
-      customerSpecialRequests
+      customerSpecialRequests,
+      customerPackName
     )
 
     // Send response immediately to avoid timeout

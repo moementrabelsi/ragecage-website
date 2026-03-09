@@ -53,15 +53,6 @@ const ServicesRooms = () => {
       price: '45 DT'
     },
     {
-      id: 4,
-      titleKey: 'services.rooms.squadDestructionFour.title',
-      descriptionKey: 'services.rooms.squadDestructionFour.description',
-      itemsKey: 'services.rooms.squadDestructionFour.items',
-      image: '/images/services/7.jpg',
-      bestSeller: true,
-      price: '140 DT'
-    },
-    {
       id: 2,
       titleKey: 'services.rooms.duoChaos.title',
       descriptionKey: 'services.rooms.duoChaos.description',
@@ -77,6 +68,15 @@ const ServicesRooms = () => {
       itemsKey: 'services.rooms.trioMadness.items',
       image: '/images/services/6.jpg',
       price: '110 DT'
+    },
+    {
+      id: 4,
+      titleKey: 'services.rooms.squadDestructionFour.title',
+      descriptionKey: 'services.rooms.squadDestructionFour.description',
+      itemsKey: 'services.rooms.squadDestructionFour.items',
+      image: '/images/services/7.jpg',
+      bestSeller: true,
+      price: '140 DT'
     },
     {
       id: 5,
