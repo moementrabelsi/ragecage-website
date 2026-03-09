@@ -38,7 +38,7 @@
     "titlePart2": "We",
     "titlePart3": "Are",
     "paragraph1": "Welcome to <strong class=\"font-rage\">Smash Room</strong>, where stress meets destruction. We provide a safe, controlled environment for you to <strong>smash bottles, break screens, destroy furniture</strong>, and experience the ultimate cathartic release.",
-    "paragraph2": "Our state-of-the-art rage room facility features multiple themed destruction rooms, professional-grade safety equipment including helmets and protective gear, and an atmosphere designed to help you <strong>break free from stress</strong> through controlled, high-energy destruction.",
+    "paragraph2": "Our state-of-the-art rage room facility features a premium destruction zone, professional-grade safety equipment including helmets and protective gear, and an atmosphere designed to help you <strong>break free from stress</strong> through controlled, high-energy destruction.",
     "paragraph3": "Whether you're dealing with work stress, relationship tension, or just need an outlet, <strong class=\"font-rage\">Smash Room</strong> is your destination for <strong>smashing, breaking, and destroying</strong> in a safe, controlled environment. Release your rage. Feel the relief.",
     "facilityImageAlt": "Smash Room Facility",
     "features": {
@@ -47,7 +47,7 @@
         "description": "Full protective gear provided"
       },
       "rooms": {
-        "title": "Multiple Rage Rooms",
+        "title": "Destruction Zone",
         "description": "Glass, electronics, furniture & more"
       },
       "equipment": {
@@ -118,7 +118,7 @@
         "description": "Maximum stress relief"
       },
       "themed": {
-        "title": "Themed Rooms",
+        "title": "Themed Destruction",
         "description": "Various destruction themes"
       },
       "group": {
@@ -272,7 +272,7 @@
       },
       "group": {
         "question": "Can I book for a group?",
-        "answer": "Yes! We offer group packages for parties, team building, and events. Multiple rooms can be booked simultaneously."
+        "answer": "Yes! We offer group packages for parties, team building, and events. Groups of up to 5 can book a session together."
       },
       "clothing": {
         "question": "What should I wear?",

@@ -38,7 +38,7 @@
     "titlePart2": "Nous",
     "titlePart3": "Sommes",
     "paragraph1": "Bienvenue à <strong class=\"font-rage\">Smash Room</strong>, où le stress rencontre la destruction. Nous offrons un environnement sûr et contrôlé pour que vous puissiez <strong>casser des bouteilles, briser des écrans, détruire des meubles</strong>, et vivre la libération cathartique ultime.",
-    "paragraph2": "Notre installation de rage room de pointe comprend plusieurs salles de destruction thématiques, un équipement de sécurité de qualité professionnelle incluant casques et équipements de protection, et une atmosphère conçue pour vous aider à <strong>vous libérer du stress</strong> grâce à une destruction contrôlée et énergique.",
+    "paragraph2": "Notre installation de rage room de pointe comprend une zone de destruction premium, un équipement de sécurité de qualité professionnelle incluant casques et équipements de protection, et une atmosphère conçue pour vous aider à <strong>vous libérer du stress</strong> grâce à une destruction contrôlée et énergique.",
     "paragraph3": "Que vous fassiez face au stress du travail, aux tensions relationnelles, ou que vous ayez simplement besoin d'une échappatoire, <strong class=\"font-rage\">Smash Room</strong> est votre destination pour <strong>casser, briser et détruire</strong> dans un environnement sûr et contrôlé. Libérez votre rage. Ressentez le soulagement.",
     "facilityImageAlt": "Installation Smash Room",
     "features": {
@@ -47,7 +47,7 @@
         "description": "Équipement de protection complet fourni"
       },
       "rooms": {
-        "title": "Plusieurs Salles de Rage",
+        "title": "Zone de Destruction",
         "description": "Verre, électronique, mobilier et plus"
       },
       "equipment": {
@@ -118,7 +118,7 @@
         "description": "Soulagement maximal du stress"
       },
       "themed": {
-        "title": "Salles Thématiques",
+        "title": "Destruction Thématique",
         "description": "Divers thèmes de destruction"
       },
       "group": {
@@ -272,7 +272,7 @@
       },
       "group": {
         "question": "Puis-je réserver pour un groupe ?",
-        "answer": "Oui ! Nous proposons des forfaits de groupe pour les fêtes, le team building et les événements. Plusieurs salles peuvent être réservées simultanément."
+        "answer": "Oui ! Nous proposons des forfaits de groupe pour les fêtes, le team building et les événements. Des groupes jusqu'à 5 personnes peuvent réserver une session ensemble."
       },
       "clothing": {
         "question": "Que dois-je porter ?",
