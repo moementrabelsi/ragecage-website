@@ -352,6 +352,9 @@ export async function createBooking(
     const calendarId = getCalendarId()
     const timezone = process.env.TIMEZONE || 'Europe/Paris'
 
+    // Capture when the reservation is being created (booking time)
+    const bookingCreatedAtUtc = new Date()
+
     // Parse the date and time components
     const [hours, minutes] = timeSlot.split(':').map(Number)
     
@@ -448,7 +451,17 @@ Phone: ${phoneNumber || 'Not provided'}`
       console.log('Special requests not provided or empty')
     }
 
-    description += `\n\nBooked through Smash Room website.`
+    // Format booking creation time in the calendar's timezone for readability
+    const bookingCreatedAtFormatted = new Intl.DateTimeFormat('en-GB', {
+      timeZone: timezone,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(bookingCreatedAtUtc)
+
+    description += `\n\nBooked through Smash Room website.\nReservation created on: ${bookingCreatedAtFormatted} (${timezone})`
     
     console.log('Final event description:', description)
     
@@ -464,6 +477,11 @@ Phone: ${phoneNumber || 'Not provided'}`
         timeZone: timezone,
       },
       colorId: '11', // Red color for rage room bookings
+      extendedProperties: {
+        private: {
+          bookedAt: bookingCreatedAtUtc.toISOString(),
+        },
+      },
       reminders: {
         useDefault: false,
         overrides: [
