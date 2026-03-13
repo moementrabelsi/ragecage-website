@@ -76,17 +76,17 @@
       },
       "trioMadness": {
         "title": "Trio Madness",
-        "description": "3 persons • 25 minutes • Large box of items • Custom music choice. Extras: Go Pro (POV), items, open mic, +1 Friend.",
+        "description": "3 persons • 25 minutes • Large box of items • Custom music choice. Extras: Go Pro (POV), items, open mic.",
         "items": "“More people more damage”"
       },
       "squadDestructionFour": {
         "title": "Squad Destruction",
-        "description": "4 persons • 25 to 30 minutes • X Large box of items • Custom music choice. Extras: Go Pro (POV), items, open mic, +1 Friend.",
+        "description": "4 persons • 25 to 30 minutes • X Large box of items • Custom music choice. Extras: Go Pro (POV), items, open mic.",
         "items": "“No mercy”"
       },
       "squadDestructionFive": {
         "title": "Squad Destruction – Smashers",
-        "description": "5 persons • 25 to 30 minutes • XXL box of items • Custom music choice. Extras: Go Pro (POV), items, open mic, +1 Friend.",
+        "description": "5 persons • 25 to 30 minutes • XXL box of items • Custom music choice. Extras: Go Pro (POV), items, open mic.",
         "items": "“Smashers”"
       }
     }

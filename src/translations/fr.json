@@ -76,17 +76,17 @@
       },
       "trioMadness": {
         "title": "Trio Madness",
-        "description": "3 personnes • 25 minutes • Grande boîte d’objets • Musique personnalisée. Extras : Go Pro (POV), objets, open mic, +1 ami.",
+        "description": "3 personnes • 25 minutes • Grande boîte d’objets • Musique personnalisée. Extras : Go Pro (POV), objets, open mic.",
         "items": "« More people more damage »"
       },
       "squadDestructionFour": {
         "title": "Squad Destruction",
-        "description": "4 personnes • 25 à 30 minutes • Boîte d’objets XL • Musique personnalisée. Extras : Go Pro (POV), objets, open mic, +1 ami.",
+        "description": "4 personnes • 25 à 30 minutes • Boîte d’objets XL • Musique personnalisée. Extras : Go Pro (POV), objets, open mic.",
         "items": "« No mercy »"
       },
       "squadDestructionFive": {
         "title": "Squad Destruction – Smashers",
-        "description": "5 personnes • 25 à 30 minutes • Boîte d’objets XXL • Musique personnalisée. Extras : Go Pro (POV), objets, open mic, +1 ami.",
+        "description": "5 personnes • 25 à 30 minutes • Boîte d’objets XXL • Musique personnalisée. Extras : Go Pro (POV), objets, open mic.",
         "items": "« Smashers »"
       }
     }

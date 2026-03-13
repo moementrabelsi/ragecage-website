@@ -131,11 +131,6 @@ const Booking = () => {
     return days
   }
   
-  // Check if a date is Monday (day 1, where 0 = Sunday)
-  const isMonday = (date) => {
-    return date.getDay() === 1
-  }
-
   // Check if a date is in the past
   const isPastDate = (date) => {
     const today = new Date()
@@ -150,7 +145,6 @@ const Booking = () => {
     if (!isCurrentMonth) return false
     if (isPastDate(date)) return false
     if (date < BOOKING_START_DATE) return false
-    if (isMonday(date)) return false
     
     const { currentMonth, currentYear, nextMonth, nextYear } = getCurrentMonthInfo()
     const dateMonth = date.getMonth()
@@ -165,7 +159,7 @@ const Booking = () => {
   const calendarDays = getCalendarDays(displayMonth, displayYear)
 
   // Generate time slots based on day of week
-  // Tuesday-Friday: 11:00 to 22:00 (11h to 22h)
+  // Monday-Friday: 11:00 to 22:00 (11h to 22h)
   // Saturday-Sunday: 10:00 to 22:00 (10h to 22h)
   const getTimeSlotsForDay = (dayOfWeek) => {
     const slots = []
@@ -179,8 +173,8 @@ const Booking = () => {
       // Add 22:00 slot
       slots.push('22:00')
     }
-    // Tuesday (2) to Friday (5): 11:00 to 22:00
-    else if (dayOfWeek >= 2 && dayOfWeek <= 5) {
+    // Monday (1) to Friday (5): 11:00 to 22:00
+    else if (dayOfWeek >= 1 && dayOfWeek <= 5) {
       for (let hour = 11; hour < 22; hour++) {
         slots.push(`${hour.toString().padStart(2, '0')}:00`)
         slots.push(`${hour.toString().padStart(2, '0')}:30`)
@@ -188,8 +182,7 @@ const Booking = () => {
       // Add 22:00 slot
       slots.push('22:00')
     }
-    // Monday (1) or other days: no slots (closed)
-    
+
     return slots
   }
 
@@ -841,9 +834,8 @@ const Booking = () => {
                   const day = date.getDate()
                   const isSelectedDay = isSelected(date)
                   const isTodayDate = isToday(date)
-                  const isMondayDay = isMonday(date)
                   const isSelectable = isDateSelectable(date, isCurrentMonth)
-                  const isDisabled = !isSelectable || isMondayDay
+                  const isDisabled = !isSelectable
                   
                   return (
                     <motion.button
@@ -868,8 +860,6 @@ const Booking = () => {
                       title={
                         !isCurrentMonth 
                           ? t('booking.notAvailable')
-                          : isMondayDay 
-                          ? t('booking.closedMondays')
                           : isPastDate(date)
                           ? t('booking.pastDate')
                           : ''
