@@ -215,29 +215,7 @@ const Gallery = () => {
                     transition={{ duration: 0.4 }}
                   />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <motion.h3
-                      initial={{ y: 20, opacity: 0 }}
-                      whileHover={{ y: 0, opacity: 1 }}
-                      className="text-rage-yellow font-rage text-xl mb-2"
-                      style={{ 
-                        textShadow: '2px 2px 0px rgba(0,0,0,0.9), -1px -1px 0px rgba(254, 174, 17, 0.3), 0 0 10px rgba(254, 174, 17, 0.4)',
-                        letterSpacing: '0.05em',
-                      }}
-                    >
-                      {t(image.titleKey)}
-                    </motion.h3>
-                    <motion.p
-                      initial={{ y: 20, opacity: 0 }}
-                      whileHover={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.1 }}
-                      className="text-white font-semibold text-sm"
-                    >
-                      {t(image.descriptionKey)}
-                    </motion.p>
-                  </div>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 {/* Impact effect overlay */}
                 <motion.div
                   className="absolute inset-0 bg-rage-yellow/0 group-hover:bg-rage-yellow/10 transition-colors duration-300"
@@ -304,14 +282,8 @@ const Gallery = () => {
             </motion.button>
 
             {/* Image Info */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-sm rounded-lg px-6 py-4 text-center">
-              <h3 className="text-rage-yellow font-rage text-xl md:text-2xl mb-2">
-                {t(images[selectedImageIndex].titleKey)}
-              </h3>
-              <p className="text-white font-semibold text-sm md:text-base">
-                {t(images[selectedImageIndex].descriptionKey)}
-              </p>
-              <p className="text-gray-400 text-xs mt-2">
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-sm rounded-lg px-4 py-2 text-center">
+              <p className="text-gray-400 text-xs">
                 {selectedImageIndex + 1} / {images.length}
               </p>
             </div>

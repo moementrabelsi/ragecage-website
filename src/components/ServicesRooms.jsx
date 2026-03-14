@@ -78,14 +78,14 @@ const ServicesRooms = () => {
       bestSeller: true,
       price: '140 DT'
     },
-    {
-      id: 5,
-      titleKey: 'services.rooms.squadDestructionFive.title',
-      descriptionKey: 'services.rooms.squadDestructionFive.description',
-      itemsKey: 'services.rooms.squadDestructionFive.items',
-      image: '/images/services/8.jpg',
-      price: '160 DT'
-    }
+    // {
+    //   id: 5,
+    //   titleKey: 'services.rooms.squadDestructionFive.title',
+    //   descriptionKey: 'services.rooms.squadDestructionFive.description',
+    //   itemsKey: 'services.rooms.squadDestructionFive.items',
+    //   image: '/images/services/8.jpg',
+    //   price: '160 DT'
+    // }
   ]
 
   const containerVariants = {
