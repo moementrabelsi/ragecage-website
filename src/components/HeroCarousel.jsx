@@ -95,8 +95,8 @@ const HeroCarousel = () => {
                 } : {}}
                 transition={{ duration: 0.3 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-rage-red/5 via-transparent to-rage-yellow/5"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/55 to-black/85"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-rage-red/10 via-transparent to-rage-yellow/10"></div>
               <div className="absolute inset-0 opacity-10 cracked-overlay"></div>
               
               <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
@@ -104,11 +104,11 @@ const HeroCarousel = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
-                  className="text-center"
+                  className="text-center px-4 max-w-5xl"
                 >
                   <motion.h1
                     animate={isShaking ? shakeVariants.shake : {}}
-                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-rage text-center mb-4 px-4 leading-tight text-rage-title"
+                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-rage text-center mb-5 leading-tight text-rage-title"
                     style={{
                       letterSpacing: '0.15em',
                     }}
@@ -171,7 +171,7 @@ const HeroCarousel = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.5 }}
-                    className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-6 md:mb-8 font-black uppercase tracking-wider"
+                    className="text-sm sm:text-base md:text-lg lg:text-xl text-white/95 mb-7 md:mb-9 font-crashcourse uppercase tracking-[0.22em]"
                     style={{
                       textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 15px rgba(254, 174, 17, 0.4)',
                     }}

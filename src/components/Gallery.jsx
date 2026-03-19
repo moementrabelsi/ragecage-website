@@ -150,9 +150,6 @@ const Gallery = () => {
             <span className="text-white"> {t('gallery.titlePart2')}</span>
           </h2>
           <div className="w-24 h-1 bg-rage-yellow mx-auto"></div>
-          <p className="text-white/90 mt-4 text-lg font-semibold">
-            {t('gallery.subtitle')}
-          </p>
         </motion.div>
 
         <div className="relative">
