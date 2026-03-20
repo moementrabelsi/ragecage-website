@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 import { FaArrowLeft, FaUsers, FaCalendarAlt, FaClock, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { useTranslation } from '../hooks/useTranslation'
 import BookingConfirmationModal from '../components/BookingConfirmationModal'
-import logo from '../assets/logo/rage.png'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 const BOOKING_START_DATE = new Date(2026, 2, 14) // March 14, 2026 (local time)
@@ -736,7 +735,14 @@ const Booking = () => {
               <FaArrowLeft />
               <span>{t('booking.backToHome')}</span>
             </button>
-            <img src={logo} alt="Smash Room Logo" className="h-12 w-auto bg-transparent" style={{ background: 'transparent' }} />
+            <img
+              src="/logo/rage-128.png"
+              srcSet="/logo/rage-96.png 96w, /logo/rage-128.png 128w, /logo/rage-192.png 192w"
+              sizes="96px"
+              alt="Smash Room Logo"
+              className="h-12 w-auto bg-transparent"
+              style={{ background: 'transparent' }}
+            />
             <div className="w-20"></div> {/* Spacer for centering */}
           </div>
         </div>

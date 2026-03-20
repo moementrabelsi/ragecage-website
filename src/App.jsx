@@ -1,20 +1,23 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
-import { Element } from 'react-scroll'
+import { useEffect, lazy, Suspense } from 'react'
 import { LanguageProvider } from './contexts/LanguageContext'
 import Navbar from './components/Navbar'
 import HeroCarousel from './components/HeroCarousel'
-import WhoWeAre from './components/WhoWeAre'
-import ServicesRooms from './components/ServicesRooms'
-import Gallery from './components/Gallery'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
-import Booking from './pages/Booking'
-import NotFound from './pages/NotFound'
 import AnimatedBackground from './components/AnimatedBackground'
 import ScrollProgress from './components/ScrollProgress'
 import BackToTop from './components/BackToTop'
 import TopBanner from './components/TopBanner'
+import DeferredSection from './components/DeferredSection'
+
+const WhoWeAre = lazy(() => import('./components/WhoWeAre'))
+const ServicesRooms = lazy(() => import('./components/ServicesRooms'))
+const Gallery = lazy(() => import('./components/Gallery'))
+const Contact = lazy(() => import('./components/Contact'))
+const Footer = lazy(() => import('./components/Footer'))
+const Booking = lazy(() => import('./pages/Booking'))
+const NotFound = lazy(() => import('./pages/NotFound'))
+
+const sectionFallback = <div className="min-h-[280px]" />
 
 function Home() {
   return (
@@ -23,22 +26,34 @@ function Home() {
       <ScrollProgress />
       <Navbar />
       <TopBanner />
-      <Element name="home" id="home">
+      <section id="home">
         <HeroCarousel />
-      </Element>
-      <Element name="about" id="about">
-        <WhoWeAre />
-      </Element>
-      <Element name="services" id="services">
-        <ServicesRooms />
-      </Element>
-      <Element name="gallery" id="gallery">
-        <Gallery />
-      </Element>
-      <Element name="contact" id="contact">
-        <Contact />
-      </Element>
-      <Footer />
+      </section>
+      <DeferredSection id="about" className="min-h-[500px]">
+        <Suspense fallback={sectionFallback}>
+          <WhoWeAre />
+        </Suspense>
+      </DeferredSection>
+      <DeferredSection id="services" className="min-h-[500px]">
+        <Suspense fallback={sectionFallback}>
+          <ServicesRooms />
+        </Suspense>
+      </DeferredSection>
+      <DeferredSection id="gallery" className="min-h-[500px]">
+        <Suspense fallback={sectionFallback}>
+          <Gallery />
+        </Suspense>
+      </DeferredSection>
+      <DeferredSection id="contact" className="min-h-[450px]">
+        <Suspense fallback={sectionFallback}>
+          <Contact />
+        </Suspense>
+      </DeferredSection>
+      <DeferredSection id="footer">
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
+      </DeferredSection>
     </div>
   )
 }
@@ -60,8 +75,22 @@ function App() {
       <BackToTop />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/booking" element={<Booking />} />
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="/booking"
+          element={
+            <Suspense fallback={<div className="min-h-screen bg-rage-black" />}>
+              <Booking />
+            </Suspense>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <Suspense fallback={<div className="min-h-screen bg-rage-black" />}>
+              <NotFound />
+            </Suspense>
+          }
+        />
       </Routes>
     </LanguageProvider>
   )
