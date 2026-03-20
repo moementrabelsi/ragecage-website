@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-scroll'
 import { FaFacebook, FaInstagram, FaTiktok, FaYoutube, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa'
 import { useTranslation } from '../hooks/useTranslation'
+import logo from '../assets/logo/rage.png'
 
 const Footer = () => {
   const { t } = useTranslation()
@@ -52,15 +54,6 @@ const Footer = () => {
     { icon: FaEnvelope, text: 'smashroomtn@gmail.com', isLink: true, linkType: 'mailto' },
   ]
 
-  const scrollToSection = (event, sectionId) => {
-    event.preventDefault()
-    const target = document.getElementById(sectionId)
-    if (!target) return
-    const y = target.getBoundingClientRect().top + window.scrollY - 80
-    window.history.replaceState(null, '', `#${sectionId}`)
-    window.scrollTo({ top: y, behavior: 'smooth' })
-  }
-
   return (
     <footer className="bg-rage-black border-t border-rage-yellow/15">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-8 py-8 md:py-10 lg:py-12">
@@ -71,23 +64,23 @@ const Footer = () => {
               whileHover={{ scale: 1.05 }}
               className="mb-4"
             >
-              <a
-                href="#home"
-                onClick={(event) => scrollToSection(event, 'home')}
+              <Link
+                to="home"
+                spy={true}
+                smooth={true}
+                duration={500}
                 className="cursor-pointer inline-block"
               >
                 <img 
-                  src="/logo/rage-128.png"
-                  srcSet="/logo/rage-96.png 96w, /logo/rage-128.png 128w, /logo/rage-192.png 192w"
-                  sizes="96px"
+                  src={logo} 
                   alt="Smash Room Logo"
                   loading="lazy" 
-                  width={96}
-                  height={96}
+                  width={180}
+                  height={60}
                   className="h-12 w-auto object-contain bg-transparent"
                   style={{ background: 'transparent' }}
                 />
-              </a>
+              </Link>
             </motion.div>
             <p className="text-gray-400 text-sm mb-4">
               {t('footer.description')}
@@ -120,13 +113,16 @@ const Footer = () => {
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={`#${link.to}`}
-                    onClick={(event) => scrollToSection(event, link.to)}
+                  <Link
+                    to={link.to}
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                    offset={-80}
                     className="text-gray-400 hover:text-rage-yellow transition-colors duration-300 cursor-pointer text-sm font-semibold block magnetic rage-link-hover"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -1,4 +1,5 @@
 import { useTranslation } from '../hooks/useTranslation'
+import logo from '../assets/logo/rage.png'
 
 // Spinning logo loader with yellow ring
 const Loader = ({ size = 120 }) => {
@@ -14,13 +15,9 @@ const Loader = ({ size = 120 }) => {
       >
         <div className="absolute inset-0 rounded-full border-4 border-rage-yellow/50 border-t-rage-yellow animate-spin" />
         <img
-          src="/logo/rage-128.png"
-          srcSet="/logo/rage-96.png 96w, /logo/rage-128.png 128w, /logo/rage-192.png 192w"
-          sizes="120px"
+          src={logo}
           alt={t('loader.logoAlt')}
           className="rounded-full shadow-lg"
-          loading="eager"
-          decoding="async"
           style={{ width: size, height: size }}
         />
       </div>

@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 import { motion } from 'framer-motion'
+import { scroller } from 'react-scroll'
 import { useTranslation } from '../hooks/useTranslation'
 import { useCloudinaryMedia } from '../hooks/useCloudinaryMedia'
 import { cloudinaryImageUrl } from '../utils/cloudinary'
@@ -13,11 +14,7 @@ const HeroCarousel = () => {
   const { items: heroItems } = useCloudinaryMedia('hero', 'image')
 
   const scrollToServices = () => {
-    const target = document.getElementById('services')
-    if (!target) return
-    const y = target.getBoundingClientRect().top + window.scrollY - 80
-    window.history.replaceState(null, '', '#services')
-    window.scrollTo({ top: y, behavior: 'smooth' })
+    scroller.scrollTo('services', { smooth: true, duration: 500, offset: -80 })
   }
 
   const fallbackImages = [
