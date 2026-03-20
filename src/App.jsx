@@ -23,19 +23,19 @@ function Home() {
       <ScrollProgress />
       <Navbar />
       <TopBanner />
-      <Element name="home">
+      <Element name="home" id="home">
         <HeroCarousel />
       </Element>
-      <Element name="about">
+      <Element name="about" id="about">
         <WhoWeAre />
       </Element>
-      <Element name="services">
+      <Element name="services" id="services">
         <ServicesRooms />
       </Element>
-      <Element name="gallery">
+      <Element name="gallery" id="gallery">
         <Gallery />
       </Element>
-      <Element name="contact">
+      <Element name="contact" id="contact">
         <Contact />
       </Element>
       <Footer />

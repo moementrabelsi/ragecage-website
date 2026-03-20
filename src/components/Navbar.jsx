@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-scroll'
 import { motion } from 'framer-motion'
 import { useTranslation } from '../hooks/useTranslation'
 import logo from '../assets/logo/rage.png'
@@ -30,6 +29,17 @@ const Navbar = () => {
     { name: t('nav.contact'), to: 'contact' },
   ]
 
+  const scrollToSection = (event, sectionId) => {
+    event.preventDefault()
+    const target = document.getElementById(sectionId)
+    if (!target) return
+
+    const y = target.getBoundingClientRect().top + window.scrollY - 80
+    window.history.replaceState(null, '', `#${sectionId}`)
+    window.scrollTo({ top: y, behavior: 'smooth' })
+    setIsMobileMenuOpen(false)
+  }
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -52,11 +62,9 @@ const Navbar = () => {
             }}
             className="flex-shrink-0"
           >
-            <Link
-              to="home"
-              spy={true}
-              smooth={true}
-              duration={500}
+            <a
+              href="#home"
+              onClick={(event) => scrollToSection(event, 'home')}
               className="cursor-pointer flex items-center"
             >
               <img 
@@ -68,25 +76,21 @@ const Navbar = () => {
                 className="h-14 sm:h-16 md:h-18 lg:h-20 xl:h-24 w-auto min-w-[100px] sm:min-w-[120px] md:min-w-[140px] lg:min-w-[160px] xl:min-w-[180px] object-contain bg-transparent"
                 style={{ background: 'transparent' }}
               />
-            </Link>
+            </a>
           </motion.div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
             {navItems.map((item) => (
               <motion.div key={item.to} whileHover={{ scale: 1.1, y: -2 }}>
-                <Link
-                  to={item.to}
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                  offset={-80}
+                <a
+                  href={`#${item.to}`}
+                  onClick={(event) => scrollToSection(event, item.to)}
                   className="text-white hover:text-rage-yellow transition-colors duration-300 cursor-pointer font-crashcourse uppercase tracking-wider relative group text-sm md:text-base lg:text-lg magnetic rage-link-hover"
-                  activeClass="text-rage-yellow"
                 >
                   {item.name}
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-rage-yellow group-hover:w-full transition-all duration-300"></span>
-                </Link>
+                </a>
               </motion.div>
             ))}
             <LanguageSwitcher />
@@ -124,19 +128,14 @@ const Navbar = () => {
           <div className="md:hidden bg-gray-900/98 backdrop-blur-md border-t border-rage-yellow/20">
             <div className="px-4 py-6 space-y-1">
               {navItems.map((item) => (
-                <Link
+                <a
                   key={item.to}
-                  to={item.to}
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                  offset={-80}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  href={`#${item.to}`}
+                  onClick={(event) => scrollToSection(event, item.to)}
                   className="block py-3 px-4 text-white hover:text-rage-yellow hover:bg-rage-yellow/10 transition-all duration-200 rounded-lg font-crashcourse uppercase tracking-wide text-sm rage-link-hover"
-                  activeClass="!text-rage-yellow bg-rage-yellow/10"
                 >
                   {item.name}
-                </Link>
+                </a>
               ))}
             </div>
           </div>
