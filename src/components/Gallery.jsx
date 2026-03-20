@@ -161,6 +161,8 @@ const Gallery = () => {
               onClick={handlePrev}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+                aria-label="Previous images"
+                type="button"
               className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-8 z-40 bg-rage-yellow text-rage-black rounded-full p-3 md:p-4 shadow-lg hover:shadow-xl transition-all pointer-events-auto"
             >
               <FaChevronLeft className="text-xl md:text-2xl" />
@@ -174,6 +176,8 @@ const Gallery = () => {
               onClick={handleNext}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+                aria-label="Next images"
+                type="button"
               className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-8 z-40 bg-rage-yellow text-rage-black rounded-full p-3 md:p-4 shadow-lg hover:shadow-xl transition-all pointer-events-auto"
             >
               <FaChevronRight className="text-xl md:text-2xl" />
@@ -204,6 +208,8 @@ const Gallery = () => {
                   <motion.img
                     src={image.url}
                     alt={t(image.titleKey)}
+                    width={1200}
+                    height={1200}
                     className="w-full h-full object-cover"
                     whileHover={{ 
                       scale: 1.3,
@@ -252,6 +258,8 @@ const Gallery = () => {
               onClick={handleModalPrev}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+                aria-label="Previous image"
+                type="button"
               className="absolute left-4 md:left-8 bg-rage-yellow text-rage-black rounded-full p-4 md:p-5 shadow-lg hover:shadow-xl transition-all z-10"
             >
               <FaChevronLeft className="text-2xl md:text-3xl" />
@@ -265,6 +273,8 @@ const Gallery = () => {
               exit={{ opacity: 0, x: -50 }}
               src={images[selectedImageIndex].url}
               alt={images[selectedImageIndex].title}
+                width={1200}
+                height={1200}
               className="max-w-full max-h-[90vh] object-contain rounded-lg"
             />
 
@@ -273,6 +283,8 @@ const Gallery = () => {
               onClick={handleModalNext}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+                aria-label="Next image"
+                type="button"
               className="absolute right-4 md:right-8 bg-rage-yellow text-rage-black rounded-full p-4 md:p-5 shadow-lg hover:shadow-xl transition-all z-10"
             >
               <FaChevronRight className="text-2xl md:text-3xl" />
@@ -288,6 +300,8 @@ const Gallery = () => {
             {/* Close Button */}
             <button
               onClick={() => setSelectedImageIndex(null)}
+                aria-label="Close gallery"
+                type="button"
               className="absolute top-20 md:top-4 right-4 text-white text-4xl md:text-5xl hover:text-rage-yellow transition-colors z-[120]"
             >
               ×

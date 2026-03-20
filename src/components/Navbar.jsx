@@ -63,6 +63,8 @@ const Navbar = () => {
                 src={logo} 
                 alt="Smash Room Logo"
                 loading="eager" 
+                width={180}
+                height={60}
                 className="h-14 sm:h-16 md:h-18 lg:h-20 xl:h-24 w-auto min-w-[100px] sm:min-w-[120px] md:min-w-[140px] lg:min-w-[160px] xl:min-w-[180px] object-contain bg-transparent"
                 style={{ background: 'transparent' }}
               />

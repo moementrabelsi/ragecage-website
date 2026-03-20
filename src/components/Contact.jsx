@@ -76,10 +76,10 @@ const Contact = () => {
 
   // Memoized static data
   const socialLinks = useMemo(() => [
-    { icon: FaFacebook, url: '#', color: 'hover:text-blue-500' },
-    { icon: FaInstagram, url: 'https://www.instagram.com/smashroomtn', color: 'hover:text-pink-500' },
-    { icon: FaTiktok, url: 'https://www.tiktok.com/@smash.room0', color: 'hover:text-white' },
-    { icon: FaYoutube, url: '#', color: 'hover:text-red-500' },
+    { icon: FaFacebook, url: '#', color: 'hover:text-blue-500', label: 'Facebook' },
+    { icon: FaInstagram, url: 'https://www.instagram.com/smashroomtn', color: 'hover:text-pink-500', label: 'Instagram' },
+    { icon: FaTiktok, url: 'https://www.tiktok.com/@smash.room0', color: 'hover:text-white', label: 'TikTok' },
+    { icon: FaYoutube, url: '#', color: 'hover:text-red-500', label: 'YouTube' },
   ], [])
 
   const contactInfoItems = useMemo(() => [
@@ -248,6 +248,8 @@ const Contact = () => {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={social.label}
+                    title={social.label}
                     whileHover={{ scale: 1.2, y: -5 }}
                     whileTap={{ scale: 0.9 }}
                     className={`text-3xl text-gray-400 ${social.color} transition-colors duration-300 rage-icon-hover`}
@@ -266,6 +268,7 @@ const Contact = () => {
                   src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d953.145176712118!2d10.179071170812556!3d36.84036095538615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzbCsDUwJzI0LjciTiAxMMKwMTAnNDUuNiJF!5e1!3m2!1sfr!2stn!4v1765151289612!5m2!1sfr!2stn"
                   width="100%"
                   height="450"
+                  title="Smash Room location map"
                   style={{ border: 0 }}
                   allowFullScreen=""
                   loading="lazy"

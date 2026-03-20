@@ -75,6 +75,8 @@ const Footer = () => {
                   src={logo} 
                   alt="Smash Room Logo"
                   loading="lazy" 
+                  width={180}
+                  height={60}
                   className="h-12 w-auto object-contain bg-transparent"
                   style={{ background: 'transparent' }}
                 />
