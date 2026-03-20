@@ -72,7 +72,7 @@ const Navbar = () => {
                 sizes="(max-width: 640px) 96px, 128px"
                 alt="Smash Room Logo"
                 loading="eager" 
-                fetchPriority="high"
+                fetchpriority="high"
                 width={128}
                 height={128}
                 className="h-14 sm:h-16 md:h-18 lg:h-20 xl:h-24 w-auto min-w-[100px] sm:min-w-[120px] md:min-w-[140px] lg:min-w-[160px] xl:min-w-[180px] object-contain bg-transparent"

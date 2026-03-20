@@ -4,7 +4,7 @@ import { FaHome, FaExclamationTriangle } from 'react-icons/fa'
 import { useTranslation } from '../hooks/useTranslation'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import AnimatedBackground from '../components/AnimatedBackground'
+import LazyAnimatedBackground from '../components/LazyAnimatedBackground'
 
 const NotFound = () => {
   const navigate = useNavigate()
@@ -12,7 +12,7 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen bg-rage-black text-white relative overflow-x-hidden">
-      <AnimatedBackground />
+      <LazyAnimatedBackground />
       <Navbar />
       
       <div className="relative z-10 flex items-center justify-center min-h-screen px-4 py-20">

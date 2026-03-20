@@ -1,7 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 import { motion } from 'framer-motion'
-import { scroller } from 'react-scroll'
 import { useTranslation } from '../hooks/useTranslation'
 import { useCloudinaryMedia } from '../hooks/useCloudinaryMedia'
 import { cloudinaryImageUrl } from '../utils/cloudinary'
@@ -14,7 +13,11 @@ const HeroCarousel = () => {
   const { items: heroItems } = useCloudinaryMedia('hero', 'image')
 
   const scrollToServices = () => {
-    scroller.scrollTo('services', { smooth: true, duration: 500, offset: -80 })
+    const target = document.getElementById('services')
+    if (!target) return
+    const y = target.getBoundingClientRect().top + window.scrollY - 80
+    window.history.replaceState(null, '', '#services')
+    window.scrollTo({ top: y, behavior: 'smooth' })
   }
 
   const fallbackImages = [
@@ -40,7 +43,6 @@ const HeroCarousel = () => {
       <Swiper
         modules={[Autoplay, EffectFade, Pagination]}
         effect="fade"
-        preloadImages={false}
         autoplay={{
           delay: 5000,
           disableOnInteraction: false,
@@ -56,13 +58,15 @@ const HeroCarousel = () => {
         {images.map((image, index) => (
           <SwiperSlide key={image.key}>
             <div className="relative w-full h-full">
-              <motion.img
+              <img
                 src={image.src}
                 alt={`${t('booking.rageRoomAlt')} ${index + 1}`}
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
                 loading={index === 0 ? 'eager' : 'lazy'}
-                fetchPriority={index === 0 ? 'high' : 'low'}
+                fetchpriority={index === 0 ? 'high' : 'low'}
                 decoding="async"
+                width={1280}
+                height={720}
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/55 to-black/85"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-rage-red/10 via-transparent to-rage-yellow/10"></div>

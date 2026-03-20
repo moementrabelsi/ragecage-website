@@ -2,16 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Feast of Flesh BB Font */
-@font-face {
-  font-family: 'Feast of Flesh BB';
-  src: url('/fonts/FeastOfFleshBB.woff2') format('woff2'),
-       url('/fonts/FeastOfFleshBB.woff') format('woff'),
-       url('/fonts/FeastOfFleshBB.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+/* Feast of Flesh BB — add real files under /public/fonts/ before enabling @font-face
+   (missing files hurt LCP and spam the console with decode errors). */
 
 /* Crashcourse BB Font */
 @font-face {
