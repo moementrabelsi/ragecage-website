@@ -67,8 +67,8 @@ const Navbar = () => {
               className="cursor-pointer flex items-center"
             >
               <img 
-                src="/logo/rage-128.png"
-                srcSet="/logo/rage-96.png 96w, /logo/rage-128.png 128w, /logo/rage-192.png 192w"
+                src="/logo/rage-removebg-preview.png"
+                srcSet="/logo/rage-removebg-preview.png 96w"
                 sizes="(max-width: 640px) 96px, 128px"
                 alt="Smash Room Logo"
                 loading="eager" 

@@ -9,26 +9,16 @@ const WhoWeAre = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const { t, tHTML } = useTranslation()
-  const { items: whoVideos } = useCloudinaryMedia('who-we-are', 'video')
-
-  const videoConfig = {
-    enabled: true,
-    type: whoVideos.length > 0 ? 'cloudinary' : 'local',
-    localPath: '/images/10.mp4',
-    youtubeId: null,
-    autoplay: true,
-    loop: true,
-    muted: true,
-    playsInline: true,
-    controls: false,
-  }
+  const { items: whoVideos, loading: whoVideoLoading } = useCloudinaryMedia(
+    'who-we-are',
+    'video'
+  )
 
   const cloudinaryVideoId = whoVideos[0]?.publicId
-
   const videoSrc =
-    (videoConfig.type === 'cloudinary' && cloudinaryVideoId
+    !whoVideoLoading && cloudinaryVideoId
       ? cloudinaryVideoUrl(cloudinaryVideoId, { width: 1280 })
-      : null) ?? videoConfig.localPath
+      : null
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -109,35 +99,18 @@ const WhoWeAre = () => {
                 whileHover={{ scale: 1.015, boxShadow: "0 0 55px rgba(254, 174, 17, 0.35)" }}
                 transition={{ duration: 0.3 }}
               >
-                {videoConfig.enabled && isInView ? (
-                  videoConfig.type === 'youtube' && videoConfig.youtubeId ? (
-                    <div className="relative w-full h-full">
-                      <iframe
-                        src={`https://www.youtube.com/embed/${videoConfig.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${videoConfig.youtubeId}&controls=${videoConfig.controls ? 1 : 0}&showinfo=0&rel=0&modestbranding=1&playsinline=1`}
-                        className="absolute top-0 left-0 w-full h-full"
-                        style={{ 
-                          width: '100%', 
-                          height: '100%',
-                          objectFit: 'cover'
-                        }}
-                        allow="autoplay; encrypted-media"
-                        allowFullScreen
-                        title={t('about.facilityImageAlt')}
-                      />
-                    </div>
-                  ) : (
-                    <video
-                      autoPlay={videoConfig.autoplay}
-                      loop={videoConfig.loop}
-                      muted={videoConfig.muted}
-                      playsInline={videoConfig.playsInline}
-                      controls={videoConfig.controls}
-                      className="w-full h-full object-cover"
-                    >
-                      <source src={videoSrc} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  )
+                {isInView && videoSrc ? (
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    controls={false}
+                    className="w-full h-full object-cover"
+                  >
+                    <source src={videoSrc} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
                 ) : (
                   <img
                     src="/images/about/2.jpg"
