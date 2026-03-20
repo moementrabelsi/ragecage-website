@@ -14,6 +14,9 @@
     "subtitle": "Controlled Destruction. Maximum Relief.",
     "bookButton": "Book Your Rage Session"
   },
+  "topBanner": {
+    "message": "Open daily from 14H to 22H — Book your rage session!"
+  },
   "features": {
     "fiveStars": {
       "title": "5 Stars Experience",
@@ -61,7 +64,7 @@
     "titlePart1": "Availalble",
     "titlePart2": "packs",
     "titlePart3": "",
-    "bookButton": "Book This Room",
+    "bookButton": "BOOK THIS PACK",
     "bestSeller": "Best seller",
     "rooms": {
       "soloBlast": {

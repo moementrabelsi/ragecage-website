@@ -14,6 +14,9 @@
     "subtitle": "Destruction Contrôlée. Soulagement Maximum.",
     "bookButton": "Réserver Votre Session de Rage"
   },
+  "topBanner": {
+    "message": "Ouvert tous les jours de 14H à 22H — Réservez votre session de rage !"
+  },
   "features": {
     "fiveStars": {
       "title": "Expérience 5 Étoiles",
@@ -61,7 +64,7 @@
     "titlePart1": "Packs",
     "titlePart2": "disponibles",
     "titlePart3": "",
-    "bookButton": "Réserver Cette Salle",
+    "bookButton": "RÉSERVER CE PACK",
     "bestSeller": "Best seller",
     "rooms": {
       "soloBlast": {

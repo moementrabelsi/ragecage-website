@@ -1,5 +1,8 @@
+import { useTranslation } from '../hooks/useTranslation'
+
 const TopBanner = () => {
-  const message = 'Ramadan opening hours 14H to 16H / 20H to 22h:30'
+  const { t } = useTranslation()
+  const message = t('topBanner.message')
 
   const CroissantIcon = ({ className }) => (
     <svg

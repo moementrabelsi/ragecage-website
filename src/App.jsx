@@ -14,7 +14,7 @@ import NotFound from './pages/NotFound'
 import AnimatedBackground from './components/AnimatedBackground'
 import ScrollProgress from './components/ScrollProgress'
 import BackToTop from './components/BackToTop'
-// TopBanner removed (Ramadan hours banner)
+import TopBanner from './components/TopBanner'
 
 function Home() {
   return (
@@ -22,6 +22,7 @@ function Home() {
       <AnimatedBackground />
       <ScrollProgress />
       <Navbar />
+      <TopBanner />
       <Element name="home">
         <HeroCarousel />
       </Element>
