@@ -288,6 +288,8 @@ const ServicesRooms = () => {
                       src={service.image}
                       alt={t(service.titleKey)}
                       className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
                       whileHover={{ scale: 1.15 }}
                       transition={{ duration: 0.4 }}
                     />

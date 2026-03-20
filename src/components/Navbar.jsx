@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslation } from '../hooks/useTranslation'
-import logo from '../assets/logo/rage.png'
 import LanguageSwitcher from './LanguageSwitcher'
 
 const Navbar = () => {
@@ -68,11 +67,14 @@ const Navbar = () => {
               className="cursor-pointer flex items-center"
             >
               <img 
-                src={logo} 
+                src="/logo/rage-128.png"
+                srcSet="/logo/rage-96.png 96w, /logo/rage-128.png 128w, /logo/rage-192.png 192w"
+                sizes="(max-width: 640px) 96px, 128px"
                 alt="Smash Room Logo"
                 loading="eager" 
-                width={180}
-                height={60}
+                fetchPriority="high"
+                width={128}
+                height={128}
                 className="h-14 sm:h-16 md:h-18 lg:h-20 xl:h-24 w-auto min-w-[100px] sm:min-w-[120px] md:min-w-[140px] lg:min-w-[160px] xl:min-w-[180px] object-contain bg-transparent"
                 style={{ background: 'transparent' }}
               />

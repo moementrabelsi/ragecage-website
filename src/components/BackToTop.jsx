@@ -8,10 +8,19 @@ const BackToTop = () => {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
+    let ticking = false
+
     const onScroll = () => {
-      setVisible(window.scrollY > SCROLL_THRESHOLD)
+      if (ticking) return
+      ticking = true
+
+      window.requestAnimationFrame(() => {
+        const shouldBeVisible = window.scrollY > SCROLL_THRESHOLD
+        setVisible(prev => (prev === shouldBeVisible ? prev : shouldBeVisible))
+        ticking = false
+      })
     }
-    window.addEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
