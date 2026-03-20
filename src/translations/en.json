@@ -57,10 +57,10 @@
     }
   },
   "services": {
-    "title": "Services & Available Rooms",
-    "titlePart1": "Services",
-    "titlePart2": "&",
-    "titlePart3": "Available Rooms",
+    "title": "Availalble packs",
+    "titlePart1": "Availalble",
+    "titlePart2": "packs",
+    "titlePart3": "",
     "bookButton": "Book This Room",
     "bestSeller": "Best seller",
     "rooms": {
@@ -81,7 +81,7 @@
       },
       "squadDestructionFour": {
         "title": "Squad Destruction",
-        "description": "4 persons • 25 to 30 minutes • X Large box of items • Custom music choice. Extras: Go Pro (POV), items, open mic.",
+        "description": "4 persons • 30 minutes • X Large box of items • Custom music choice. Extras: Go Pro (POV), items, open mic.",
         "items": "“No mercy”"
       },
       "squadDestructionFive": {

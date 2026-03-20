@@ -247,6 +247,8 @@ const Booking = () => {
     }
   }, [packNum])
 
+  const isPackBooking = Boolean(packNum)
+
   // Auto-update display month when current month changes
   useEffect(() => {
     const { currentMonth, currentYear } = getCurrentMonthInfo()
@@ -1070,24 +1072,30 @@ const Booking = () => {
                   <label className="text-white font-bold">{t('booking.groupSize')}</label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <button
-                    onClick={() => setGroupSize(Math.max(1, groupSize - 1))}
-                    disabled={groupSize === 1}
+                  {/* <button
+                      onClick={() => {
+                        if (isPackBooking) return
+                        setGroupSize(Math.max(1, groupSize - 1))
+                      }}
+                      disabled={groupSize === 1 || isPackBooking}
                     className="w-10 h-10 rounded-lg bg-gray-800/80 backdrop-blur-sm border border-gray-700/30 text-white font-bold hover:border-rage-yellow/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
                     -
-                  </button>
+                  </button> */}
                   <div className="flex-1 text-center">
                     <span className="text-3xl font-black text-rage-yellow">{groupSize}</span>
                     <span className="text-gray-400 text-sm block">{groupSize === 1 ? t('booking.person') : t('booking.people')}</span>
                   </div>
-                  <button
-                    onClick={() => setGroupSize(Math.min(maxGroupSize, groupSize + 1))}
-                    disabled={groupSize === maxGroupSize}
-                    className="w-10 h-10 rounded-lg bg-gray-800/80 backdrop-blur-sm border border-gray-700/30 text-white font-bold hover:border-rage-yellow/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                  >
-                    +
-                  </button>
+                    {/* <button
+                        onClick={() => {
+                          if (isPackBooking) return
+                          setGroupSize(Math.min(maxGroupSize, groupSize + 1))
+                        }}
+                        disabled={groupSize === maxGroupSize || isPackBooking}
+                      className="w-10 h-10 rounded-lg bg-gray-800/80 backdrop-blur-sm border border-gray-700/30 text-white font-bold hover:border-rage-yellow/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    >
+                      +
+                    </button> */}
                 </div>
                 <p className="text-gray-400 text-xs mt-2 text-center">
                   {packNum ? t('booking.maxPeopleForPack', { max: maxGroupSize }) || `Maximum ${maxGroupSize} people for this pack` : t('booking.maxPeople')}
