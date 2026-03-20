@@ -1,7 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
 import { scroller } from 'react-scroll'
 import { useTranslation } from '../hooks/useTranslation'
 import { useCloudinaryMedia } from '../hooks/useCloudinaryMedia'
@@ -11,7 +10,6 @@ import 'swiper/css/effect-fade'
 import 'swiper/css/pagination'
 
 const HeroCarousel = () => {
-  const [isShaking, setIsShaking] = useState(false)
   const { t } = useTranslation()
   const { items: heroItems } = useCloudinaryMedia('hero', 'image')
 
@@ -31,45 +29,18 @@ const HeroCarousel = () => {
       ? heroItems.map((item, index) => ({
           key: item.publicId ?? index,
           src:
-            (item.publicId && cloudinaryImageUrl(item.publicId, { width: 1920 })) ||
+            (item.publicId && cloudinaryImageUrl(item.publicId, { width: 1280 })) ||
             item.secureUrl ||
             fallbackImages[index % fallbackImages.length],
         }))
       : fallbackImages.map((src, index) => ({ key: index, src }))
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsShaking(true)
-      setTimeout(() => setIsShaking(false), 200)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [])
-
-  const shakeVariants = {
-    shake: {
-      x: [0, -10, 10, -10, 10, 0],
-      y: [0, -5, 5, -5, 5, 0],
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut"
-      }
-    },
-    impact: {
-      scale: [1, 1.05, 1],
-      transition: {
-        duration: 0.4,
-        ease: "easeOut"
-      }
-    }
-  }
-
-  const slogan = "SMASH. BREAK. DESTROY. RELEASE."
 
   return (
     <div className="relative w-full h-screen overflow-hidden parallax-container">
       <Swiper
         modules={[Autoplay, EffectFade, Pagination]}
         effect="fade"
+        preloadImages={false}
         autoplay={{
           delay: 5000,
           disableOnInteraction: false,
@@ -89,96 +60,45 @@ const HeroCarousel = () => {
                 src={image.src}
                 alt={`${t('booking.rageRoomAlt')} ${index + 1}`}
                 className="w-full h-full object-cover"
-                animate={isShaking ? {
-                  scale: [1, 1.02, 1],
-                  x: [0, -2, 2, -2, 2, 0],
-                } : {}}
-                transition={{ duration: 0.3 }}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                fetchPriority={index === 0 ? 'high' : 'low'}
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/55 to-black/85"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-rage-red/10 via-transparent to-rage-yellow/10"></div>
               <div className="absolute inset-0 opacity-10 cracked-overlay"></div>
               
               <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="text-center px-4 max-w-5xl"
-                >
-                  <motion.h1
-                    animate={isShaking ? shakeVariants.shake : {}}
+                <div className="text-center px-4 max-w-5xl">
+                  <h1
                     className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-rage text-center mb-5 leading-tight text-rage-title"
                     style={{
                       letterSpacing: '0.15em',
                     }}
                   >
-                    <motion.span
-                      animate={{
-                        textShadow: [
-                          '4px 4px 0px #000000, -2px -2px 0px #feae11',
-                          '6px 6px 0px #000000, -3px -3px 0px #feae11',
-                          '4px 4px 0px #000000, -2px -2px 0px #feae11',
-                        ]
-                      }}
-                      transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
-                      className="text-rage-yellow block"
-                    >
+                    <span className="text-rage-yellow block" style={{ textShadow: '4px 4px 0px #000000, -2px -2px 0px #feae11' }}>
                       {t('hero.smash')}
-                    </motion.span>
-                    <motion.span
-                      animate={{
-                        textShadow: [
-                          '4px 4px 0px #000000, -2px -2px 0px #feae11',
-                          '6px 6px 0px #000000, -3px -3px 0px #feae11',
-                          '4px 4px 0px #000000, -2px -2px 0px #feae11',
-                        ]
-                      }}
-                      transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse", delay: 0.1 }}
-                      className="text-white block"
-                    >
+                    </span>
+                    <span className="text-white block" style={{ textShadow: '4px 4px 0px #000000, -2px -2px 0px #feae11' }}>
                       {t('hero.break')}
-                    </motion.span>
-                    <motion.span
-                      animate={{
-                        textShadow: [
-                          '4px 4px 0px #000000, -2px -2px 0px #feae11',
-                          '6px 6px 0px #000000, -3px -3px 0px #feae11',
-                          '4px 4px 0px #000000, -2px -2px 0px #feae11',
-                        ]
-                      }}
-                      transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse", delay: 0.2 }}
-                      className="text-rage-yellow block"
-                    >
+                    </span>
+                    <span className="text-rage-yellow block" style={{ textShadow: '4px 4px 0px #000000, -2px -2px 0px #feae11' }}>
                       {t('hero.destroy')}
-                    </motion.span>
-                    <motion.span
-                      animate={{
-                        textShadow: [
-                          '4px 4px 0px #000000, -2px -2px 0px #feae11',
-                          '6px 6px 0px #000000, -3px -3px 0px #feae11',
-                          '4px 4px 0px #000000, -2px -2px 0px #feae11',
-                        ]
-                      }}
-                      transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse", delay: 0.3 }}
-                      className="text-rage-yellow block"
-                    >
+                    </span>
+                    <span className="text-rage-yellow block" style={{ textShadow: '4px 4px 0px #000000, -2px -2px 0px #feae11' }}>
                       {t('hero.release')}
-                    </motion.span>
-                  </motion.h1>
-                  
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
+                    </span>
+                  </h1>
+
+                  <p
                     className="text-sm sm:text-base md:text-lg lg:text-xl text-white/95 mb-7 md:mb-9 font-crashcourse uppercase tracking-[0.22em]"
                     style={{
                       textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 15px rgba(254, 174, 17, 0.4)',
                     }}
                   >
                     {t('hero.subtitle')}
-                  </motion.p>
-                </motion.div>
+                  </p>
+                </div>
                 
                 <motion.button
                   initial={{ opacity: 0, scale: 0.8 }}

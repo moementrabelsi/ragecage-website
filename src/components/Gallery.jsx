@@ -211,6 +211,8 @@ const Gallery = () => {
                     width={1200}
                     height={1200}
                     className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
                     whileHover={{ 
                       scale: 1.3,
                       filter: "brightness(1.2) contrast(1.2)"
@@ -276,6 +278,8 @@ const Gallery = () => {
                 width={1200}
                 height={1200}
               className="max-w-full max-h-[90vh] object-contain rounded-lg"
+              loading="eager"
+              decoding="async"
             />
 
             {/* Next Button */}
