@@ -130,6 +130,17 @@
       }
     }
   },
+  "reviews": {
+    "titlePart1": "Google",
+    "titlePart2": "Reviews",
+    "subtitle": "Real feedback from visitors on Google.",
+    "loadError": "We couldn’t load reviews. Please try again later.",
+    "notConfigured": "Connect your Google Place on the server to show live reviews here. You can still leave or read reviews on Google Maps.",
+    "noReviews": "No reviews are available from Google right now.",
+    "apiError": "Google could not return reviews",
+    "viewOnGoogle": "View on Google Maps",
+    "basedOn": "Based on {{count}} Google reviews"
+  },
   "contact": {
     "title": "Contact Us",
     "titlePart1": "Contact",

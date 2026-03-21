@@ -12,6 +12,7 @@ import DeferredSection from './components/DeferredSection'
 const WhoWeAre = lazy(() => import('./components/WhoWeAre'))
 const ServicesRooms = lazy(() => import('./components/ServicesRooms'))
 const Gallery = lazy(() => import('./components/Gallery'))
+const ReviewsSection = lazy(() => import('./components/ReviewsSection'))
 const Contact = lazy(() => import('./components/Contact'))
 const Footer = lazy(() => import('./components/Footer'))
 const Booking = lazy(() => import('./pages/Booking'))
@@ -42,6 +43,11 @@ function Home() {
       <DeferredSection id="gallery" className="min-h-[480px]">
         <Suspense fallback={sectionFallback}>
           <Gallery />
+        </Suspense>
+      </DeferredSection>
+      <DeferredSection id="reviews" className="min-h-[320px]">
+        <Suspense fallback={sectionFallback}>
+          <ReviewsSection />
         </Suspense>
       </DeferredSection>
       <DeferredSection id="contact" className="min-h-[420px]">

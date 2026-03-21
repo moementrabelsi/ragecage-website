@@ -130,6 +130,17 @@
       }
     }
   },
+  "reviews": {
+    "titlePart1": "Avis",
+    "titlePart2": "Google",
+    "subtitle": "Retours réels des visiteurs sur Google.",
+    "loadError": "Impossible de charger les avis pour le moment.",
+    "notConfigured": "Connectez votre fiche Google Places sur le serveur pour afficher les avis ici. Vous pouvez toujours lire ou laisser un avis sur Google Maps.",
+    "noReviews": "Aucun avis n’est disponible via Google pour le moment.",
+    "apiError": "Google n’a pas pu renvoyer les avis",
+    "viewOnGoogle": "Voir sur Google Maps",
+    "basedOn": "Basé sur {{count}} avis Google"
+  },
   "contact": {
     "title": "Contactez-Nous",
     "titlePart1": "Contactez",
