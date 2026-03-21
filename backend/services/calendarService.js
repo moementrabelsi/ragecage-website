@@ -8,26 +8,16 @@ const __dirname = path.dirname(__filename)
 
 /**
  * Generate time slots for a given day of the week
- * Monday-Friday: 11:00 to 22:00 (11h to 22h)
- * Saturday-Sunday: 10:00 to 22:00 (10h to 22h)
+ * Daily: 14:00 to 22:00 (2 PM to 10 PM)
  * @param {number} dayOfWeek - Day of week (0=Sunday, 1=Monday, ..., 6=Saturday)
  * @returns {string[]} - Array of time slots in HH:MM format
  */
 function getTimeSlotsForDay(dayOfWeek) {
   const slots = []
-  
-  // Saturday (6) or Sunday (0): 10:00 to 22:00
-  if (dayOfWeek === 0 || dayOfWeek === 6) {
-    for (let hour = 10; hour < 22; hour++) {
-      slots.push(`${hour.toString().padStart(2, '0')}:00`)
-      slots.push(`${hour.toString().padStart(2, '0')}:30`)
-    }
-    // Add 22:00 slot
-    slots.push('22:00')
-  }
-  // Monday (1) to Friday (5): 11:00 to 22:00
-  else if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-    for (let hour = 11; hour < 22; hour++) {
+
+  // Daily: 14:00 to 22:00
+  if (dayOfWeek >= 0 && dayOfWeek <= 6) {
+    for (let hour = 14; hour < 22; hour++) {
       slots.push(`${hour.toString().padStart(2, '0')}:00`)
       slots.push(`${hour.toString().padStart(2, '0')}:30`)
     }
@@ -43,9 +33,9 @@ function getTimeSlotsForDay(dayOfWeek) {
  * This is now replaced by getTimeSlotsForDay()
  */
 const ALL_TIME_SLOTS = [
-  '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30',
-  '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30',
-  '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00'
+  '14:00', '14:30', '15:00', '15:30', '16:00', '16:30',
+  '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
+  '20:00', '20:30', '21:00', '21:30', '22:00'
 ]
 
 /**

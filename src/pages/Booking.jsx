@@ -159,23 +159,13 @@ const Booking = () => {
   const calendarDays = getCalendarDays(displayMonth, displayYear)
 
   // Generate time slots based on day of week
-  // Monday-Friday: 11:00 to 22:00 (11h to 22h)
-  // Saturday-Sunday: 10:00 to 22:00 (10h to 22h)
+  // Daily: 14:00 to 22:00 (2 PM to 10 PM)
   const getTimeSlotsForDay = (dayOfWeek) => {
     const slots = []
-    
-    // Saturday (6) or Sunday (0): 10:00 to 22:00
-    if (dayOfWeek === 0 || dayOfWeek === 6) {
-      for (let hour = 10; hour < 22; hour++) {
-        slots.push(`${hour.toString().padStart(2, '0')}:00`)
-        slots.push(`${hour.toString().padStart(2, '0')}:30`)
-      }
-      // Add 22:00 slot
-      slots.push('22:00')
-    }
-    // Monday (1) to Friday (5): 11:00 to 22:00
-    else if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-      for (let hour = 11; hour < 22; hour++) {
+
+    // Daily: 14:00 to 22:00
+    if (dayOfWeek >= 0 && dayOfWeek <= 6) {
+      for (let hour = 14; hour < 22; hour++) {
         slots.push(`${hour.toString().padStart(2, '0')}:00`)
         slots.push(`${hour.toString().padStart(2, '0')}:30`)
       }
