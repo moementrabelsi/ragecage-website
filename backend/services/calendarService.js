@@ -21,8 +21,6 @@ function getTimeSlotsForDay(dayOfWeek) {
       slots.push(`${hour.toString().padStart(2, '0')}:00`)
       slots.push(`${hour.toString().padStart(2, '0')}:30`)
     }
-    // Add 22:00 slot
-    slots.push('22:00')
   }
 
   return slots
