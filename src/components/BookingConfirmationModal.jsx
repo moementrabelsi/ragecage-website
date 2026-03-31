@@ -81,11 +81,11 @@ const BookingConfirmationModal = ({ isOpen, onClose, bookingDetails }) => {
                   </div>
                 </div>
 
-                <p className="text-gray-300 text-xs sm:text-sm mb-6">
+                {/* <p className="text-gray-300 text-xs sm:text-sm mb-6">
                   {bookingDetails.email
                     ? (t('booking.confirmation.checkEmail') || 'Check your email for confirmation details')
                     : (t('booking.confirmation.checkContact') || 'We will contact you with confirmation details')}
-                </p>
+                </p> */}
 
                 <button
                   onClick={onClose}
