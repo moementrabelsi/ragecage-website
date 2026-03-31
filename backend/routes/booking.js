@@ -31,18 +31,19 @@ router.post('/book', async (req, res) => {
       packName
     } = req.body
 
+    const trimmedEmail = typeof email === 'string' ? email.trim() : ''
+
     // Validation
-    if (!date || !timeSlot || !groupSize || !firstName || !lastName || !phoneNumber || !email) {
+    if (!date || !timeSlot || !groupSize || !firstName || !lastName || !phoneNumber) {
       return res.status(400).json({
         error: 'Missing required fields',
-        required: ['date', 'timeSlot', 'groupSize', 'firstName', 'lastName', 'phoneNumber', 'email']
+        required: ['date', 'timeSlot', 'groupSize', 'firstName', 'lastName', 'phoneNumber']
       })
     }
 
-    // Validate email format
+    // Validate email format only when an email is provided
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    const trimmedEmail = email.trim()
-    if (!emailRegex.test(trimmedEmail)) {
+    if (trimmedEmail && !emailRegex.test(trimmedEmail)) {
       return res.status(400).json({
         error: 'Invalid email format'
       })
