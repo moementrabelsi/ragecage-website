@@ -4,7 +4,6 @@ import dotenv from 'dotenv'
 import availabilityRoutes from './routes/availability.js'
 import bookingRoutes from './routes/booking.js'
 import contactRoutes from './routes/contact.js'
-import mediaRoutes from './routes/media.js'
 import reviewsRoutes from './routes/reviews.js'
 
 dotenv.config()
@@ -42,7 +41,6 @@ app.use(express.json())
 app.use('/api', availabilityRoutes)
 app.use('/api', bookingRoutes)
 app.use('/api', contactRoutes)
-app.use('/api', mediaRoutes)
 app.use('/api', reviewsRoutes)
 
 // Health check endpoint

@@ -2,8 +2,7 @@ import { motion, useInView } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { useTranslation } from '../hooks/useTranslation'
-import { useCloudinaryMedia } from '../hooks/useCloudinaryMedia'
-import { cloudinaryImageUrl } from '../utils/cloudinary'
+import { GALLERY_IMAGES } from '../config/staticMedia'
 
 const Gallery = () => {
   const ref = useRef(null)
@@ -16,7 +15,6 @@ const Gallery = () => {
     right: false,
   })
   const { t } = useTranslation()
-  const { items: galleryItems } = useCloudinaryMedia('gallery', 'image')
 
   const meta = [
     {
@@ -49,37 +47,14 @@ const Gallery = () => {
     },
   ]
 
-  const fallbackImages = [
-    '/images/gallery/1.jpg',
-    '/images/gallery/2.jpg',
-    '/images/gallery/3.jpg',
-    '/images/gallery/4.jpg',
-    '/images/gallery/5.jpg',
-    '/images/gallery/6.jpg',
-    '/images/gallery/7.jpg',
-  ]
-
-  const images =
-    galleryItems.length > 0
-      ? galleryItems.map((item, index) => {
-          const metaItem = meta[index % meta.length]
-          return {
-            url:
-              (item.publicId && cloudinaryImageUrl(item.publicId, { width: 1200 })) ||
-              item.secureUrl ||
-              fallbackImages[index % fallbackImages.length],
-            titleKey: metaItem.titleKey,
-            descriptionKey: metaItem.descriptionKey,
-          }
-        })
-      : fallbackImages.map((url, index) => {
-          const metaItem = meta[index % meta.length]
-          return {
-            url,
-            titleKey: metaItem.titleKey,
-            descriptionKey: metaItem.descriptionKey,
-          }
-        })
+  const images = GALLERY_IMAGES.map((url, index) => {
+    const metaItem = meta[index % meta.length]
+    return {
+      url,
+      titleKey: metaItem.titleKey,
+      descriptionKey: metaItem.descriptionKey,
+    }
+  })
 
   useEffect(() => {
     const el = mobileStripRef.current
@@ -140,7 +115,7 @@ const Gallery = () => {
       rotate: 0,
       transition: {
         duration: 0.5,
-        type: "spring",
+        type: 'spring',
         stiffness: 100,
       },
     },
@@ -152,11 +127,10 @@ const Gallery = () => {
     rotate: [0, -2, 2, -2, 2, 0],
     transition: {
       duration: 0.3,
-      ease: "easeInOut"
-    }
+      ease: 'easeInOut',
+    },
   }
 
-  // Calculate visible images (3 at a time)
   const visibleImages = images.slice(currentIndex, currentIndex + 3)
   const maxIndex = Math.max(0, images.length - 3)
 
@@ -169,7 +143,6 @@ const Gallery = () => {
   }
 
   const handleImageClick = (index) => {
-    // Find the actual index in the full images array
     const actualIndex = currentIndex + index
     setSelectedImageIndex(actualIndex)
   }
@@ -218,7 +191,6 @@ const Gallery = () => {
           <div className="w-24 h-1 bg-rage-yellow mx-auto"></div>
         </motion.div>
 
-        {/* Mobile: horizontal touch scroll + arrow hints */}
         <div className="relative md:hidden -mx-4 px-4">
           {images.length > 1 && (
             <>
@@ -284,7 +256,6 @@ const Gallery = () => {
           </div>
         </div>
 
-        {/* Desktop / tablet: 3-up carousel with arrows */}
         <div className="relative hidden md:block">
           {currentIndex > 0 && (
             <motion.button
@@ -369,7 +340,6 @@ const Gallery = () => {
         </div>
       </div>
 
-      {/* Modal for enlarged image */}
       {selectedImageIndex !== null && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -388,7 +358,6 @@ const Gallery = () => {
             className="relative flex h-full max-h-[100dvh] w-full max-w-7xl flex-col touch-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Main image + swipe — fixed-height stage keeps arrow position stable when image aspect ratio changes */}
             <div
               className="relative flex min-h-0 flex-1 flex-col px-2 pb-2 pt-14 md:px-4 md:pb-10"
               onTouchStart={handleModalTouchStart}
@@ -449,7 +418,6 @@ const Gallery = () => {
               </button>
             </div>
 
-            {/* Mobile: touch-scroll thumbnail strip */}
             <div className="flex-shrink-0 border-t border-white/10 bg-black/90 backdrop-blur-md md:hidden">
               <div
                 className="scrollbar-hide flex gap-2 overflow-x-auto snap-x snap-mandatory px-3 py-3 touch-pan-x overscroll-x-contain"
@@ -494,5 +462,3 @@ const Gallery = () => {
 }
 
 export default Gallery
-
-

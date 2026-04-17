@@ -2,15 +2,13 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 import { motion } from 'framer-motion'
 import { useTranslation } from '../hooks/useTranslation'
-import { useCloudinaryMedia } from '../hooks/useCloudinaryMedia'
-import { cloudinaryImageUrl } from '../utils/cloudinary'
+import { HERO_IMAGES } from '../config/staticMedia'
 import 'swiper/css'
 import 'swiper/css/effect-fade'
 import 'swiper/css/pagination'
 
 const HeroCarousel = () => {
   const { t } = useTranslation()
-  const { items: heroItems } = useCloudinaryMedia('hero', 'image')
 
   const scrollToServices = () => {
     const target = document.getElementById('services')
@@ -20,23 +18,7 @@ const HeroCarousel = () => {
     window.scrollTo({ top: y, behavior: 'smooth' })
   }
 
-  const fallbackImages = [
-    '/images/hero/1.jpg',
-    '/images/hero/2.jpeg',
-    '/images/hero/3.jpeg',
-    '/images/hero/4.jpeg',
-  ]
-
-  const images =
-    heroItems.length > 0
-      ? heroItems.map((item, index) => ({
-          key: item.publicId ?? index,
-          src:
-            (item.publicId && cloudinaryImageUrl(item.publicId, { width: 1280 })) ||
-            item.secureUrl ||
-            fallbackImages[index % fallbackImages.length],
-        }))
-      : fallbackImages.map((src, index) => ({ key: index, src }))
+  const images = HERO_IMAGES.map((src, index) => ({ key: src, src }))
 
   return (
     <div className="relative w-full h-screen overflow-hidden parallax-container">

@@ -1,24 +1,15 @@
 import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { FaShieldAlt, FaDoorOpen, FaTools } from 'react-icons/fa'
 import { useTranslation } from '../hooks/useTranslation'
-import { useCloudinaryMedia } from '../hooks/useCloudinaryMedia'
-import { cloudinaryVideoUrl } from '../utils/cloudinary'
+import { ABOUT_IMAGE_FALLBACK, ABOUT_VIDEO_MP4 } from '../config/staticMedia'
 
 const WhoWeAre = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const { t, tHTML } = useTranslation()
-  const { items: whoVideos, loading: whoVideoLoading } = useCloudinaryMedia(
-    'who-we-are',
-    'video'
-  )
-
-  const cloudinaryVideoId = whoVideos[0]?.publicId
-  const videoSrc =
-    !whoVideoLoading && cloudinaryVideoId
-      ? cloudinaryVideoUrl(cloudinaryVideoId, { width: 1280 })
-      : null
+  const [videoFailed, setVideoFailed] = useState(false)
+  const videoSrc = ABOUT_VIDEO_MP4
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -99,7 +90,7 @@ const WhoWeAre = () => {
                 whileHover={{ scale: 1.015, boxShadow: "0 0 55px rgba(254, 174, 17, 0.35)" }}
                 transition={{ duration: 0.3 }}
               >
-                {isInView && videoSrc ? (
+                {isInView && videoSrc && !videoFailed ? (
                   <video
                     autoPlay
                     loop
@@ -107,13 +98,14 @@ const WhoWeAre = () => {
                     playsInline
                     controls={false}
                     className="w-full h-full object-cover"
+                    onError={() => setVideoFailed(true)}
                   >
                     <source src={videoSrc} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                 ) : (
                   <img
-                    src="/images/about/2.jpg"
+                    src={ABOUT_IMAGE_FALLBACK}
                     alt={t('about.facilityImageAlt')}
                     className="w-full h-full object-cover"
                     loading="lazy"
