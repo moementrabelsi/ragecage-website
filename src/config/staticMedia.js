@@ -21,8 +21,6 @@ export const GALLERY_IMAGES = [
   '/images/gallery/6.jpeg',
   '/images/gallery/7.jpeg',
   '/images/gallery/8.jpeg',
-  '/images/gallery/9.jpeg',
-  '/images/gallery/10.jpeg',
 ]
 
 /** Translation keys under gallery.images.<key> (cycles if there are more images than keys) */
