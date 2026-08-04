@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect, lazy, Suspense } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import { LanguageProvider } from './contexts/LanguageContext'
 import Navbar from './components/Navbar'
 import HeroCarousel from './components/HeroCarousel'
@@ -8,6 +9,7 @@ import ScrollProgress from './components/ScrollProgress'
 import BackToTop from './components/BackToTop'
 import TopBanner from './components/TopBanner'
 import DeferredSection from './components/DeferredSection'
+
 
 const WhoWeAre = lazy(() => import('./components/WhoWeAre'))
 const ServicesRooms = lazy(() => import('./components/ServicesRooms'))
@@ -73,6 +75,7 @@ function App() {
     <LanguageProvider>
       <ScrollToTop />
       <BackToTop />
+      <Analytics />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
